@@ -1,4 +1,4 @@
-import style from "./scss/UserPage.module.scss";
+import style from "./UserPage.module.scss";
 
 const UserPage = () => {
     return (

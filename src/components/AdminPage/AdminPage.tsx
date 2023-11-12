@@ -1,4 +1,4 @@
-import style from "./scss/AdminPage.module.scss";
+import style from "./AdminPage.module.scss";
 
 const AdminPage = () => {
     return (

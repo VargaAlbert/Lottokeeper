@@ -1,10 +1,41 @@
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+
+import AdminPage from "./components/AdminPage/AdminPage";
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import Home from "./components/Home/Home";
+import Lottery from "./components/Lottery/Lottery";
+import UserPage from "./components/UserPage/UserPage";
 import style from "./scss/App.module.scss";
 
 const App = () => {
   return (
-    <div className={style.App}>
-      Lottokeeper
-    </div>
+    <Router>
+
+      <Header />
+      <Home />
+      <Lottery />
+      {/*     <div className={style.App}>
+          Lottokeeper
+        </div>
+      */}
+      <Routes>
+
+        <Route
+          path={`/UserPage`}
+          element={<UserPage />}
+        />
+
+        <Route
+          path={`/AdminPage`}
+          element={<AdminPage />}
+        />
+
+      </Routes>
+
+      <Footer />
+
+    </Router >
   );
 }
 

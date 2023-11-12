@@ -1,4 +1,4 @@
-import style from "./scss/Lottery.module.scss";
+import style from "./Lottery.module.scss";
 
 const Lottery = () => {
     return (
