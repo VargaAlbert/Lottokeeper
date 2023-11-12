@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { LottoProvider } from "./contextAPI/LottoContext";
 import App from './App';
 import './scss/index.scss';
 
@@ -9,6 +10,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App />
+    <LottoProvider>
+      <App />
+    </LottoProvider>
   </React.StrictMode>
 );
