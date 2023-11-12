@@ -11,30 +11,30 @@ import style from "./scss/App.module.scss";
 const App = () => {
   return (
     <Router>
+      <section className={style.App}>
 
-      <Header />
-      <Home />
-      <Lottery />
-      {/*     <div className={style.App}>
-          Lottokeeper
-        </div>
-      */}
-      <Routes>
+        <Header />
+        <Home />
+        <Lottery />
+        Lottokeeper
 
-        <Route
-          path={`/UserPage`}
-          element={<UserPage />}
-        />
+        <Routes>
 
-        <Route
-          path={`/AdminPage`}
-          element={<AdminPage />}
-        />
+          <Route
+            path={`/UserPage`}
+            element={<UserPage />}
+          />
 
-      </Routes>
+          <Route
+            path={`/AdminPage`}
+            element={<AdminPage />}
+          />
 
-      <Footer />
+        </Routes>
 
+        <Footer />
+
+      </section>
     </Router >
   );
 }
