@@ -17,6 +17,11 @@ type LottoProviderProps = {
     children: ReactNode;
 };
 
+type lotteryTicket = {
+    id: string,
+    numbers: number[]
+}
+
 interface LottoContextProps {
     generateUniqueRandomNumbers: (counter: number, min: number, max: number, uniqueNumbers: Set<number>) => number[];
     lottoNumbers: number[];
@@ -36,9 +41,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     children
 }) => {
     const [lottoNumbers, setlottoNumbers] = useState<number[]>([]);
-
-
-
+    const [userLutteryNumber, setUserLutteryNumber] = useState<lotteryTicket[]>([]);
 
     const generateRandomNumber = (min: number, max: number): number => {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -63,10 +66,11 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         setlottoNumbers(generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER));
     }
 
-
     /* -------------------- */
 
     const LotteryTicketGridNumbers = Array.from({ length: MAX_NUMBER }, (_, index) => index + 1);
+
+
 
     /* --------------------- */
 
