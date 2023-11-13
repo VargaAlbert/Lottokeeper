@@ -18,7 +18,10 @@ type LottoProviderProps = {
 };
 
 interface LottoContextProps {
+    generateUniqueRandomNumbers: (counter: number, min: number, max: number, uniqueNumbers: Set<number>) => number[];
     lottoNumbers: number[];
+    startLottery: () => void;
+    LotteryTicketGridNumbers: number[];
 };
 
 const LottoContext = createContext({} as LottoContextProps)
@@ -29,38 +32,49 @@ export const MIN_NUMBER: number = 1;
 export const MAX_NUMBER: number = 39;
 export const LOTTERY_NUMBER: number = 5;
 
-function generateRandomNumber(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function generateUniqueRandomNumbers(counter: number, min: number, max: number, uniqueNumbers: Set<number> = new Set()
-): number[] {
-    if (counter === 0) {
-        return Array.from(uniqueNumbers);
-    }
-
-    const randomNumber = generateRandomNumber(min, max);
-    if (!uniqueNumbers.has(randomNumber)) {
-        uniqueNumbers.add(randomNumber);
-        counter--;
-    }
-
-    return generateUniqueRandomNumbers(counter, min, max, uniqueNumbers);
-}
-
-const randomNumbers: number[] = generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER);
-
-console.log(randomNumbers.length);
-
-
-
 export const LottoProvider: React.FC<LottoProviderProps> = ({
     children
 }) => {
-    const [lottoNumbers, setlottoNumbers] = useState<number[]>(randomNumbers);
+    const [lottoNumbers, setlottoNumbers] = useState<number[]>([]);
+
+
+
+
+    const generateRandomNumber = (min: number, max: number): number => {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    const generateUniqueRandomNumbers = (counter: number, min: number, max: number, uniqueNumbers: Set<number> = new Set()
+    ): number[] => {
+        if (counter === 0) {
+            return Array.from(uniqueNumbers);
+        }
+
+        const randomNumber = generateRandomNumber(min, max);
+        if (!uniqueNumbers.has(randomNumber)) {
+            uniqueNumbers.add(randomNumber);
+            counter--;
+        }
+
+        return generateUniqueRandomNumbers(counter, min, max, uniqueNumbers);
+    }
+
+    const startLottery = (): void => {
+        setlottoNumbers(generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER));
+    }
+
+
+    /* -------------------- */
+
+    const LotteryTicketGridNumbers = Array.from({ length: MAX_NUMBER }, (_, index) => index + 1);
+
+    /* --------------------- */
 
     const contextValue: LottoContextProps = {
-        lottoNumbers
+        lottoNumbers,
+        generateUniqueRandomNumbers,
+        startLottery,
+        LotteryTicketGridNumbers
     };
 
     return (

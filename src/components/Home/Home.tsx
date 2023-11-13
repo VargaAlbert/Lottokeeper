@@ -1,6 +1,6 @@
 import style from "./Home.module.scss";
 
-const Home = () => {
+const Home: React.FC = () => {
     return (
         <section className={style.mainContainer}>
             Home

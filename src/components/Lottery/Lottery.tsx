@@ -1,7 +1,7 @@
 import style from "./Lottery.module.scss";
 import { useLottoContext } from "../../contextAPI/LottoContext";
 
-const Lottery = () => {
+const Lottery: React.FC = () => {
 
     const { lottoNumbers } = useLottoContext();
 
@@ -10,7 +10,7 @@ const Lottery = () => {
             <div className={style.container}>
                 <div className={style.lotteryNumberContainer}>
 
-                    {lottoNumbers.map((number) => {
+                    {lottoNumbers.sort((a, b) => a - b).map((number) => {
                         return (
                             <div key={number} className={style.lotteryNumber}>
                                 {`${number}`}

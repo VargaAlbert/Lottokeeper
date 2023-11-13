@@ -9,7 +9,7 @@ import {
 } from "./LottoContext";
 
 test.each(Array.from({ length: 1 }, (_, index) => index))(
-    'numbers',
+    "Lottery valide numbers",
     () => {
         const TestComponent: React.FC = () => {
             const { lottoNumbers } = useLottoContext();

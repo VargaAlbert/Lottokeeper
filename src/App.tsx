@@ -16,7 +16,6 @@ const App = () => {
         <Header />
         <Home />
         <Lottery />
-        Lottokeeper
 
         <Routes>
 
