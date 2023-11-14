@@ -3,7 +3,7 @@ import style from "./UserPage.module.scss";
 import { FaUser, FaAddressCard } from "react-icons/fa6";
 import { ReactNode, useState } from 'react';
 import { useLottoContext } from "../../contextAPI/LottoContext";
-
+import UserHitResult from './UserHitResult/UserHitResult';
 const UserPage: React.FC = () => {
     const [akcse, setAkcse] = useState<number>(10_000)
 
@@ -41,7 +41,6 @@ const UserPage: React.FC = () => {
         } else {
             return (<div>Még nem adtál fel szelvéynt!</div>);
         }
-
     }
 
     return (
@@ -65,9 +64,12 @@ const UserPage: React.FC = () => {
                 <div className={style.lotteryListContainer} >
                     {lotteryTicketTSX()}
                 </div>
+
+                <div>
+                    <UserHitResult />
+                </div>
             </div>
         </section>
-
     );
 }
 
