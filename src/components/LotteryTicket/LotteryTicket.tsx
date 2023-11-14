@@ -4,11 +4,18 @@ import xImg from "../../img/x.png"
 import style from "./LotteryTicket.module.scss";
 
 
-const LotteryTicket: React.FC = () => {
+type Props = {
+    akcse: number
+    setAkcse: React.Dispatch<React.SetStateAction<number>>;
+}
 
-    const { LotteryTicketGridNumbers, setLottoObject, } = useLottoContext();
+const LotteryTicket: React.FC<Props> = ({ setAkcse, akcse }) => {
+
+    const { LotteryTicketGridNumbers, setLottoObject } = useLottoContext();
 
     const [lotteryNumbers, setLotteryNumbers,] = useState<number[]>([]);
+
+
 
     const addNumber = (lotteryNumber: number) => {
         setLotteryNumbers((prevNumbers) => {
@@ -49,7 +56,9 @@ const LotteryTicket: React.FC = () => {
     const givesValue = () => {
         if (lotteryNumbers.length === LOTTERY_NUMBER) {
             setLottoObject("0user", lotteryNumbers)
+            setAkcse(akcse - 500)
             setLotteryNumbers([])
+
         }
     }
 

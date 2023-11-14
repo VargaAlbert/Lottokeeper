@@ -29,6 +29,7 @@ interface LottoContextProps {
     startLottery: () => void;
     LotteryTicketGridNumbers: number[];
     setLottoObject: (owner: string, LotteryNumbers: number[]) => void;
+    lottoKeeperLutteryNumber: lotteryTicket[];
 };
 
 const LottoContext = createContext({} as LottoContextProps)
@@ -43,8 +44,8 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     children
 }) => {
     const [lottoNumbers, setlottoNumbers] = useState<number[]>([]);
-    const [userLutteryNumber, setUserLutteryNumber] = useLocalStorage<lotteryTicket[]>(
-        "userLutteryNumber",
+    const [lottoKeeperLutteryNumber, setLottoKeeperLutteryNumber] = useLocalStorage<lotteryTicket[]>(
+        "lottoKeeperLutteryNumber",
         []);
     const [lottoId, setlottoId] = useState<number>(0);
 
@@ -82,9 +83,9 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     const setLottoObject = (owner: string, LotteryNumbers: number[]) => {
         setlottoId(lottoId + 1)
-        setUserLutteryNumber((userLutteryNumber) => [...userLutteryNumber, { owner, lottoId, LotteryNumbers }]);
+        setLottoKeeperLutteryNumber((lottoKeeperLutteryNumber) => [...lottoKeeperLutteryNumber, { owner, lottoId, LotteryNumbers }]);
     }
-    console.log(userLutteryNumber)
+    console.log(lottoKeeperLutteryNumber)
 
 
     const contextValue: LottoContextProps = {
@@ -92,7 +93,8 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         generateUniqueRandomNumbers,
         startLottery,
         LotteryTicketGridNumbers,
-        setLottoObject
+        setLottoObject,
+        lottoKeeperLutteryNumber
     };
 
     return (
