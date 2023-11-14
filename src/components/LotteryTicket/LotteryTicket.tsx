@@ -6,9 +6,9 @@ import style from "./LotteryTicket.module.scss";
 
 const LotteryTicket: React.FC = () => {
 
-    const { LotteryTicketGridNumbers } = useLottoContext();
+    const { LotteryTicketGridNumbers, setLottoObject, } = useLottoContext();
 
-    const [lotteryNumbers, setLotteryNumbers] = useState<number[]>([]);
+    const [lotteryNumbers, setLotteryNumbers,] = useState<number[]>([]);
 
     const addNumber = (lotteryNumber: number) => {
         setLotteryNumbers((prevNumbers) => {
@@ -46,6 +46,13 @@ const LotteryTicket: React.FC = () => {
         }
     }
 
+    const givesValue = () => {
+        if (lotteryNumbers.length === LOTTERY_NUMBER) {
+            setLottoObject("0user", lotteryNumbers)
+            setLotteryNumbers([])
+        }
+    }
+
     return (
         <section className={style.mainContainer}>
             <div>
@@ -63,7 +70,7 @@ const LotteryTicket: React.FC = () => {
             </div>
             <div>
                 <button>Gyorstip</button>
-                <button>Bekuld</button>
+                <button onClick={givesValue}>Bekuld</button>
             </div>
         </section>
     );

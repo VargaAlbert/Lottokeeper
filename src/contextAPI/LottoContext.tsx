@@ -18,8 +18,9 @@ type LottoProviderProps = {
 };
 
 type lotteryTicket = {
-    id: string,
-    numbers: number[]
+    owner: string;
+    lottoId: number,
+    LotteryNumbers: number[]
 }
 
 interface LottoContextProps {
@@ -27,6 +28,7 @@ interface LottoContextProps {
     lottoNumbers: number[];
     startLottery: () => void;
     LotteryTicketGridNumbers: number[];
+    setLottoObject: (owner: string, LotteryNumbers: number[]) => void;
 };
 
 const LottoContext = createContext({} as LottoContextProps)
@@ -41,7 +43,11 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     children
 }) => {
     const [lottoNumbers, setlottoNumbers] = useState<number[]>([]);
-    const [userLutteryNumber, setUserLutteryNumber] = useState<lotteryTicket[]>([]);
+    const [userLutteryNumber, setUserLutteryNumber] = useLocalStorage<lotteryTicket[]>(
+        "userLutteryNumber",
+        []);
+    const [lottoId, setlottoId] = useState<number>(0);
+
 
     const generateRandomNumber = (min: number, max: number): number => {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -74,11 +80,19 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     /* --------------------- */
 
+    const setLottoObject = (owner: string, LotteryNumbers: number[]) => {
+        setlottoId(lottoId + 1)
+        setUserLutteryNumber((userLutteryNumber) => [...userLutteryNumber, { owner, lottoId, LotteryNumbers }]);
+    }
+    console.log(userLutteryNumber)
+
+
     const contextValue: LottoContextProps = {
         lottoNumbers,
         generateUniqueRandomNumbers,
         startLottery,
-        LotteryTicketGridNumbers
+        LotteryTicketGridNumbers,
+        setLottoObject
     };
 
     return (
