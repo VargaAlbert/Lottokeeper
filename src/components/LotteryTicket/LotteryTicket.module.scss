@@ -1,23 +1,43 @@
 @use "../../scss/variable.scss";
 
 .mainContainer {
-    background-color: white;
+    background-color: floralwhite;
+    border-radius: 0.5rem;
+    @include variable.flexBox(column, nowrap, center, center, center);
+    gap: 1rem;
+    width: 250px;
+}
+
+.ticketHead {
+    h2 {
+        margin: 0.5rem 0 0 0;
+        color: #ad8437;
+        text-align: center;
+        font-size: variable.$size-r20;
+        font-weight: variable.$weights-9;
+    }
 }
 
 .numberContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 5px;
-    width: calc(4 * 40px + 3 * 5px);
+    width: calc(4 * 50px + 3 * 5px);
 }
 
 .number {
     position: relative;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     border-radius: 0.5rem;
     @include variable.flexBox(row, nowrap, normal, center, center);
-    background-color: #28bebe;
+    background-image: radial-gradient(
+        100% 100% at 100% 0,
+        variable.$color-background-main1 0,
+        variable.$color-background-main2 100%
+    );
+    font-size: variable.$size-r10 + 0.2rem;
+    font-weight: variable.$weights-9;
     user-select: none;
 }
 
@@ -26,6 +46,7 @@
     height: 100%;
     background-color: red;
     border-radius: 0.5rem;
+    @include variable.flexBox(row, nowrap, normal, center, center);
 }
 
 .xImg {
@@ -33,4 +54,52 @@
     width: 70%;
     height: 70%;
     @include variable.flexBox(row, nowrap, normal, center, center);
+}
+
+.btnContainer {
+    width: 90%;
+    height: 3.5rem;
+    font-size: variable.$size-r20;
+    @include variable.flexBox(row, nowrap, normal, space-between, center);
+    cursor: pointer;
+
+    button {
+        width: 60%;
+        height: 2.5rem;
+        border-radius: 0.5rem;
+        font-size: variable.$size-r10 + 0.3rem;
+        font-weight: variable.$weights-6;
+        outline-offset: 4px;
+        touch-action: manipulation;
+        background-image: radial-gradient(
+            100% 100% at 100% 0,
+            variable.$color-main-button 0,
+            variable.$color-main-button2 100%
+        );
+        cursor: pointer;
+        color: variable.$color-basic-white;
+        will-change: transform;
+        transition: transform 0.2s;
+        user-select: none;
+
+        &:hover {
+            filter: brightness(110%);
+            -webkit-filter: brightness(110%);
+            transform: translateY(-5px);
+            transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+        }
+
+        &:active {
+            transform: scale(0.9);
+            transition: transform 34ms;
+        }
+
+        &:focus:not(:focus-visible) {
+            outline: none;
+        }
+    }
+
+    .icon:hover {
+        color: variable.$color-main-button;
+    }
 }

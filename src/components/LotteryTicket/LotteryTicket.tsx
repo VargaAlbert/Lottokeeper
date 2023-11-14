@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLottoContext, LOTTERY_NUMBER } from "../../contextAPI/LottoContext";
 import xImg from "../../img/x.png"
 import style from "./LotteryTicket.module.scss";
-
+import { FaArrowRotateLeft, FaComputer } from "react-icons/fa6";
 
 type Props = {
     akcse: number
@@ -64,8 +64,9 @@ const LotteryTicket: React.FC<Props> = ({ setAkcse, akcse }) => {
 
     return (
         <section className={style.mainContainer}>
-            <div>
-                <div>Lottery Ticket</div><div>Reset</div>
+            <div className={style.ticketHead} >
+                <h2>Lottery Ticket</h2>
+
             </div>
             <div className={style.numberContainer}>
                 {LotteryTicketGridNumbers.map((number) => {
@@ -77,9 +78,10 @@ const LotteryTicket: React.FC<Props> = ({ setAkcse, akcse }) => {
                     </div>);
                 })}
             </div>
-            <div>
-                <button>Gyorstip</button>
+            <div className={style.btnContainer}>
+                <FaComputer className={style.icon} />
                 <button onClick={givesValue}>Bekuld</button>
+                <FaArrowRotateLeft className={style.icon} />
             </div>
         </section>
     );

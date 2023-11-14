@@ -20,7 +20,7 @@ type LottoProviderProps = {
 type lotteryTicket = {
     owner: string;
     lottoId: number,
-    LotteryNumbers: number[]
+    LotteryNumbers: number[],
 }
 
 interface LottoContextProps {
@@ -30,6 +30,7 @@ interface LottoContextProps {
     LotteryTicketGridNumbers: number[];
     setLottoObject: (owner: string, LotteryNumbers: number[]) => void;
     lottoKeeperLutteryNumber: lotteryTicket[];
+    formatPrice: (price: number) => string;
 };
 
 const LottoContext = createContext({} as LottoContextProps)
@@ -47,7 +48,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     const [lottoKeeperLutteryNumber, setLottoKeeperLutteryNumber] = useLocalStorage<lotteryTicket[]>(
         "lottoKeeperLutteryNumber",
         []);
-    const [lottoId, setlottoId] = useLocalStorage<number>("lottoId", 0);
+    const [lottoId, setlottoId] = useLocalStorage<number>("lottoId", 1);
 
 
     const generateRandomNumber = (min: number, max: number): number => {
@@ -87,6 +88,11 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     }
     console.log(lottoKeeperLutteryNumber)
 
+    //Árak formázása
+    const formatPrice = (price: number) => {
+        return price.toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+    }
 
     const contextValue: LottoContextProps = {
         lottoNumbers,
@@ -94,7 +100,8 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         startLottery,
         LotteryTicketGridNumbers,
         setLottoObject,
-        lottoKeeperLutteryNumber
+        lottoKeeperLutteryNumber,
+        formatPrice
     };
 
     return (

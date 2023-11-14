@@ -1,73 +1,69 @@
 import LotteryTicket from "../LotteryTicket/LotteryTicket";
 import style from "./UserPage.module.scss";
 import { FaUser, FaAddressCard } from "react-icons/fa6";
-import { ReactNode, useState } from 'react';
+import { ChangeEvent, ReactNode, useState } from 'react';
 import { useLottoContext } from "../../contextAPI/LottoContext";
 import UserHitResult from './UserHitResult/UserHitResult';
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import LotteryTicketList from "./LotteryTicketList/LotteryTicketList";
+
 const UserPage: React.FC = () => {
+    const [userName, setUsername] = useLocalStorage<string>("userName", "User")
     const [akcse, setAkcse] = useState<number>(10_000)
 
-    const { lottoKeeperLutteryNumber } = useLottoContext();
+    const { lottoKeeperLutteryNumber, formatPrice } = useLottoContext();
     const lotteryTicket = lottoKeeperLutteryNumber.filter((Ticket) => Ticket.owner === "0user");
 
-    console.log("szelvények", lotteryTicket.length);
 
-    const lotteryTicketTSX = (): ReactNode => {
-        if (lotteryTicket.length > 0) {
-            return (
-                <div >
-                    {lotteryTicket.map((ticket) => {
-                        return (
-                            <div className={style.lotteryTicketContainer}>
-                                <div className={style.ticketTitleCont}>
-                                    <div>user</div>
-                                    <div>Sorszám:</div>
-                                    <div className={style.lottoId}>{ticket.lottoId}.</div>
-                                </div>
-                                <div className={style.lotteryNumberContainer}>
-                                    {ticket.LotteryNumbers.sort((a, b) => a - b).map((number) => {
-                                        return (
-                                            <div key={number} className={style.lotteryNumber}>
-                                                {`${number}`}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            );
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setUsername(event.target.value);
+    }
+
+    const handleBlurChange = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.value !== "") {
+            setUsername(event.target.value);
         } else {
-            return (<div>Még nem adtál fel szelvéynt!</div>);
+            setUsername("USER");
         }
     }
 
+    console.log("szelvények", lotteryTicket.length);
+
     return (
         <section className={style.mainContainer}>
-            USER PAGE
             <div className={style.container}>
-                <div className={style.dataContainer}>
+                <div className={style.controlContainer}>
                     <div className={style.profileContainer}>
-                        <FaUser className={style.icon} />
-                        <div>USER</div>
-                        <div className={style.balanceContainer} >
-                            <p> Account balance</p>
-                            <div className={style.balance}>{akcse}</div>
-                            <div className={style.akcse}>Akcse</div>
+
+                        <div className={style.iconContainer}>
+                            <FaUser className={style.icon} />
+                            <input type="text"
+                                onChange={handleInputChange}
+                                onBlur={handleBlurChange}
+                                placeholder="irj egy nevet."
+                                value={userName}>
+                            </input>
                         </div>
+
+                        <div>
+                            <p>Account balance</p>
+                            <div className={style.balanceContainer}>
+                                <div className={style.balance}>{formatPrice(akcse)}</div>
+                                <div className={style.akcse}>Akcse</div>
+                            </div>
+                        </div>
+
                     </div>
-                    <div className={style.tippContainer}>
-                        <LotteryTicket setAkcse={setAkcse} akcse={akcse} />
-                    </div>
-                </div>
-                <div className={style.lotteryListContainer} >
-                    {lotteryTicketTSX()}
                 </div>
 
-                <div>
-                    <UserHitResult />
+                <div className={style.tippContainer}>
+                    <LotteryTicket setAkcse={setAkcse} akcse={akcse} />
                 </div>
+
+                <LotteryTicketList />
+
+                <UserHitResult />
+
             </div>
         </section>
     );
