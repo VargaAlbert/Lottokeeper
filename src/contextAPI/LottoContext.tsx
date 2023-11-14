@@ -43,11 +43,11 @@ export const LOTTERY_NUMBER: number = 5;
 export const LottoProvider: React.FC<LottoProviderProps> = ({
     children
 }) => {
-    const [lottoNumbers, setlottoNumbers] = useState<number[]>([]);
+    const [lottoNumbers, setlottoNumbers] = useLocalStorage<number[]>("lottoNumbers", []);
     const [lottoKeeperLutteryNumber, setLottoKeeperLutteryNumber] = useLocalStorage<lotteryTicket[]>(
         "lottoKeeperLutteryNumber",
         []);
-    const [lottoId, setlottoId] = useState<number>(0);
+    const [lottoId, setlottoId] = useLocalStorage<number>("lottoId", 0);
 
 
     const generateRandomNumber = (min: number, max: number): number => {
