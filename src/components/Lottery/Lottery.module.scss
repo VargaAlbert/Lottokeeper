@@ -10,6 +10,7 @@
 .container {
     @include variable.container-my;
     height: 100%;
+    width: calc(100% - 1rem);
     @include variable.flexBox(row, nowrap, center, center, center);
     background-image: radial-gradient(
         100% 100% at 100% 0,

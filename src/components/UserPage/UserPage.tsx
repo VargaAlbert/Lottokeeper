@@ -32,7 +32,9 @@ const UserPage: React.FC = () => {
     return (
         <section className={style.mainContainer}>
             <div className={style.container}>
+
                 <div className={style.controlContainer}>
+
                     <div className={style.profileContainer}>
 
                         <div className={style.iconContainer}>
@@ -54,13 +56,16 @@ const UserPage: React.FC = () => {
                         </div>
 
                     </div>
+
+                    <div className={style.tippContainer}>
+                        <LotteryTicket setAkcse={setAkcse} akcse={akcse} />
+                    </div>
+
+                    <LotteryTicketList />
+
                 </div>
 
-                <div className={style.tippContainer}>
-                    <LotteryTicket setAkcse={setAkcse} akcse={akcse} />
-                </div>
 
-                <LotteryTicketList />
 
                 <UserHitResult />
 

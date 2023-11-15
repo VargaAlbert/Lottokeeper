@@ -6,6 +6,7 @@
     @include variable.flexBox(column, nowrap, center, center, center);
     gap: 1rem;
     width: 250px;
+    height: 100%;
 }
 
 .ticketHead {

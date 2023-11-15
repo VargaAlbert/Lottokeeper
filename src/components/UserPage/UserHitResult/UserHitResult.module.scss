@@ -1,5 +1,27 @@
+@use "../../../scss/variable.scss";
+
 .mainContainer {
-    width: 500px;
-    height: 100%;
+    width: 90%;
+    height: 100%px;
+    border-radius: 0.5rem;
     background-color: bisque;
+}
+
+@include variable.Small {
+    .mainContainer {
+        width: 70%;
+    }
+}
+@include variable.Medium {
+    .mainContainer {
+        width: 565px;
+    }
+}
+@include variable.Large {
+}
+@include variable.Extra-large {
+}
+@include variable.XXL-large {
+}
+@include variable.XXXL-large {
 }
