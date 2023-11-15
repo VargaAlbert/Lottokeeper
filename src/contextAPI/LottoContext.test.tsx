@@ -8,23 +8,27 @@ import {
     LOTTERY_NUMBER
 } from "./LottoContext";
 
-test.each(Array.from({ length: 1 }, (_, index) => index))(
+test.each(Array.from({ length: 1000 }, (_, index) => index))(
     "Lottery valide numbers",
     () => {
         const TestComponent: React.FC = () => {
-            const { lottoNumbers } = useLottoContext();
+
+            const { generateUniqueRandomNumbers } = useLottoContext();
+
+            const testLottoNumbers = generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER)
+
             // Ellenőrizzük, hogy a numbers tömbben LOTTERY_NUMBER elem van
-            expect(lottoNumbers.length).toBe(LOTTERY_NUMBER);
+            expect(testLottoNumbers.length).toBe(5);
 
             // Ellenőrizzük, hogy minden szám MIN_NUMBER és MAX_NUMBER között van
-            lottoNumbers.map((lottoNumbers) => {
-                expect(lottoNumbers).toBeGreaterThanOrEqual(MIN_NUMBER);
-                expect(lottoNumbers).toBeLessThanOrEqual(MAX_NUMBER);
+            testLottoNumbers.map((testLottoNumbers) => {
+                expect(testLottoNumbers).toBeGreaterThanOrEqual(MIN_NUMBER);
+                expect(testLottoNumbers).toBeLessThanOrEqual(MAX_NUMBER);
             });
 
             // Ellenőrizzük, hogy minden szám különböző a tömbben
-            const uniqueNumbers = new Set(lottoNumbers);
-            expect(uniqueNumbers.size).toBe(lottoNumbers.length);
+            const uniqueNumbers = Array.from(new Set(testLottoNumbers));
+            expect(uniqueNumbers.length).toBe(testLottoNumbers.length);
 
             return null;
         };

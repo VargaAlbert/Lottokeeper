@@ -8,26 +8,19 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import LotteryTicketList from "./LotteryTicketList/LotteryTicketList";
 
 const UserPage: React.FC = () => {
-    const [userName, setUsername] = useLocalStorage<string>("userName", "User")
-    const [akcse, setAkcse] = useState<number>(10_000)
 
-    const { lottoKeeperLutteryNumber, formatPrice } = useLottoContext();
+    const {
+        lottoKeeperLutteryNumber,
+        formatPrice,
+        handleInputChange,
+        handleBlurChange,
+        getMoney,
+        setValue
+    } = useLottoContext();
+
     const lotteryTicket = lottoKeeperLutteryNumber.filter((Ticket) => Ticket.owner === "0user");
 
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setUsername(event.target.value);
-    }
-
-    const handleBlurChange = (event: ChangeEvent<HTMLInputElement>) => {
-        if (event.target.value !== "") {
-            setUsername(event.target.value);
-        } else {
-            setUsername("USER");
-        }
-    }
-
-    console.log("szelvények", lotteryTicket.length);
 
     return (
         <section className={style.mainContainer}>
@@ -40,17 +33,17 @@ const UserPage: React.FC = () => {
                         <div className={style.iconContainer}>
                             <FaUser className={style.icon} />
                             <input type="text"
-                                onChange={handleInputChange}
-                                onBlur={handleBlurChange}
+                                onChange={(e) => { handleInputChange(e, "user") }}
+                                onBlur={(e) => { handleBlurChange(e, "user") }}
                                 placeholder="irj egy nevet."
-                                value={userName}>
+                                value={setValue("user")}>
                             </input>
                         </div>
 
                         <div>
                             <p>Account balance</p>
                             <div className={style.balanceContainer}>
-                                <div className={style.balance}>{formatPrice(akcse)}</div>
+                                <div className={style.balance}>{getMoney("user")}</div>
                                 <div className={style.akcse}>Akcse</div>
                             </div>
                         </div>
@@ -58,10 +51,10 @@ const UserPage: React.FC = () => {
                     </div>
 
                     <div className={style.tippContainer}>
-                        <LotteryTicket setAkcse={setAkcse} akcse={akcse} />
+                        <LotteryTicket id={"user"} />
                     </div>
 
-                    <LotteryTicketList />
+                    <LotteryTicketList id={"user"} />
 
                 </div>
 

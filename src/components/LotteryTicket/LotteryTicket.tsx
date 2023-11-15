@@ -1,17 +1,22 @@
 import { useState } from "react";
-import { useLottoContext, LOTTERY_NUMBER } from "../../contextAPI/LottoContext";
+import { useLottoContext, LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER } from "../../contextAPI/LottoContext";
 import xImg from "../../img/x.png"
 import style from "./LotteryTicket.module.scss";
 import { FaArrowRotateLeft, FaComputer } from "react-icons/fa6";
 
 type Props = {
-    akcse: number
-    setAkcse: React.Dispatch<React.SetStateAction<number>>;
+    id: string
 }
 
-const LotteryTicket: React.FC<Props> = ({ setAkcse, akcse }) => {
+const LotteryTicket: React.FC<Props> = ({ id }) => {
 
-    const { LotteryTicketGridNumbers, setLottoObject } = useLottoContext();
+    const {
+        LotteryTicketGridNumbers,
+        setLottoObject,
+        setMoney,
+        getMoney,
+        generateUniqueRandomNumbers
+    } = useLottoContext();
 
     const [lotteryNumbers, setLotteryNumbers,] = useState<number[]>([]);
 
@@ -53,12 +58,23 @@ const LotteryTicket: React.FC<Props> = ({ setAkcse, akcse }) => {
         }
     }
 
+    const computerLottoNumbers = () => {
+        setLotteryNumbers(generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER))
+    }
+
+    const resetLottoNumbers = () => {
+        setLotteryNumbers([])
+    }
+
     const givesValue = () => {
         if (lotteryNumbers.length === LOTTERY_NUMBER) {
-            setLottoObject("0user", lotteryNumbers)
-            setAkcse(akcse - 500)
-            setLotteryNumbers([])
-
+            if ((getMoney(id)) >= 500) {
+                setLottoObject(id, lotteryNumbers)
+                setMoney(id);
+                setLotteryNumbers([])
+            } else {
+                alert("nincs elég egyenleged!")
+            }
         }
     }
 
@@ -79,9 +95,9 @@ const LotteryTicket: React.FC<Props> = ({ setAkcse, akcse }) => {
                 })}
             </div>
             <div className={style.btnContainer}>
-                <FaComputer className={style.icon} />
+                <FaComputer onClick={computerLottoNumbers} className={style.icon} />
                 <button onClick={givesValue}>Bekuld</button>
-                <FaArrowRotateLeft className={style.icon} />
+                <FaArrowRotateLeft onClick={resetLottoNumbers} className={style.icon} />
             </div>
         </section>
     );

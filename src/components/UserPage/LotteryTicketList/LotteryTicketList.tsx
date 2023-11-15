@@ -1,17 +1,21 @@
 import style from "./LotteryTicketList.module.scss";
 import { useLottoContext } from "../../../contextAPI/LottoContext";
 
-const LotteryTicketList: React.FC = () => {
+type Props = {
+    id: string
+}
+
+const LotteryTicketList: React.FC<Props> = ({ id }) => {
 
     const { lottoKeeperLutteryNumber, formatPrice } = useLottoContext();
-    const lotteryTicket = lottoKeeperLutteryNumber.filter((Ticket) => Ticket.owner === "0user");
+    const lotteryTicket = lottoKeeperLutteryNumber.filter((Ticket) => Ticket.owner === id);
 
     if (lotteryTicket.length > 0) {
         return (
             <div className={style.lotteryListContainer}>
                 {lotteryTicket.map((ticket) => {
                     return (
-                        <div className={style.lotteryTicketContainer}>
+                        <div key={ticket.lottoId} className={style.lotteryTicketContainer}>
                             <div className={style.ticketTitleCont}>
                                 <div>user</div>
                                 <div>Sorszám:</div>
