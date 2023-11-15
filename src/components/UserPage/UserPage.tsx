@@ -10,17 +10,11 @@ import LotteryTicketList from "./LotteryTicketList/LotteryTicketList";
 const UserPage: React.FC = () => {
 
     const {
-        lottoKeeperLutteryNumber,
-        formatPrice,
         handleInputChange,
         handleBlurChange,
         getMoney,
         setValue
     } = useLottoContext();
-
-    const lotteryTicket = lottoKeeperLutteryNumber.filter((Ticket) => Ticket.owner === "0user");
-
-
 
     return (
         <section className={style.mainContainer}>

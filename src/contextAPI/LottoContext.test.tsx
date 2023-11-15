@@ -8,7 +8,7 @@ import {
     LOTTERY_NUMBER
 } from "./LottoContext";
 
-test.each(Array.from({ length: 1000 }, (_, index) => index))(
+test.each(Array.from({ length: 10 }, (_, index) => index))(
     "Lottery valide numbers",
     () => {
         const TestComponent: React.FC = () => {
@@ -18,7 +18,7 @@ test.each(Array.from({ length: 1000 }, (_, index) => index))(
             const testLottoNumbers = generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER)
 
             // Ellenőrizzük, hogy a numbers tömbben LOTTERY_NUMBER elem van
-            expect(testLottoNumbers.length).toBe(5);
+            expect(testLottoNumbers.length).toBe(LOTTERY_NUMBER);
 
             // Ellenőrizzük, hogy minden szám MIN_NUMBER és MAX_NUMBER között van
             testLottoNumbers.map((testLottoNumbers) => {

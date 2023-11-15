@@ -1,23 +1,21 @@
-import style from "./LotteryTicketList.module.scss";
+import style from "./LotteryTicketListAdmin.module.scss";
 import { useLottoContext } from "../../../contextAPI/LottoContext";
 
-type Props = {
-    id: string
-}
 
-const LotteryTicketList: React.FC<Props> = ({ id }) => {
+
+const LotteryTicketListAdmin: React.FC = () => {
 
     const { lottoLutteryNumber, formatPrice } = useLottoContext();
-    const lotteryTicket = lottoLutteryNumber.filter((Ticket) => Ticket.owner === id);
+    // const lotteryTicket = lottoKeeperLutteryNumber.filter((Ticket) => Ticket.owner === id);
 
-    if (lotteryTicket.length > 0) {
+    if (lottoLutteryNumber.length > 0) {
         return (
             <div className={style.lotteryListContainer}>
-                {lotteryTicket.map((ticket) => {
+                {lottoLutteryNumber.map((ticket) => {
                     return (
                         <div key={ticket.lottoId} className={style.lotteryTicketContainer}>
                             <div className={style.ticketTitleCont}>
-                                <div>user</div>
+                                <div>{ticket.owner}</div>
                                 <div>Sorszám:</div>
                                 <div className={style.lottoId}>{ticket.lottoId}.</div>
                             </div>
@@ -38,9 +36,9 @@ const LotteryTicketList: React.FC<Props> = ({ id }) => {
     } else {
         return (
             <div className={style.lotteryListContainer}>
-                Még nem adtál fel szelvéynt!
+                Még senki nem adott le szelvényt!
             </div>);
     }
 }
 
-export default LotteryTicketList;
+export default LotteryTicketListAdmin;

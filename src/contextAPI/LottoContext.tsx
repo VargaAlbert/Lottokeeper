@@ -38,7 +38,7 @@ interface LottoContextProps {
     startLottery: () => void;
     LotteryTicketGridNumbers: number[];
     setLottoObject: (owner: string, LotteryNumbers: number[]) => void;
-    lottoKeeperLutteryNumber: lotteryTicket[];
+    lottoLutteryNumber: lotteryTicket[];
     formatPrice: (price: number) => string;
     handleInputChange: (event: ChangeEvent<HTMLInputElement>, id: string) => void;
     handleBlurChange: (event: ChangeEvent<HTMLInputElement>, id: string) => void;
@@ -46,6 +46,10 @@ interface LottoContextProps {
     setValue: (id: string) => string;
     getMoney: (id: string) => number;
     setMoney: (id: string) => void;
+    setGenerateTicket: (e: ChangeEvent<HTMLInputElement>) => void;
+    setAdminGenerateTicket: React.Dispatch<React.SetStateAction<string>>;
+    adminGenerateTicket: string;
+    startGenerateAdminLotteryTicket: () => void;
 };
 
 const LottoContext = createContext({} as LottoContextProps)
@@ -66,10 +70,13 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 }) => {
     /* --state--- */
     const [lottoNumbers, setlottoNumbers] = useLocalStorage<number[]>("lottoNumbers", []);
-    const [lottoKeeperLutteryNumber, setLottoKeeperLutteryNumber] = useLocalStorage<lotteryTicket[]>(
-        "lottoKeeperLutteryNumber",
-        []);
-    const [lottoId, setlottoId] = useLocalStorage<number>("lottoId", 1);
+    const [lottoLutteryNumber, setlottoLutteryNumber] = useState<lotteryTicket[]>(
+        [{
+            owner: '',
+            lottoId: 0,
+            LotteryNumbers: [],
+        }]);
+    //const [lottoId, setlottoId] = useLocalStorage<number>("lottoId", 1);
 
     /* ---user--- */
     const [dataBase, setDataBase] = useLocalStorage<dataBase[]>("dataBase",
@@ -79,6 +86,8 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         ]
     )
 
+    const [adminGenerateTicket, setAdminGenerateTicket] = useState("")
+    console.log(adminGenerateTicket)
     /* --state end-- */
 
     const generateRandomNumber = (min: number, max: number): number => {
@@ -181,20 +190,20 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     };
 
 
-
-
     /* --------------------- */
 
-    const setLottoObject = (owner: string, LotteryNumbers: number[]) => {
-        setlottoId(lottoId + 1)
-        setLottoKeeperLutteryNumber((lottoKeeperLutteryNumber) => [...lottoKeeperLutteryNumber, { owner, lottoId, LotteryNumbers }]);
-    }
 
-
-
-
-
-
+    const setLottoObject = (owner: string, lotteryNumbers: number[]): void => {
+        setlottoLutteryNumber((existingLotto) => {
+            const newLottoId = existingLotto.length > 0 ? existingLotto[existingLotto.length - 1].lottoId + 1 : 1;
+            const newTicket: lotteryTicket = {
+                owner,
+                lottoId: newLottoId,
+                LotteryNumbers: lotteryNumbers,
+            };
+            return [...existingLotto, newTicket];
+        });
+    };
 
 
     //Árak formázása
@@ -206,6 +215,36 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
 
 
+    /* ------admin------------- */
+
+
+    const setGenerateTicket = (e: ChangeEvent<HTMLInputElement>) => {
+        e.target.value === "" ?
+            (setAdminGenerateTicket(""))
+            : (setAdminGenerateTicket(String(Math.floor(Math.abs(limitValue(Number(e.target.value)))))));
+    }
+
+    const maxLimit = 99999999;
+    const limitValue = (db: number): number => {
+        return db > maxLimit ? maxLimit : db;
+    };
+
+    /* ----------random lott-----generalás---- */
+
+
+    const generateAdminLotteryTicket = (counter: number, adminTicket: number[]): number => {
+        if (counter === 0) {
+            return 0;
+        } else {
+            counter--;
+            setLottoObject("admin", generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER))
+            return generateAdminLotteryTicket(counter, adminTicket);
+        }
+    }
+
+    const startGenerateAdminLotteryTicket = () => {
+        generateAdminLotteryTicket(10, generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER))
+    }
 
 
 
@@ -218,7 +257,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         startLottery,
         LotteryTicketGridNumbers,
         setLottoObject,
-        lottoKeeperLutteryNumber,
+        lottoLutteryNumber,
         formatPrice,
         handleInputChange,
         handleBlurChange,
@@ -226,6 +265,10 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         setValue,
         getMoney,
         setMoney,
+        setGenerateTicket,
+        setAdminGenerateTicket,
+        adminGenerateTicket,
+        startGenerateAdminLotteryTicket
     };
 
     return (
