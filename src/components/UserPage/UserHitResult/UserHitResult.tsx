@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useLottoContext } from "../../../contextAPI/LottoContext";
 import style from "./UserHitResult.module.scss";
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
@@ -9,15 +8,12 @@ type Props = {
 
 const UserHitResult: React.FC<Props> = ({ id }) => {
 
-
-    const { lottoLutteryNumber, formatPrice, lottoNumbers, userResult, setUserSort, userSort } = useLottoContext();
+    const { lottoNumbers, userResult, setUserSort, userSort } = useLottoContext();
     const lotteryTicket = userResult.filter((Ticket) => Ticket.owner === id);
-
 
     const handleClick = () => {
         setUserSort((prevIsUp) => !prevIsUp);
     };
-
 
     const iconTSX = () => {
         return (
@@ -29,8 +25,6 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
 
     return (
         <section className={style.mainContainer}>
-
-
 
             <div className={style.lotteryTicketContainer}>
                 <div className={style.idColumn}>ID:</div>
@@ -73,10 +67,7 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
                                 })}
                             </div>
 
-
                             <div className={style.hitColumn}>{hits}</div>
-
-
 
                             <div className={style.usdColumn}>{hits * 1000}</div>
 

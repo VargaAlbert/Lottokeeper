@@ -1,7 +1,7 @@
 import LotteryTicket from "../LotteryTicket/LotteryTicket";
 import style from "./UserPage.module.scss";
 import { FaUser, FaAddressCard } from "react-icons/fa6";
-import { ChangeEvent, ReactNode, useState } from 'react';
+
 import { useLottoContext } from "../../contextAPI/LottoContext";
 import UserHitResult from './UserHitResult/UserHitResult';
 import { useLocalStorage } from "../../hooks/useLocalStorage";
@@ -13,7 +13,8 @@ const UserPage: React.FC = () => {
         handleInputChange,
         handleBlurChange,
         getMoney,
-        setValue
+        setValue,
+        formatPrice
     } = useLottoContext();
 
     return (
@@ -37,7 +38,7 @@ const UserPage: React.FC = () => {
                         <div>
                             <p>Account balance</p>
                             <div className={style.balanceContainer}>
-                                <div className={style.balance}>{getMoney("user")}</div>
+                                <div className={style.balance}>{formatPrice(getMoney("user"))}</div>
                                 <div className={style.akcse}>Akcse</div>
                             </div>
                         </div>
@@ -51,8 +52,6 @@ const UserPage: React.FC = () => {
                     <LotteryTicketList id={"user"} />
 
                 </div>
-
-
 
                 <UserHitResult id={"user"} />
 

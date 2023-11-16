@@ -7,7 +7,7 @@ type Props = {
 
 const LotteryTicketList: React.FC<Props> = ({ id }) => {
 
-    const { lottoLutteryNumber, formatPrice } = useLottoContext();
+    const { lottoLutteryNumber } = useLottoContext();
 
     const lotteryTicket = lottoLutteryNumber.filter((Ticket) => Ticket.owner === id);
 
