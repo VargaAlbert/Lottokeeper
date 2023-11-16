@@ -54,7 +54,7 @@ const UserPage: React.FC = () => {
 
 
 
-                <UserHitResult />
+                <UserHitResult id={"user"} />
 
             </div>
         </section>

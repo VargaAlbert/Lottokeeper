@@ -8,6 +8,7 @@ type Props = {
 const LotteryTicketList: React.FC<Props> = ({ id }) => {
 
     const { lottoLutteryNumber, formatPrice } = useLottoContext();
+
     const lotteryTicket = lottoLutteryNumber.filter((Ticket) => Ticket.owner === id);
 
     if (lotteryTicket.length > 0) {
@@ -17,7 +18,7 @@ const LotteryTicketList: React.FC<Props> = ({ id }) => {
                     return (
                         <div key={ticket.lottoId} className={style.lotteryTicketContainer}>
                             <div className={style.ticketTitleCont}>
-                                <div>user</div>
+                                <div>{id}</div>
                                 <div>Sorszám:</div>
                                 <div className={style.lottoId}>{ticket.lottoId}.</div>
                             </div>

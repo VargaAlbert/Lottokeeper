@@ -19,10 +19,11 @@ type LottoProviderProps = {
     children: ReactNode;
 };
 
-type lotteryTicket = {
+export type lotteryTicket = {
     owner: string;
     lottoId: number,
     LotteryNumbers: number[],
+    hits: number[],
 }
 
 
@@ -50,6 +51,10 @@ interface LottoContextProps {
     setAdminGenerateTicket: React.Dispatch<React.SetStateAction<string>>;
     adminGenerateTicket: string;
     startGenerateAdminLotteryTicket: () => void;
+
+    userResult: lotteryTicket[];
+    setUserSort: React.Dispatch<React.SetStateAction<boolean>>;
+    userSort: boolean;
 };
 
 const LottoContext = createContext({} as LottoContextProps)
@@ -72,22 +77,23 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     const [lottoNumbers, setlottoNumbers] = useLocalStorage<number[]>("lottoNumbers", []);
     const [lottoLutteryNumber, setlottoLutteryNumber] = useState<lotteryTicket[]>(
         [{
-            owner: '',
+            owner: "",
             lottoId: 0,
             LotteryNumbers: [],
+            hits: [],
         }]);
-    //const [lottoId, setlottoId] = useLocalStorage<number>("lottoId", 1);
 
-    /* ---user--- */
+    const [userResult, setUserResult] = useState<lotteryTicket[]>([]);
+
+
     const [dataBase, setDataBase] = useLocalStorage<dataBase[]>("dataBase",
         [
             { id: "admin", name: "admin", usd: 0 },
-            { id: "user", name: "user", usd: 1000 }
+            { id: "user", name: "user", usd: 10_000 }
         ]
     )
 
     const [adminGenerateTicket, setAdminGenerateTicket] = useState("")
-    console.log(adminGenerateTicket)
     /* --state end-- */
 
     const generateRandomNumber = (min: number, max: number): number => {
@@ -109,10 +115,6 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         return generateUniqueRandomNumbers(counter, min, max, uniqueNumbers);
     }
 
-    const startLottery = (): void => {
-        setlottoNumbers(generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER));
-    }
-    console.log(lottoNumbers)
     /* -----user------ */
 
     //userlottoTicked Grid
@@ -152,7 +154,6 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         });
     }
 
-    console.log(dataBase)
 
     const setValue = (id: string) => {
         if (dataBase) {
@@ -176,15 +177,25 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     const setMoney = (id: string) => {
         setDataBase((prevDatabase) => {
+
+            const usd = 500;
+
             const updatedDatabase = prevDatabase.map((item) => {
-                if (item.id === id && item.usd >= 500) {
+                if (item.id === id && item.usd >= usd) {
                     return {
-                        ...item, usd: item.usd - 500
+                        ...item,
+                        usd: item.usd - usd,
+                    };
+                } else if (item.id === "admin") {
+                    return {
+                        ...item,
+                        usd: item.usd + usd,
                     };
                 } else {
                     return item;
                 }
             });
+
             return updatedDatabase;
         });
     };
@@ -200,10 +211,43 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
                 owner,
                 lottoId: newLottoId,
                 LotteryNumbers: lotteryNumbers,
+                hits: [],
             };
             return [...existingLotto, newTicket];
         });
     };
+
+    const checkAndStoreHits = (numbersToCheck: number[]): void => {
+
+        setlottoLutteryNumber((existingLotto) => {
+            const updatedLotto = existingLotto.map((ticket) => {
+                const hits = numbersToCheck.filter((number) => ticket.LotteryNumbers.includes(number));
+                return {
+                    ...ticket,
+                    hits: hits.length > 0 ? [...ticket.hits, ...hits] : ticket.hits, // Hozzáadjuk az újonnan talált számokat
+                };
+            });
+
+            return updatedLotto;
+        });
+
+    };
+
+    const [userSort, setUserSort] = useState(false);
+
+    useEffect(() => {
+        const sortedTickets: lotteryTicket[] = JSON.parse(JSON.stringify(lottoLutteryNumber));
+
+        if (userSort) {
+            sortedTickets.sort((a, b) => a.hits.length - b.hits.length);
+        } else {
+            sortedTickets.sort((b, a) => a.hits.length - b.hits.length);
+        }
+
+        setUserResult(sortedTickets);
+
+    }, [lottoLutteryNumber, userSort]);
+
 
 
     //Árak formázása
@@ -243,13 +287,37 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     }
 
     const startGenerateAdminLotteryTicket = () => {
-        generateAdminLotteryTicket(10, generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER))
+        generateAdminLotteryTicket(Number(adminGenerateTicket), generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER))
+        setDataBase((prevDatabase) => {
+            const updatedDatabase = prevDatabase.map((item) => {
+                if (item.id === "admin") {
+                    return {
+                        ...item, usd: item.usd + Number(adminGenerateTicket) * 500
+                    };
+                } else {
+                    return item;
+                }
+            });
+            return updatedDatabase;
+        });
     }
 
 
+    const startLottery = (): void => {
 
+        const winNumbers = generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER)
 
+        setlottoNumbers(winNumbers);
 
+        checkAndStoreHits(winNumbers)
+
+        console.table(lottoLutteryNumber)
+
+        // setUserResult(JSON.parse(JSON.stringify(lottoLutteryNumber)));
+
+    }
+
+    console.table(lottoLutteryNumber)
 
     const contextValue: LottoContextProps = {
         lottoNumbers,
@@ -268,7 +336,10 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         setGenerateTicket,
         setAdminGenerateTicket,
         adminGenerateTicket,
-        startGenerateAdminLotteryTicket
+        startGenerateAdminLotteryTicket,
+        userResult,
+        setUserSort,
+        userSort,
     };
 
     return (

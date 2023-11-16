@@ -2,9 +2,45 @@
 
 .mainContainer {
     width: 90%;
-    height: 100%px;
+    height: 100%;
+    padding: 1rem;
     border-radius: 0.5rem;
     background-color: bisque;
+}
+
+.idColumn {
+    width: 50px;
+}
+
+.numbColumn {
+    width: 150px;
+}
+
+.hitColumn {
+    width: 50px;
+    @include variable.flexBox(row, nowrap, center, center, center);
+    .icon {
+        font-size: 1.5rem;
+    }
+}
+
+.usdColumn {
+    width: 100px;
+}
+
+.lotteryTicketContainer {
+    @include variable.flexBox(row, nowrap, normal, space-between, normal);
+    border-bottom: 1px solid black;
+}
+
+.lotteryNumberContainer {
+    width: 150px;
+    @include variable.flexBox(row, nowrap, normal, normal, normal);
+    gap: 0.2rem;
+}
+
+.lotteryHitNumber {
+    color: red;
 }
 
 @include variable.Small {

@@ -6,12 +6,12 @@ import { useLottoContext } from "../../../contextAPI/LottoContext";
 const LotteryTicketListAdmin: React.FC = () => {
 
     const { lottoLutteryNumber, formatPrice } = useLottoContext();
-    // const lotteryTicket = lottoKeeperLutteryNumber.filter((Ticket) => Ticket.owner === id);
+    const lotteryTicket = lottoLutteryNumber.filter((Ticket) => Ticket.lottoId > 0);
 
     if (lottoLutteryNumber.length > 0) {
         return (
             <div className={style.lotteryListContainer}>
-                {lottoLutteryNumber.map((ticket) => {
+                {lotteryTicket.map((ticket) => {
                     return (
                         <div key={ticket.lottoId} className={style.lotteryTicketContainer}>
                             <div className={style.ticketTitleCont}>
