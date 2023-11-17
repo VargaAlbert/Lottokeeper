@@ -92,6 +92,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     const [dataBase, setDataBase] = useLocalStorage<dataBase[]>("dataBase",
         [
             { id: "admin", name: "admin", usd: 0 },
+            { id: "profit", name: "profit", usd: 0 },
             { id: "user", name: "user", usd: 10_000 }
         ]
     )
@@ -239,8 +240,13 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     };
 
     const prizeDistribution = () => {
-        const adminUsd = dataBase.find(user => user.id === "admin")?.usd;
+        const adminUser = dataBase.find(user => user.id === "admin");
+        return adminUser ? adminUser.usd : 0; // Visszaadja az admin felhasználó usd értékét, vagy 0-t, ha nincs ilyen felhasználó az adatbázisban
     }
+
+
+    // console.log("Admin pénze", prizeDistribution) 
+
     /* -------------NYEREMÉNY MEGHATÁROZÁSA------------ */
     // lottoLutteryNumber
     //const hitsTicketList = lottoLutteryNumber.map((ticket) => (ticket))
@@ -257,7 +263,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     }, new Array(6).fill(0));
 
 
-    console.log("4444", hitsCounts);
+    //console.log("4444", hitsCounts);
 
 
     type divideNumber = {
@@ -270,18 +276,20 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     //nyeremény meghatározása 
     const divideNumber = (number: number, hitsCounts: HitsCount): divideNumber => {
-        const ratioSum = 50 + 24 + 12 + 4 + 10;
-        const hit5: number = Math.round((number * 50) / (hitsCounts[5] > 0 ? ratioSum / hitsCounts[5] : ratioSum));
-        const hit4: number = Math.round((number * 24) / (hitsCounts[4] > 0 ? ratioSum / hitsCounts[4] : ratioSum));
-        const hit3: number = Math.round((number * 12) / (hitsCounts[3] > 0 ? ratioSum / hitsCounts[3] : ratioSum));
-        const hit2: number = Math.round((number * 4) / (hitsCounts[2] > 0 ? ratioSum / hitsCounts[2] : ratioSum));
+        const ratioSum = 54 + 26 + 13 + 6 + 1;
+        const hit5: number = Math.round((number * 54) / (hitsCounts[5] > 0 ? ratioSum / hitsCounts[5] : ratioSum));
+        const hit4: number = Math.round((number * 26) / (hitsCounts[4] > 0 ? ratioSum / hitsCounts[4] : ratioSum));
+        const hit3: number = Math.round((number * 13) / (hitsCounts[3] > 0 ? ratioSum / hitsCounts[3] : ratioSum));
+        const hit2: number = Math.round((number * 6) / (hitsCounts[2] > 0 ? ratioSum / hitsCounts[2] : ratioSum));
         const profit = number - (hit5 + hit4 + hit3 + hit2);
+
+
 
         return { hit2, hit3, hit4, hit5, profit };
     };
 
-    const result = divideNumber(100, hitsCounts);
-    console.log(result);
+    const result = divideNumber(10_000, hitsCounts);
+    console.log("öszegek", result);
 
     //set database lotto ticket
     const setLottoObjectTicketValue = (divideNumber: divideNumber): void => {
@@ -289,13 +297,13 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             const updatedLotto = existingLotto.map((ticket) => {
                 switch (ticket.hits.length) {
                     case 2:
-                        return { ...ticket, ticketValue: ticket.ticketValue + divideNumber.hit2 };
+                        return { ...ticket, ticketValue: divideNumber.hit2 };
                     case 3:
-                        return { ...ticket, ticketValue: ticket.ticketValue + divideNumber.hit3 };
+                        return { ...ticket, ticketValue: divideNumber.hit3 };
                     case 4:
-                        return { ...ticket, ticketValue: ticket.ticketValue + divideNumber.hit4 };
+                        return { ...ticket, ticketValue: divideNumber.hit4 };
                     case 5:
-                        return { ...ticket, ticketValue: ticket.ticketValue + divideNumber.hit5 };
+                        return { ...ticket, ticketValue: divideNumber.hit5 };
                     default:
                         return ticket;
                 }
@@ -377,13 +385,18 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         });
     }
 
+
     //START LOTTERY
     const startLottery = (): void => {
 
+        //prizeDistribution
+
+
         const winNumbers = generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER)
+
         setlottoNumbers(winNumbers);
         checkAndStoreHits(winNumbers);
-        setLottoObjectTicketValue(divideNumber(100000, hitsCounts));
+        setLottoObjectTicketValue(divideNumber(prizeDistribution(), hitsCounts));
     }
 
     console.table(lottoLutteryNumber)
