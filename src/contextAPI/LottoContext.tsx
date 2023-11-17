@@ -236,26 +236,19 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     };
 
     //set database hits number
-    const checkAndStoreHits = (numbersToCheck: number[]): void => {
-
-        setlottoLutteryNumber((existingLotto) => {
-            const updatedLotto = existingLotto.map((ticket) => {
-                const hits = numbersToCheck.filter((number) => ticket.LotteryNumbers.includes(number));
-                return {
-                    ...ticket,
-                    hits: hits.length > 0 ? [...ticket.hits, ...hits] : ticket.hits, // Hozzáadjuk az újonnan talált számokat
-                };
-            });
-
-            return updatedLotto;
+    const checkAndStoreHits = (numbersToCheck: number[], data: lotteryTicket[]): lotteryTicket[] => {
+        const updatedLotto = data.map((ticket) => {
+            const hits = numbersToCheck.filter((number) => ticket.LotteryNumbers.includes(number));
+            return {
+                ...ticket,
+                hits: hits.length > 0 ? [...ticket.hits, ...hits] : ticket.hits,
+            };
         });
 
+        return updatedLotto;
     };
 
-    const prizeDistribution = () => {
-        const adminUser = dataBase.find(user => user.id === "collector");
-        return adminUser ? adminUser.usd : 0; // Visszaadja az admin felhasználó usd értékét, vagy 0-t, ha nincs ilyen felhasználó az adatbázisban
-    }
+
 
 
     // console.log("Admin pénze", prizeDistribution) 
@@ -268,12 +261,8 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         [key: number]: number
     };
 
-    //találatok darabszámának kigyüjtése.
-    const hitsCounts: number[] = lottoLutteryNumber.reduce((acc, ticket) => {
-        const hits = ticket.hits.length;
-        acc[hits] = (acc[hits] || 0) + 1;
-        return acc;
-    }, new Array(6).fill(0));
+
+
 
 
     type divideNumber = {
@@ -283,18 +272,15 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         hit2: number;
     };
 
-    const divideAndDistribute = (number: number): divideNumber => {
 
-        console.table(lottoLutteryNumber);
+    const divideAndDistribute = (number: number, data: lotteryTicket[]): divideNumber => {
 
-        const hitsCounts: number[] = lottoLutteryNumber.reduce((acc, ticket) => {
+        //találatok darabszámának kigyüjtése.
+        const hitsCounts: number[] = data.reduce((acc, ticket) => {
             const hits = ticket.hits.length;
             acc[hits] = (acc[hits] || 0) + 1;
             return acc;
         }, new Array(6).fill(0));
-
-
-        //console.warn(hitsCounts)
 
         const hit5: number = Math.round((number * 54) / 100);
         const hit4: number = Math.round((number * 26) / 100);
@@ -323,25 +309,24 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
      */
 
     //set database lotto ticket
-    const setLottoObjectTicketValue = (result: divideNumber): void => {
-        //console.warn(result)
-        setlottoLutteryNumber((existingLotto) => {
-            const updatedLotto = existingLotto.map((ticket) => {
-                switch (ticket.hits.length) {
-                    case 2:
-                        return { ...ticket, ticketValue: result.hit2 };
-                    case 3:
-                        return { ...ticket, ticketValue: result.hit3 };
-                    case 4:
-                        return { ...ticket, ticketValue: result.hit4 };
-                    case 5:
-                        return { ...ticket, ticketValue: result.hit5 };
-                    default:
-                        return ticket;
-                }
-            });
-            return updatedLotto;
+    const setLottoObjectTicketValue = (result: divideNumber, data: lotteryTicket[]): lotteryTicket[] => {
+
+        const updatedLotto = data.map((ticket) => {
+            switch (ticket.hits.length) {
+                case 2:
+                    return { ...ticket, ticketValue: result.hit2 };
+                case 3:
+                    return { ...ticket, ticketValue: result.hit3 };
+                case 4:
+                    return { ...ticket, ticketValue: result.hit4 };
+                case 5:
+                    return { ...ticket, ticketValue: result.hit5 };
+                default:
+                    return ticket;
+            }
         });
+
+        return updatedLotto;
     };
 
     //console.log(hitsCounts);
@@ -409,18 +394,39 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         });
     }
 
+    const prizeDistribution = () => {
+        const adminUser = dataBase.find(user => user.id === "collector");
+        return adminUser ? adminUser.usd : 0; // Visszaadja az admin felhasználó usd értékét, vagy 0-t, ha nincs ilyen felhasználó az adatbázisban
+    }
+
 
     //START LOTTERY
     const startLottery = (): void => {
         const winNumbers = generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER)
+
+        const data = [...lottoLutteryNumber]
+
+
+        const collector = dataBase.find((user) => user.id === "collector");
+        const prizePool: number = collector ? collector.usd : 0; // Alapértelmezett érték, ha nincs találat
+
+        console.log(prizePool)
+
+
         setlottoNumbers(winNumbers);
-        checkAndStoreHits(winNumbers);
-        setLottoObjectTicketValue(divideAndDistribute(10_000));
+
+        const fasff = checkAndStoreHits(winNumbers, data);
+        /* ------ */
+
+        setlottoLutteryNumber(setLottoObjectTicketValue(divideAndDistribute(prizePool, checkAndStoreHits(winNumbers, data)), checkAndStoreHits(winNumbers, data)));
+
+
     }
+    //console.warn(lottoLutteryNumber);
 
 
     //console.warn(hitsCounts);
-    //console.table(lottoLutteryNumber)
+    console.table(lottoLutteryNumber)
 
 
 
