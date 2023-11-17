@@ -13,7 +13,7 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
     const {
         LotteryTicketGridNumbers,
         setLottoObject,
-        setMoney,
+        moneyTransaction,
         getMoney,
         generateUniqueRandomNumbers
     } = useLottoContext();
@@ -70,7 +70,7 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
         if (lotteryNumbers.length === LOTTERY_NUMBER) {
             if ((getMoney(id)) >= 500) {
                 setLottoObject(id, lotteryNumbers)
-                setMoney(id);
+                moneyTransaction(id, 500, "collector");
                 setLotteryNumbers([])
             } else {
                 alert("nincs elég egyenleged!")

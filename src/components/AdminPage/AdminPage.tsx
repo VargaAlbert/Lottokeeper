@@ -42,11 +42,19 @@ const AdminPage: React.FC = () => {
                             </input>
                         </div>
 
-                        <div>
-                            <p>Account balance</p>
+                        <p>Account balance</p>
+                        <div className={style.adminControl}>
                             <div className={style.balanceContainer}>
                                 <div className={style.balance}>{getMoney(id)}</div>
                                 <div className={style.akcse}>Akcse</div>
+                            </div>
+                            <div className={style.balanceContainer}>
+                                <div className={style.balance}>{getMoney("profit")}</div>
+                                <div className={style.akcse}>profit</div>
+                            </div>
+                            <div className={style.balanceContainer}>
+                                <div className={style.balance}>{getMoney("collector")}</div>
+                                <div className={style.akcse}>gyüjtö</div>
                             </div>
                         </div>
 

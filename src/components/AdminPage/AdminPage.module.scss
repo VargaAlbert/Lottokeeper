@@ -21,6 +21,10 @@
     gap: 2rem;
 }
 
+.adminControl {
+    @include variable.flexBox(row, wrap, normal, space-evenly, normal);
+}
+
 .profileContainer {
     min-width: 240px;
     width: calc(100% - 1rem);
