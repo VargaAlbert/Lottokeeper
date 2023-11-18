@@ -8,7 +8,14 @@ type Props = {
 
 const UserHitResult: React.FC<Props> = ({ id }) => {
 
-    const { lottoNumbers, userResult, setUserSort, userSort } = useLottoContext();
+    const {
+        lottoNumbers,
+        userResult,
+        setUserSort,
+        userSort,
+        calculateTotalTicketValueById
+    } = useLottoContext();
+
     const lotteryTicket = userResult.filter((Ticket) => Ticket.owner === id);
 
     const handleClick = () => {
@@ -38,7 +45,7 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
 
             <div className={style.lotteryListContainer}>
                 {lotteryTicket.map((ticket) => {
-                    const hits = ticket.hits.length
+
                     return (
                         <div key={ticket.lottoId} className={style.lotteryTicketContainer}>
 
@@ -67,15 +74,15 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
                                 })}
                             </div>
 
-                            <div className={style.hitColumn}>{hits}</div>
+                            <div className={style.hitColumn}>{ticket.hits.length}</div>
 
-                            <div className={style.usdColumn}>{hits * 1000}</div>
+                            <div className={style.usdColumn}>{ticket.ticketValue}</div>
 
                         </div>
                     );
                 })}
             </div>
-            <div> <span>Össznyeremény</span> <span>547471544 USD</span></div>
+            <div> <span>Össznyeremény</span> <span>{calculateTotalTicketValueById(lotteryTicket, id)}</span></div>
         </section>
     );
 }
