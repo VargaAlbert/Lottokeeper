@@ -63,6 +63,7 @@ interface LottoContextProps {
     totalWinnings: number;
     adminGenerateTicket: string;
     userSort: boolean;
+    lottoLutteryNumberStatistics: lotteryTicket[];
 };
 
 const LottoContext = createContext({} as LottoContextProps)
@@ -503,7 +504,8 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         addLotteryNumber,
         calculateTotalTicketValueById,
         totalWinnings,
-        resetGame
+        resetGame,
+        lottoLutteryNumberStatistics,
     };
 
     return (
