@@ -41,7 +41,7 @@ interface LottoContextProps {
     setAdminGenerateTicket: React.Dispatch<React.SetStateAction<string>>;
     setUserSort: React.Dispatch<React.SetStateAction<boolean>>;
 
-    generateUniqueRandomNumbers: (counter: number, min: number, max: number) => number[];
+
     handleInputChange: (event: ChangeEvent<HTMLInputElement>, id: string) => void;
     handleBlurChange: (event: ChangeEvent<HTMLInputElement>, id: string) => void;
     setGenerateTicket: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -53,6 +53,8 @@ interface LottoContextProps {
 
     startGenerateAdminLotteryTicket: () => void;
     startLottery: () => void;
+
+    addLotteryNumber: () => number[];
 
     lottoNumbers: number[];
     LotteryTicketGridNumbers: number[];
@@ -99,8 +101,6 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     )
 
 
-
-
     const [lottoNumbers, setlottoNumbers] = useLocalStorage<number[]>("lottoNumbers", []);
     const [userResult, setUserResult] = useState<lotteryTicket[]>([]);
 
@@ -128,6 +128,9 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         return generateUniqueRandomNumbers(counter, min, max, uniqueNumbers);
     }
 
+    const addLotteryNumber = () => {
+        return generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER)
+    }
 
     //name setting
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>, id: string) => {
@@ -261,10 +264,6 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         [key: number]: number
     };
 
-
-
-
-
     type divideNumber = {
         hit5: number;
         hit4: number;
@@ -297,6 +296,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             hit3: hitsCounts[3] > 0 ? Math.round(hit3 / hitsCounts[3]) : 0,
             hit2: hitsCounts[2] > 0 ? Math.round(hit2 / hitsCounts[2]) : 0,
         };
+
         return distributedHits;
     };
 
@@ -305,12 +305,6 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         return Object.values(obj).reduce((acc, curr) => acc + curr, 0);
     };
 
-    /*      const result = divideAndDistribute(10_000, hitsCounts);
-        console.log("Eredmények", result);
-     
-        const sum = sumDivideNumbers(result);
-        console.log("Divide Number értékek összege:", sum);
-     */
 
     //set database lotto ticket
     const setLottoObjectTicketValue = (result: divideNumber, data: lotteryTicket[]): lotteryTicket[] => {
@@ -376,14 +370,14 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             return 0;
         } else {
             counter--;
-            setLottoObject("admin", generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER))
+            setLottoObject("admin", addLotteryNumber())
             return generateAdminLotteryTicket(counter, adminTicket);
         }
     }
 
     //setting database random ticket & admin akcse
     const startGenerateAdminLotteryTicket = () => {
-        generateAdminLotteryTicket(Number(adminGenerateTicket), generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER))
+        generateAdminLotteryTicket(Number(adminGenerateTicket), addLotteryNumber())
         setDataBase((prevDatabase) => {
             const updatedDatabase = prevDatabase.map((item) => {
                 if (item.id === "collector") {
@@ -409,7 +403,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     //START LOTTERY
     const startLottery = (): void => {
 
-        const winNumbers = generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER)
+        const winNumbers = addLotteryNumber();
         const collector = dataBase.find((user) => user.id === "collector");
         const prizePool: number = collector ? collector.usd : 0; // Alapértelmezett érték, ha nincs találat
 
@@ -440,23 +434,15 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             }
         });
 
-        const userAkcse = calculateTotalTicketValueById(updatedLottoValue, "admin");
-        const adminAkcse = calculateTotalTicketValueById(updatedLottoValue, "user");
-
         moneyTransaction("collector", calculateTotalTicketValueById(updatedLottoValue, "admin"), "admin")
         moneyTransaction("collector", calculateTotalTicketValueById(updatedLottoValue, "user"), "user")
-
-        console.warn("nyeremények", adminAkcse, userAkcse)
 
         setlottoLutteryNumber(updatedLottoValue);
 
 
 
     }
-    //console.warn(lottoLutteryNumber);
 
-
-    //console.warn(hitsCounts);
 
     console.table(lottoLutteryNumber)
 
@@ -464,7 +450,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     const contextValue: LottoContextProps = {
         lottoNumbers,
-        generateUniqueRandomNumbers,
+
         startLottery,
         LotteryTicketGridNumbers,
         setLottoObject,
@@ -483,6 +469,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         userResult,
         setUserSort,
         userSort,
+        addLotteryNumber,
     };
 
     return (

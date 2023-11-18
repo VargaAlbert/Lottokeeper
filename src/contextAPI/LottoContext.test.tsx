@@ -13,9 +13,9 @@ test.each(Array.from({ length: 10 }, (_, index) => index))(
     () => {
         const TestComponent: React.FC = () => {
 
-            const { generateUniqueRandomNumbers } = useLottoContext();
+            const { addLotteryNumber } = useLottoContext();
 
-            const testLottoNumbers = generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER)
+            const testLottoNumbers = addLotteryNumber();
 
             // Ellenőrizzük, hogy a numbers tömbben LOTTERY_NUMBER elem van
             expect(testLottoNumbers.length).toBe(LOTTERY_NUMBER);

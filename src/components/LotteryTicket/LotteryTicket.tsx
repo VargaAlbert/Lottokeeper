@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLottoContext, LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER } from "../../contextAPI/LottoContext";
+import { useLottoContext, LOTTERY_NUMBER } from "../../contextAPI/LottoContext";
 import xImg from "../../img/x.png"
 import style from "./LotteryTicket.module.scss";
 import { FaArrowRotateLeft, FaComputer } from "react-icons/fa6";
@@ -13,9 +13,9 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
     const {
         LotteryTicketGridNumbers,
         setLottoObject,
+        addLotteryNumber,
         moneyTransaction,
         getMoney,
-        generateUniqueRandomNumbers
     } = useLottoContext();
 
     const [lotteryNumbers, setLotteryNumbers,] = useState<number[]>([]);
@@ -59,7 +59,7 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
     }
 
     const computerLottoNumbers = () => {
-        setLotteryNumbers(generateUniqueRandomNumbers(LOTTERY_NUMBER, MIN_NUMBER, MAX_NUMBER))
+        setLotteryNumbers(addLotteryNumber());
     }
 
     const resetLottoNumbers = () => {
