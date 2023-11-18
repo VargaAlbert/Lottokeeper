@@ -53,7 +53,7 @@ interface LottoContextProps {
     calculateTotalTicketValueById: (data: lotteryTicket[], ownerId: string) => number;
     startGenerateAdminLotteryTicket: () => void;
     startLottery: () => void;
-
+    resetGame: () => void;
     addLotteryNumber: () => number[];
 
     lottoNumbers: number[];
@@ -76,7 +76,11 @@ export const MAX_NUMBER: number = 39;
 export const LOTTERY_NUMBER: number = 5;
 export const TICKET_PRICE = 500;
 
-const lottoDatabase: lotteryTicket = {
+const START_AKCSE_USER = 10_000;
+const START_AKCSE_ADMIN = 0;
+const START_PRIZE_FUND = 0;
+
+const baseLottoDatabase: lotteryTicket = {
     owner: "",
     lottoId: 0,
     LotteryNumbers: [],
@@ -84,7 +88,12 @@ const lottoDatabase: lotteryTicket = {
     ticketValue: 0,
 };
 
-
+const baseDataBasee: dataBase[] = [
+    { id: "collector", name: "prize_fund", usd: START_PRIZE_FUND },
+    { id: "profit", name: "profit", usd: 0 },
+    { id: "admin", name: "admin", usd: START_AKCSE_ADMIN },
+    { id: "user", name: "user", usd: START_AKCSE_USER }
+];
 
 /* -----------------totto contanst--------------------- */
 
@@ -93,26 +102,18 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 }) => {
 
 
-    const [lottoLutteryNumber, setlottoLutteryNumber] = useState<lotteryTicket[]>([lottoDatabase]);
+    const [dataBase, setDataBase] = useLocalStorage<dataBase[]>("dataBase", baseDataBasee)
 
-    const [lottoLutteryNumberStatistics, setlottoLutteryNumberStatistics] = useState<lotteryTicket[]>([]);
+    const [lottoLutteryNumber, setlottoLutteryNumber] = useLocalStorage<lotteryTicket[]>("lottoLutteryNumber", [baseLottoDatabase]);
+    const [lottoLutteryNumberStatistics, setlottoLutteryNumberStatistics] = useLocalStorage<lotteryTicket[]>("lottoLutteryNumberStatistics", []); //lottoLutteryNumber copy
 
-    const [dataBase, setDataBase] = useLocalStorage<dataBase[]>("dataBase",
-        [
-            { id: "collector", name: "prize_fund", usd: 0 },
-            { id: "profit", name: "profit", usd: 0 },
+    const [lottoNumbers, setlottoNumbers] = useLocalStorage<number[]>("lottoNumbers", []); //winning numbers
 
-            { id: "admin", name: "admin", usd: 0 },
-            { id: "user", name: "user", usd: 10_000 }
-        ]
-    )
-
-
-    const [lottoNumbers, setlottoNumbers] = useLocalStorage<number[]>("lottoNumbers", []);
-    const [userResult, setUserResult] = useState<lotteryTicket[]>([]);
+    const [userResult, setUserResult] = useLocalStorage<lotteryTicket[]>("userResult", []); //user lotto statistics
 
     const [adminGenerateTicket, setAdminGenerateTicket] = useState("")
     const [totalWinnings, setTotalWinnings] = useState<number>(0)
+
     const [userSort, setUserSort] = useState(false);
 
     /* --state end-- */
@@ -465,8 +466,13 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
         setlottoLutteryNumberStatistics(updatedLottoValue)
 
-        setlottoLutteryNumber([lottoDatabase]);
+        setlottoLutteryNumber([baseLottoDatabase]);
 
+    }
+
+    const resetGame = () => {
+        setlottoLutteryNumber([baseLottoDatabase]);
+        setDataBase(baseDataBasee);
     }
 
 
@@ -496,7 +502,8 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         userSort,
         addLotteryNumber,
         calculateTotalTicketValueById,
-        totalWinnings
+        totalWinnings,
+        resetGame
     };
 
     return (

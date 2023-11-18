@@ -18,7 +18,8 @@ const AdminPage: React.FC = () => {
         setGenerateTicket,
         setAdminGenerateTicket,
         adminGenerateTicket,
-        startGenerateAdminLotteryTicket
+        startGenerateAdminLotteryTicket,
+        resetGame,
     } = useLottoContext();
 
 
@@ -76,6 +77,8 @@ const AdminPage: React.FC = () => {
 
 
                         <button onClick={() => { startLottery(); }}>Sorsolás inditása</button>
+
+                        <button onClick={() => { resetGame(); }}>Játék újrainditása.</button>
 
                     </div>
 
