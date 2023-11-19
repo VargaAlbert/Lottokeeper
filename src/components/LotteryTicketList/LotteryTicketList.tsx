@@ -1,5 +1,6 @@
 import style from "./LotteryTicketList.module.scss";
-import { useLottoContext } from "../../../contextAPI/LottoContext";
+import { useLottoContext, lotteryTicket } from "../../contextAPI/LottoContext";
+import { useEffect, useState } from "react";
 
 type Props = {
     id: string
@@ -9,12 +10,20 @@ const LotteryTicketList: React.FC<Props> = ({ id }) => {
 
     const { lottoLutteryNumber } = useLottoContext();
 
-    const lotteryTicket = lottoLutteryNumber.filter((Ticket) => Ticket.owner === id);
+    const [lotteryTicketList, setLotteryTicketList] = useState<lotteryTicket[]>([])
 
-    if (lotteryTicket.length > 0) {
+    useEffect(() => {
+        if (id) {
+            setLotteryTicketList(lottoLutteryNumber.filter((Ticket) => Ticket.owner === id));
+        } else {
+            setLotteryTicketList(lottoLutteryNumber.filter((Ticket) => Ticket.lottoId > 0).sort());
+        }
+    }, [lottoLutteryNumber]);
+
+    if (lotteryTicketList.length > 0) {
         return (
             <div className={style.lotteryListContainer}>
-                {lotteryTicket.map((ticket) => {
+                {lotteryTicketList.map((ticket) => {
                     return (
                         <div key={ticket.lottoId} className={style.lotteryTicketContainer}>
                             <div className={style.ticketTitleCont}>
@@ -37,10 +46,19 @@ const LotteryTicketList: React.FC<Props> = ({ id }) => {
             </div>
         );
     } else {
-        return (
-            <div className={style.lotteryListContainer}>
-                Még nem adtál fel szelvéynt!
-            </div>);
+        if (id) {
+            return (
+                <div className={style.lotteryListContainer}>
+                    Még nem adtál fel szelvéynt!
+                </div>
+            );
+        } else {
+            return (
+                <div className={style.lotteryListContainer}>
+                    Még nem adtak fel szelvéynt!
+                </div>
+            )
+        }
     }
 }
 

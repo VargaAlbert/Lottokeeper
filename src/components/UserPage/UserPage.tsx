@@ -3,9 +3,9 @@ import style from "./UserPage.module.scss";
 import { FaUser, FaAddressCard } from "react-icons/fa6";
 
 import { useLottoContext } from "../../contextAPI/LottoContext";
-import UserHitResult from './UserHitResult/UserHitResult';
+import UserHitResult from '../HitResult/HitResult';
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import LotteryTicketList from "./LotteryTicketList/LotteryTicketList";
+import LotteryTicketList from "../LotteryTicketList/LotteryTicketList";
 
 const UserPage: React.FC = () => {
 

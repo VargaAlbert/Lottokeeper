@@ -41,7 +41,6 @@ interface LottoContextProps {
     setAdminGenerateTicket: React.Dispatch<React.SetStateAction<string>>;
     setUserSort: React.Dispatch<React.SetStateAction<boolean>>;
 
-
     handleInputChange: (event: ChangeEvent<HTMLInputElement>, id: string) => void;
     handleBlurChange: (event: ChangeEvent<HTMLInputElement>, id: string) => void;
     setGenerateTicket: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -307,9 +306,9 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             hit2: hitsCounts[2] > 0 ? Math.round(hit2 / hitsCounts[2]) : 0,
         };
 
-        console.log(distributedHits)
         return distributedHits;
     };
+
 
 
 

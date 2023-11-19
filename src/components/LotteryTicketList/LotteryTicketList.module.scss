@@ -1,27 +1,30 @@
-@use "../../../scss/variable.scss";
+@use "../../scss/variable.scss";
 
 .lotteryListContainer {
     width: 250px;
     height: 700px;
     border-radius: 0.5rem;
-    background-color: floralwhite;
-    overflow-x: scroll;
+    background-color: variable.$color-background-LotteryTicket;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 1rem;
     @include variable.flexBox(column, nowrap, normal, normal, normal);
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .lotteryTicketContainer {
     width: 100%;
-    height: 5rem;
+    height: 4rem;
+    min-height: 4rem;
     background-image: radial-gradient(
         100% 100% at 100% 0,
         variable.$color-background-main1 0,
         variable.$color-background-main2 100%
     );
     border-radius: 0.5rem;
+    border: 1px solid variable.$color-font-lotteryTicket;
     @include variable.flexBox(column, nowrap, normal, space-evenly, normal);
+    font-weight: variable.$weights-5;
 }
 
 .ticketTitleCont {
@@ -42,10 +45,23 @@
     .lotteryNumber {
         width: 25px;
         height: 25px;
-        background-color: aliceblue;
+        background-color: variable.$color-background-lotteryNumber;
         border-radius: 50%;
         @include variable.flexBox(row, nowrap, center, center, center);
         font-weight: variable.$weights-5;
         font-size: variable.$size-r10;
     }
+}
+
+@include variable.Small {
+}
+@include variable.Medium {
+}
+@include variable.Large {
+}
+@include variable.Extra-large {
+}
+@include variable.XXL-large {
+}
+@include variable.XXXL-large {
 }
