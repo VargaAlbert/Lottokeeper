@@ -31,7 +31,7 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
         if (id) {
             setResultStatistics(JSON.parse(JSON.stringify(lottoLutteryNumberStatistics.filter((ticket) => ticket.owner === id))));
         } else {
-            setResultStatistics(JSON.parse(JSON.stringify(lottoLutteryNumberStatistics)));
+            setResultStatistics(JSON.parse(JSON.stringify(lottoLutteryNumberStatistics.filter((ticket) => ticket.lottoId > 0))));
         }
     }, [lottoLutteryNumberStatistics]);
 
@@ -125,7 +125,9 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
                         <span>Össznyeremény:</span>
                     </td>
                     <td colSpan={1}>
-                        <span>{formatPrice(calculateTotalTicketValueById(lottoLutteryNumberStatistics, id))} Akcse</span>
+                        <span>
+                            {formatPrice(calculateTotalTicketValueById(lottoLutteryNumberStatistics, id))} Akcse
+                        </span>
                     </td>
                 </tr>
             </tfoot>

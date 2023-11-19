@@ -2,7 +2,8 @@ import style from "./AdminPage.module.scss";
 import { FaUser, FaAddressCard, FaArrowRotateLeft } from "react-icons/fa6";
 
 import { useLottoContext } from "../../contextAPI/LottoContext";
-import LotteryTicketListAdmin from "./LotteryTicketListAdmin/LotteryTicketListAdmin";
+import LotteryTicketList from "../LotteryTicketList/LotteryTicketList";
+import UserHitResult from "../HitResult/HitResult";
 
 const AdminPage: React.FC = () => {
 
@@ -21,9 +22,6 @@ const AdminPage: React.FC = () => {
         startGenerateAdminLotteryTicket,
         resetGame,
     } = useLottoContext();
-
-
-
 
     return (
         <section className={style.mainContainer}>
@@ -44,7 +42,8 @@ const AdminPage: React.FC = () => {
                         </div>
 
                         <p>Account balance</p>
-                        <div className={style.adminControl}>
+                        <div className={style.balanceMainContainer}>
+
                             <div className={style.balanceContainer}>
                                 <div className={style.balance}>{getMoney(id)}</div>
                                 <div className={style.akcse}>Akcse</div>
@@ -57,11 +56,12 @@ const AdminPage: React.FC = () => {
                                 <div className={style.balance}>{getMoney("collector")}</div>
                                 <div className={style.akcse}>gyüjtö</div>
                             </div>
+
                         </div>
 
                     </div>
 
-                    <div className={style.controllerContainer}>
+                    <div className={style.adminControlContainer}>
 
                         <div>
                             <label htmlFor="generet-num">Generált szelvények:</label>
@@ -82,11 +82,11 @@ const AdminPage: React.FC = () => {
 
                     </div>
 
-                    <LotteryTicketListAdmin />
-
-                    <div>fagfaf</div>
+                    <LotteryTicketList id={""} />
 
                 </div>
+
+                <UserHitResult id={""} />
             </div >
         </section>
     );

@@ -9,7 +9,6 @@
 
 .container {
     @include variable.container-my;
-    height: 100%;
     @include variable.flexBox(row, wrap, normal, center, normal);
     gap: 2rem;
 }
@@ -17,11 +16,20 @@
 .controlContainer {
     width: 80%;
     max-width: 565px;
+    //height: 700px;
     @include variable.flexBox(row, wrap, normal, center, normal);
     gap: 2rem;
 }
 
-.adminControl {
+.adminControlContainer {
+    background-color: floralwhite;
+    border-radius: 0.5rem;
+    @include variable.flexBox(column, nowrap, center, center, center);
+    gap: 1rem;
+    width: 250px;
+}
+
+.balanceMainContainer {
     @include variable.flexBox(row, wrap, normal, space-evenly, normal);
 }
 
@@ -102,13 +110,4 @@
     padding: 1rem;
     @include variable.flexBox(column, nowrap, normal, normal, normal);
     gap: 1.5rem;
-}
-
-.controllerContainer {
-    background-color: floralwhite;
-    border-radius: 0.5rem;
-    @include variable.flexBox(column, nowrap, center, center, center);
-    gap: 1rem;
-    width: 250px;
-    height: 100%;
 }
