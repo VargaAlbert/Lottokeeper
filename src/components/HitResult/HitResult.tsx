@@ -75,6 +75,17 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
     }, [sort, resultStatistics]);
 
     const entries = Object.entries(data);
+
+    const sumTSX = (): string => {
+        if (id) {
+            return (formatPrice(calculateTotalTicketValueById(lottoLutteryNumberStatistics, id)));
+        } else {
+            return (formatPrice(lottoLutteryNumberStatistics.reduce((acc, ticket) => acc + (ticket.ticketValue || 0), 0)));
+        }
+    }
+
+
+
     return (
         <table className={style.mainContainer}>
             <thead>
@@ -126,7 +137,7 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
                     </td>
                     <td colSpan={1}>
                         <span>
-                            {formatPrice(calculateTotalTicketValueById(lottoLutteryNumberStatistics, id))} Akcse
+                            {sumTSX()}
                         </span>
                     </td>
                 </tr>
