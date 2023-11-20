@@ -8,8 +8,9 @@ const Lottery: React.FC = () => {
     return (
         <section className={style.mainContainer}>
             <div className={style.container}>
-                <div className={style.lotteryNumberContainer}>
 
+                <h2>Nyeröszámok:</h2>
+                <div className={style.lotteryNumberContainer}>
                     {lottoNumbers.sort((a, b) => a - b).map((number) => {
                         return (
                             <div key={number} className={style.lotteryNumber}>
@@ -20,6 +21,7 @@ const Lottery: React.FC = () => {
 
                 </div>
             </div>
+
         </section>
     );
 }

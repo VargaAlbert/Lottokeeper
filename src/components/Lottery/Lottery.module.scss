@@ -11,13 +11,18 @@
     @include variable.container-my;
     height: 100%;
     width: calc(100% - 1rem);
-    @include variable.flexBox(row, nowrap, center, center, center);
+    @include variable.flexBox(column, nowrap, center, center, center);
     background-image: radial-gradient(
         100% 100% at 100% 0,
         variable.$color-background-main1 0,
         variable.$color-background-main2 100%
     );
     border-radius: 2rem;
+
+    h2 {
+        margin-top: 0;
+        color: black;
+    }
 }
 
 .lotteryNumberContainer {
@@ -27,11 +32,41 @@
 
     .lotteryNumber {
         width: 50px;
+        min-width: 50px;
         height: 50px;
         background-color: aliceblue;
+        border: 2px solid variable.$color-font-lotteryTicket;
         border-radius: 50%;
         @include variable.flexBox(row, nowrap, center, center, center);
         font-weight: variable.$weights-9;
         font-size: variable.$size-r15;
+    }
+}
+
+.flip {
+    backface-visibility: visible !important;
+    animation: flip 2s ease infinite;
+}
+
+@keyframes flip {
+    0% {
+        transform: perspective(400px) rotateY(0);
+        animation-timing-function: ease-out;
+    }
+    40% {
+        transform: perspective(400px) translateZ(150px) rotateY(170deg);
+        animation-timing-function: ease-out;
+    }
+    50% {
+        transform: perspective(400px) translateZ(150px) rotateY(190deg) scale(1);
+        animation-timing-function: ease-in;
+    }
+    80% {
+        transform: perspective(400px) rotateY(360deg) scale(0.95);
+        animation-timing-function: ease-in;
+    }
+    100% {
+        transform: perspective(400px) scale(1);
+        animation-timing-function: ease-in;
     }
 }
