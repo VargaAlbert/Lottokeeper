@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLottoContext, lotteryTicket } from "../../contextAPI/LottoContext";
 import style from "./HitResult.module.scss";
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 type Props = {
     id: string
@@ -13,13 +14,13 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
         lottoLutteryNumberStatistics,
         calculateTotalTicketValueById,
         sumByKey,
-        formatPrice
+        formatPrice,
     } = useLottoContext();
 
     const [resultStatistics, setResultStatistics] = useState<lotteryTicket[]>([])
     const [sortedResultStatistics, setSortedResultStatistics] = useState<lotteryTicket[]>([]);
 
-    const [sort, setSort] = useState<string>("")
+    const [sort, setSort] = useLocalStorage<string>(`${id}-sort`, "")
     const data = {
         id: "ID:",
         owner: "Owner:",
@@ -34,6 +35,7 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
         } else {
             setResultStatistics(JSON.parse(JSON.stringify(lottoLutteryNumberStatistics.filter((ticket) => ticket.lottoId > 0))));
         }
+
     }, [lottoLutteryNumberStatistics]);
 
     useEffect(() => {

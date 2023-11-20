@@ -10,66 +10,59 @@ const AdminLottoStatement: React.FC = () => {
         formatPrice,
     } = useLottoContext();
 
+    const tableData = [
+        "kettö T.",
+        "három T.",
+        "négy T.",
+        "öt T.",
+    ]
+
     return (
         <table className={style.mainContainer}>
             <thead>
                 <tr>
                     <th colSpan={4}>Kimutatás</th>
                 </tr>
-                <tr>
-                    <th></th>
-                    <th></th>
-                </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colSpan={4}>Az egyes találatokra szelvényenként kifizetendő nyeremény:</td>
-                </tr>
-                <tr>
-                    <td>kettö T.</td>
-                    <td>három T.</td>
-                    <td>négy T.</td>
-                    <td>öt T.</td>
-                </tr>
-                <tr>
-                    <td>{formatPrice(adminStatement.hit2)}</td>
-                    <td>{formatPrice(adminStatement.hit3)}</td>
-                    <td>{formatPrice(adminStatement.hit4)}</td>
-                    <td>{formatPrice(adminStatement.hit5)}</td>
-                </tr>
-
-                <tr>
-                    <td colSpan={4}>Az egyes találatokra szelvényenként kifizetendő nyeremény:</td>
+                    <th colSpan={4}>Az egyes találatokra szelvényenként kifizetendő nyeremény:</th>
                 </tr>
                 <tr className={style.tdnn}>
-                    <td>kettö T.</td>
-                    <td>három T.</td>
-                    <td>négy T.</td>
-                    <td>öt T.</td>
+                    {tableData.map((head) => {
+                        return <td key={Date.now() + Math.random()}>{head}</td>;
+                    })}
                 </tr>
                 <tr>
-                    <td>kettö T.</td>
-                    <td>három T.</td>
-                    <td>négy T.</td>
-                    <td>öt T.</td>
+                    {adminStatement.paiDoutPriceHit.slice(2).map((priceHit, index) => {
+                        return <td key={index}>{formatPrice(priceHit)} acs</td>;
+                    })}
                 </tr>
 
-
                 <tr>
-                    <td colSpan={2}>Az egyes találatokra összesen kifizetendő nyeremény:</td>
-                    <td colSpan={2}>{formatPrice(sumByKey(lottoLutteryNumberStatistics, "ticketValue"))} Akcse</td>
+                    <th colSpan={4}>Az egyes találatokra összesen kifizetendő nyeremény:</th>
+                </tr>
+                <tr >
+                    {tableData.map((head) => {
+                        return <td key={Date.now() + Math.random()}>{head}</td>;
+                    })}
                 </tr>
                 <tr>
-                    <td colSpan={2}>Az összes szelvény után járó bevétel:</td>
-                    <td colSpan={2}>{formatPrice(0)} Akcse</td>
+                    {adminStatement.priceTicket.slice(2).map((priceHit, index) => {
+                        return <td key={index}>{formatPrice(priceHit)} acs</td>;
+                    })}
                 </tr>
                 <tr>
-                    <td colSpan={2}>Az összes találatra összesen kifizetendő összeg:</td>
-                    <td colSpan={2}>{formatPrice(0)} Akcse</td>
+                    <td colSpan={3} className={style.tdBorder}> Az összes szelvény után járó bevétel:</td>
+                    <td colSpan={1} className={style.tdBorder}> {formatPrice(adminStatement.ticketIncomeSum)} Akcse</td>
                 </tr>
                 <tr>
-                    <td colSpan={2}>Az üzemeltető nyeresége:</td>
-                    <td colSpan={2}>{formatPrice(0)} Akcse</td>
+                    <td colSpan={3}>Az összes találatra összesen kifizetendő összeg:</td>
+                    <td colSpan={1}>{formatPrice(sumByKey(lottoLutteryNumberStatistics, "ticketValue"))} Akcse</td>
+                </tr>
+                <tr>
+                    <td colSpan={3}>Az üzemeltető nyeresége:</td>
+                    <td colSpan={1}>{formatPrice(adminStatement.profitValue)} Akcse</td>
                 </tr>
             </tbody>
         </table>
@@ -78,5 +71,3 @@ const AdminLottoStatement: React.FC = () => {
 }
 
 export default AdminLottoStatement;
-
-//{formatPrice(sumByKey(lottoLutteryNumberStatistics, "ticketValue"))} Akcse
