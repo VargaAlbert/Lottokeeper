@@ -1,4 +1,5 @@
 @use "../../scss/variable.scss";
+@use "../../scss/ancestorStyle.scss";
 
 .mainContainer {
     width: 100%;
@@ -21,23 +22,11 @@
     gap: 2rem;
 }
 
-.adminControlContainer {
-    background-color: floralwhite;
-    border-radius: 0.5rem;
-    @include variable.flexBox(column, nowrap, center, center, center);
-    gap: 1rem;
-    width: 250px;
-}
-
-.balanceMainContainer {
-    @include variable.flexBox(row, wrap, normal, space-evenly, normal);
-}
-
 .profileContainer {
     min-width: 240px;
     width: calc(100% - 1rem);
     max-width: 560px;
-    height: 120px;
+
     padding: 0.5rem;
     border-radius: 0.5rem;
     background-image: radial-gradient(
@@ -49,14 +38,15 @@
     .iconContainer {
         width: 100%;
         height: auto;
-        @include variable.flexBox(row, nowrap, normal, space-evenly, normal);
+        @include variable.flexBox(row, nowrap, normal, space-between, flex-end);
         margin-bottom: 1.5rem;
 
         [type="text"] {
-            width: 60%;
-            height: 100%;
+            width: 90%;
+            height: 2rem;
             background: none;
-            border: none;
+            border: 3px solid variable.$color-font-lotteryTicket;
+            border-radius: 0.5rem;
             outline: none;
             text-align: center;
             color: variable.$color-basic-black;
@@ -71,8 +61,23 @@
                 appearance: none;
             }
         }
-        .icon {
-            font-size: variable.$size-r20;
+
+        .iconCont {
+            width: 50px;
+            @include variable.flexBox(column, nowrap, normal, space-evenly, center);
+            font-weight: variable.$weights-9;
+            .icon {
+                font-size: variable.$icon-r20;
+            }
+        }
+
+        .nameInputCont {
+            @include variable.flexBox(column, nowrap, normal, normal, flex-start);
+            gap: 0.5rem;
+
+            label {
+                text-align: start;
+            }
         }
     }
 
@@ -82,32 +87,108 @@
         font-weight: variable.$weights-7;
         font-size: variable.$size-r10;
         margin-bottom: 0.5rem;
-        border-bottom: 2px solid black;
+        //border-bottom: 2px solid variable.$color-font-lotteryTicket;
+    }
+
+    .balanceMainContainer {
+        padding: 0.25rem;
+        @include variable.flexBox(column, wrap, normal, space-evenly, normal);
+        border: 2px solid variable.$color-font-lotteryTicket;
+        border-radius: 0.5rem;
     }
 
     .balanceContainer {
-        @include variable.flexBox(row, nowrap, center, flex-end, center);
+        @include variable.flexBox(row, nowrap, center, space-between, center);
         font-weight: variable.$weights-7;
         font-size: variable.$size-r10 + 0.2rem;
-        .akcse {
+
+        .title {
+            width: 160px;
             padding-left: 1rem;
+            text-align: start;
         }
     }
 }
 
-.tippContainer {
-    grid-template-columns: repeat(8, 1fr);
+.adminControlContainer {
     width: 250px;
-}
-
-.lotteryListContainer {
-    width: 60%;
-    height: 685px;
+    @include variable.flexBox(column, nowrap, center, center, center);
+    gap: 4rem;
     border-radius: 0.5rem;
-    background-color: floralwhite;
-    overflow-x: scroll;
-    overflow-y: auto;
-    padding: 1rem;
-    @include variable.flexBox(column, nowrap, normal, normal, normal);
-    gap: 1.5rem;
+    background-image: radial-gradient(
+        100% 100% at 100% 0,
+        variable.$color-background-main1 0,
+        variable.$color-background-main2 100%
+    );
+
+    .generateTicketContainer {
+        width: 70%;
+        @include variable.flexBox(row, wrap, normal, center, normal);
+        gap: 1rem;
+
+        label {
+            font-weight: bold;
+        }
+
+        [type="number"] {
+            width: 100%;
+            height: 1.5rem;
+            border: 3px solid variable.$color-font-lotteryTicket;
+            border-radius: 0.5rem;
+            outline: none;
+            color: variable.$color-basic-black;
+            line-height: 0.5rem;
+            cursor: pointer;
+            font-weight: variable.$weights-5;
+            font-size: variable.$size-r10;
+
+            &::-webkit-inner-spin-button,
+            &::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                appearance: none;
+            }
+        }
+    }
+
+    .startGenerateCont {
+        width: 100%;
+        @include variable.flexBox(row, wrap, normal, space-evenly, center);
+
+        button {
+            @include ancestorStyle.mainButton;
+            height: 2rem;
+            font-size: variable.$size-r10;
+        }
+
+        .icon {
+            font-size: variable.$icon-r15;
+
+            &:hover {
+                color: variable.$color-hover-icon;
+            }
+        }
+    }
+
+    .btnContainer {
+        width: 70%;
+        height: 10rem;
+        @include variable.flexBox(row, wrap, normal, space-between, center);
+
+        button {
+            @include ancestorStyle.mainButton;
+            width: 100%;
+            font-size: variable.$size-r10;
+        }
+
+        .reset {
+            background-image: none;
+            background-color: gray;
+            color: #adadad;
+
+            &:hover {
+                background-color: rgb(196, 66, 66);
+                color: white;
+            }
+        }
+    }
 }
