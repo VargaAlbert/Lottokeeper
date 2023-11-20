@@ -19,6 +19,13 @@ type LottoProviderProps = {
     children: ReactNode;
 };
 
+type divideNumber = {
+    hit5: number;
+    hit4: number;
+    hit3: number;
+    hit2: number;
+};
+
 export type lotteryTicket = {
     owner: string;
     lottoId: number,
@@ -35,12 +42,17 @@ type dataBase = {
 
 interface LottoContextProps {
 
+    sumByKey: <T extends Record<string, any>>(inputArray: T[], objKey: keyof T) => number;
+
     lottoLutteryNumber: lotteryTicket[];
     lottoLutteryNumberStatistics: lotteryTicket[];
     dataBase: dataBase[];
+    adminStatement: divideNumber;
 
     setAdminGenerateTicket: React.Dispatch<React.SetStateAction<string>>;
     setUserSort: React.Dispatch<React.SetStateAction<boolean>>;
+
+
 
     handleInputChange: (event: ChangeEvent<HTMLInputElement>, id: string) => void;
     handleBlurChange: (event: ChangeEvent<HTMLInputElement>, id: string) => void;
@@ -58,7 +70,6 @@ interface LottoContextProps {
 
     lottoNumbers: number[];
     LotteryTicketGridNumbers: number[];
-
     totalWinnings: number;
     adminGenerateTicket: string;
     userSort: boolean;
@@ -97,6 +108,12 @@ const baseDataBasee: dataBase[] = [
     { id: USER_ID, name: "user", usd: START_AKCSE_USER }
 ];
 
+const initialDivideNumberState: divideNumber = {
+    hit5: 0,
+    hit4: 0,
+    hit3: 0,
+    hit2: 0,
+};
 /* -----------------totto contanst--------------------- */
 
 export const LottoProvider: React.FC<LottoProviderProps> = ({
@@ -109,6 +126,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     const [lottoLutteryNumberStatistics, setlottoLutteryNumberStatistics] = useLocalStorage<lotteryTicket[]>("lottoLutteryNumberStatistics", []); //lottoLutteryNumber copy
 
     const [lottoNumbers, setlottoNumbers] = useLocalStorage<number[]>("lottoNumbers", []); //winning numbers
+    const [adminStatement, setAdminStatement] = useLocalStorage<divideNumber>("adminStatement", (initialDivideNumberState)); //winning numbers
 
     const [adminGenerateTicket, setAdminGenerateTicket] = useState("")
     const [totalWinnings, setTotalWinnings] = useState<number>(0)
@@ -248,14 +266,6 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     /* -------------NYEREMÉNY MEGHATÁROZÁSA------------ */
 
-    type divideNumber = {
-        hit5: number;
-        hit4: number;
-        hit3: number;
-        hit2: number;
-    };
-
-
     const divideAndDistribute = (number: number, data: lotteryTicket[]): divideNumber => {
 
         //találatok darabszámának kigyüjtése.
@@ -314,6 +324,10 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         }
     }
 
+    function sumByKey<T extends Record<string, any>>(inputArray: T[], objKey: keyof T): number {
+        return inputArray.reduce((acc, ticket) => acc + (ticket[objKey] || 0), 0);
+    }
+
     //setting database random ticket & admin akcse
     const startGenerateAdminLotteryTicket = () => {
         generateAdminLotteryTicket(Number(adminGenerateTicket), addLotteryNumber())
@@ -363,9 +377,10 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
         const distributedHits = divideAndDistribute(prizePool, updatedLotto)
 
-        const sumDivideNumbers = (obj: divideNumber): number => {
-            return Object.values(obj).reduce((acc, curr) => acc + curr, 0);
-        };
+        setAdminStatement(distributedHits);
+        /* const sumDivideNumbers = (obj: divideNumber): number => {
+           return Object.values(obj).reduce((acc, curr) => acc + curr, 0);
+       }; */
 
         const updatedLottoValue = updatedLotto.map((ticket) => {
             switch (ticket.hits.length) {
@@ -422,6 +437,9 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         totalWinnings,
         resetGame,
         lottoLutteryNumberStatistics,
+        sumByKey,
+        adminStatement
+
     };
 
     return (

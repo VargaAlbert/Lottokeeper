@@ -12,6 +12,7 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
         lottoNumbers,
         lottoLutteryNumberStatistics,
         calculateTotalTicketValueById,
+        sumByKey,
         formatPrice
     } = useLottoContext();
 
@@ -80,7 +81,7 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
         if (id) {
             return (formatPrice(calculateTotalTicketValueById(lottoLutteryNumberStatistics, id)));
         } else {
-            return (formatPrice(lottoLutteryNumberStatistics.reduce((acc, ticket) => acc + (ticket.ticketValue || 0), 0)));
+            return (formatPrice(sumByKey(lottoLutteryNumberStatistics, "ticketValue")));//ticketValue
         }
     }
 
