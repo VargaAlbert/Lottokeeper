@@ -75,6 +75,8 @@ export const TICKET_PRICE: number = 500;
 
 export const USER_ID: string = "user";
 export const ADMIN_ID: string = "admin";
+const PROFIT_ID: string = "profit";
+const COLLECTOR_ID: string = "collector";
 
 const START_AKCSE_USER: number = 10_000;
 const START_AKCSE_ADMIN: number = 0;
@@ -89,10 +91,10 @@ const baseLottoDatabase: lotteryTicket = {
 };
 
 const baseDataBasee: dataBase[] = [
-    { id: "collector", name: "prize_fund", usd: START_PRIZE_FUND },
-    { id: "profit", name: "profit", usd: 0 },
-    { id: "admin", name: "admin", usd: START_AKCSE_ADMIN },
-    { id: "user", name: "user", usd: START_AKCSE_USER }
+    { id: COLLECTOR_ID, name: "prize_fund", usd: START_PRIZE_FUND },
+    { id: PROFIT_ID, name: "profit", usd: 0 },
+    { id: ADMIN_ID, name: "admin", usd: START_AKCSE_ADMIN },
+    { id: USER_ID, name: "user", usd: START_AKCSE_USER }
 ];
 
 /* -----------------totto contanst--------------------- */
@@ -270,7 +272,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
         //profit elosztása és kiutalása.
         const profitValue: number = Math.round((number * 1) / 100);
-        moneyTransaction("collector", profitValue, "profit")
+        moneyTransaction(COLLECTOR_ID, profitValue, PROFIT_ID)
 
         const distributedHits = {
             hit5: hitsCounts[5] > 0 ? Math.round(hit5 / hitsCounts[5]) : 0,
@@ -307,7 +309,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             return 0;
         } else {
             counter--;
-            setLottoObject("admin", addLotteryNumber())
+            setLottoObject(ADMIN_ID, addLotteryNumber())
             return generateAdminLotteryTicket(counter, adminTicket);
         }
     }
@@ -317,7 +319,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         generateAdminLotteryTicket(Number(adminGenerateTicket), addLotteryNumber())
         setDataBase((prevDatabase) => {
             const updatedDatabase = prevDatabase.map((item) => {
-                if (item.id === "collector") {
+                if (item.id === COLLECTOR_ID) {
                     return {
                         ...item, usd: item.usd + Number(adminGenerateTicket) * TICKET_PRICE
                     };
@@ -335,7 +337,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         return totalTicketValue;
     }
 
-    const prizePool = getMoney("collector");
+    const prizePool = getMoney(COLLECTOR_ID);
 
     useEffect(() => {
         setTotalWinnings(prizePool);
@@ -380,8 +382,8 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             }
         });
 
-        moneyTransaction("collector", calculateTotalTicketValueById(updatedLottoValue, "admin"), "admin")
-        moneyTransaction("collector", calculateTotalTicketValueById(updatedLottoValue, "user"), "user")
+        moneyTransaction(COLLECTOR_ID, calculateTotalTicketValueById(updatedLottoValue, ADMIN_ID), ADMIN_ID)
+        moneyTransaction(COLLECTOR_ID, calculateTotalTicketValueById(updatedLottoValue, USER_ID), USER_ID)
 
         setlottoLutteryNumberStatistics(updatedLottoValue)
 

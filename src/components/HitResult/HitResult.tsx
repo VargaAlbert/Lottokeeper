@@ -137,7 +137,7 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
                     </td>
                     <td colSpan={1}>
                         <span>
-                            {sumTSX()}
+                            {sumTSX()} Akcse
                         </span>
                     </td>
                 </tr>
