@@ -38,7 +38,7 @@
     .iconContainer {
         width: 100%;
         height: auto;
-        @include variable.flexBox(row, nowrap, normal, space-between, flex-end);
+        @include variable.flexBox(row, nowrap, normal, space-around, flex-end);
         margin-bottom: 1.5rem;
 
         [type="text"] {
@@ -87,7 +87,6 @@
         font-weight: variable.$weights-7;
         font-size: variable.$size-r10;
         margin-bottom: 0.5rem;
-        //border-bottom: 2px solid variable.$color-font-lotteryTicket;
     }
 
     .balanceMainContainer {

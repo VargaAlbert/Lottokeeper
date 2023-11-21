@@ -16,7 +16,7 @@ const LotteryTicketList: React.FC<Props> = ({ id }) => {
         if (id) {
             setLotteryTicketList(lottoLutteryNumber.filter((Ticket) => Ticket.owner === id));
         } else {
-            setLotteryTicketList(lottoLutteryNumber.filter((Ticket) => Ticket.lottoId > 0).sort());
+            setLotteryTicketList(lottoLutteryNumber.filter((Ticket) => Ticket.lottoId > 0).sort((b, a) => a.owner.localeCompare(b.owner)));
         }
     }, [lottoLutteryNumber]);
 

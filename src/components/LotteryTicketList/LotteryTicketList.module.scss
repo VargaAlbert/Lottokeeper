@@ -46,6 +46,7 @@
         width: 25px;
         height: 25px;
         background-color: variable.$color-background-lotteryNumber;
+        border: 1px solid variable.$color-font-lotteryTicket;
         border-radius: 50%;
         @include variable.flexBox(row, nowrap, center, center, center);
         font-weight: variable.$weights-5;

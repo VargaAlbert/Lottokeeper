@@ -23,13 +23,21 @@ const UserPage: React.FC = () => {
                 <div className={style.controlContainer}>
                     <div className={style.profileContainer}>
                         <div className={style.iconContainer}>
-                            <FaUser className={style.icon} />
-                            <input type="text"
-                                onChange={(e) => { handleInputChange(e, "user") }}
-                                onBlur={(e) => { handleBlurChange(e, "user") }}
-                                placeholder="Irj egy nevet."
-                                value={setValue("user")}>
-                            </input>
+                            <div className={style.iconCont}>
+                                <FaUser className={style.icon} />
+                                User
+                            </div>
+                            <div className={style.nameInputCont}>
+                                <label htmlFor="customName">
+                                    Felhasználónév:
+                                </label>
+                                <input type="text"
+                                    onChange={(e) => { handleInputChange(e, "user") }}
+                                    onBlur={(e) => { handleBlurChange(e, "user") }}
+                                    placeholder="Irj egy nevet."
+                                    value={setValue("user")}>
+                                </input>
+                            </div>
                         </div>
                         <div>
                             <p>Account balance</p>

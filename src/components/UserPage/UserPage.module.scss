@@ -25,7 +25,6 @@
     min-width: 240px;
     width: calc(100% - 1rem);
     max-width: 560px;
-    height: 120px;
     padding: 0.5rem;
     border-radius: 0.5rem;
     background-image: radial-gradient(
@@ -37,14 +36,24 @@
     .iconContainer {
         width: 100%;
         height: auto;
-        @include variable.flexBox(row, nowrap, normal, space-evenly, normal);
+        @include variable.flexBox(row, nowrap, normal, space-around, center);
         margin-bottom: 1.5rem;
 
+        .iconCont {
+            width: 50px;
+            @include variable.flexBox(column, nowrap, normal, space-evenly, flex-end);
+            font-weight: variable.$weights-9;
+            .icon {
+                font-size: variable.$icon-r20;
+            }
+        }
+
         [type="text"] {
-            width: 60%;
-            height: 100%;
+            width: 95%;
+            height: 2rem;
             background: none;
-            border: none;
+            border: 3px solid variable.$color-font-lotteryTicket;
+            border-radius: 0.5rem;
             outline: none;
             text-align: center;
             color: variable.$color-basic-black;
@@ -64,19 +73,31 @@
         }
     }
 
+    .nameInputCont {
+        @include variable.flexBox(column, nowrap, normal, normal, flex-start);
+        gap: 0.5rem;
+
+        label {
+            text-align: start;
+        }
+    }
+
     p {
         text-align: center;
         margin: 0;
         font-weight: variable.$weights-7;
         font-size: variable.$size-r10;
         margin-bottom: 0.5rem;
-        border-bottom: 2px solid black;
     }
 
     .balanceContainer {
+        padding: 0.25rem;
         @include variable.flexBox(row, nowrap, center, flex-end, center);
         font-weight: variable.$weights-7;
         font-size: variable.$size-r10 + 0.2rem;
+        border: 2px solid variable.$color-font-lotteryTicket;
+        border-radius: 0.5rem;
+
         .akcse {
             padding-left: 1rem;
         }
