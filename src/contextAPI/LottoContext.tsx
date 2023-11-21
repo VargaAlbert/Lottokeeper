@@ -137,7 +137,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         "lottoLutteryNumberStatistics", []
     ); //lottoLutteryNumber copy
     const [winningNumbers, setWinningNumbers] = useLocalStorage<number[]>(
-        "winningNumbers", []
+        "winningNumbers", initZeroArrsy
     ); //setWinningNumbers
     const [adminStatement, setAdminStatement] = useLocalStorage<drawingResults>(
         "adminStatement", initialdrawingResultsState
@@ -360,8 +360,17 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     //START LOTTERY
     const startLottery = (): void => {
 
+
         const winNumbers = addLotteryNumber();
-        setWinningNumbers(winNumbers);
+
+        const winNumbersRender = [...winNumbers, winningNumbers[5] + 1];
+
+        setWinningNumbers(
+            winNumbersRender
+        );
+
+
+
         setTotalWinnings(prizePool);
 
         const data = [...lottoLutteryNumber]
