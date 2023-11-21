@@ -96,7 +96,15 @@ const START_AKCSE_USER: number = 100_000;
 const START_AKCSE_ADMIN: number = 0;
 const START_PRIZE_FUND: number = 0;
 
-
+/* --hit-price%-- */
+//! (ALL HIT & PROFIT)SUM === 100 //!
+const HIT_0 = 0;
+const HIT_1 = 0;
+const HIT_2 = 6;
+const HIT_3 = 12;
+const HIT_4 = 28;
+const HIT_5 = 52;
+const PROFIT = 2
 /* ---init-data--- */
 
 //name, akcse, money movement
@@ -316,7 +324,8 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     /* --drawingResults-operations-- */
 
     const divideAndDistribute = (number: number, data: lotteryTicket[]): drawingResults => {
-        const winningPercentages = [0, 0, 6, 13, 26, 54];
+
+        const winningPercentages = [HIT_0, HIT_1, HIT_2, HIT_3, HIT_4, HIT_5];
 
         const hitsCounts: number[] = new Array(6).fill(0);
 
@@ -342,7 +351,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             return count ? priceTicket[index] * count : 0;
         });
 
-        const profitValue: number = Math.round((number * 1) / 100);
+        const profitValue: number = Math.round((number * PROFIT) / 100);
         moneyTransaction(COLLECTOR_ID, profitValue, PROFIT_ID);
 
         const ticketIncomeSum = (data.length - 1) * TICKET_PRICE
@@ -370,7 +379,6 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     //START LOTTERY
     const startLottery = (): void => {
-
 
         const winNumbers = addLotteryNumber();
 

@@ -1,5 +1,5 @@
+import { useLottoContext } from "../../contextAPI/LottoContext";
 import style from "./Home.module.scss";
-import { useLottoContext, LOTTERY_NUMBER } from "../../contextAPI/LottoContext";
 
 const Home: React.FC = () => {
 

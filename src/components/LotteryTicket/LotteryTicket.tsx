@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useLottoContext, LOTTERY_NUMBER } from "../../contextAPI/LottoContext";
+import { FaArrowRotateLeft, FaComputer } from "react-icons/fa6";
+
 import xImg from "../../img/x.png"
 import style from "./LotteryTicket.module.scss";
-import { FaArrowRotateLeft, FaComputer } from "react-icons/fa6";
 
 type Props = {
     id: string
@@ -19,8 +20,6 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
     } = useLottoContext();
 
     const [lotteryNumbers, setLotteryNumbers,] = useState<number[]>([]);
-
-
 
     const addNumber = (lotteryNumber: number) => {
         setLotteryNumbers((prevNumbers) => {
@@ -82,7 +81,6 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
         <section className={style.mainContainer}>
             <div className={style.ticketHead} >
                 <h2>Lottery Ticket</h2>
-
             </div>
             <div className={style.numberContainer}>
                 {LotteryTicketGridNumbers.map((number) => {

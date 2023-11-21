@@ -1,16 +1,11 @@
-import style from "./Lottery.module.scss";
 import { useLottoContext } from "../../contextAPI/LottoContext";
-import { match } from "assert";
+import style from "./Lottery.module.scss";
 
 const Lottery: React.FC = () => {
 
     const { winningNumbers } = useLottoContext();
 
-    console.log(winningNumbers)
-
     const key = winningNumbers.luttery;
-
-    //const render = winningNumbers.winningNumbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
     return (
         <section className={style.mainContainer}>

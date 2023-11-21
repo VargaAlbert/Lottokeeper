@@ -8,7 +8,7 @@ import {
     LOTTERY_NUMBER
 } from "./LottoContext";
 
-test.each(Array.from({ length: 10 }, (_, index) => index))(
+test.each(Array.from({ length: 100 }, (_, index) => index))(
     "Lottery valide numbers",
     () => {
         const TestComponent: React.FC = () => {

@@ -1,4 +1,4 @@
-import { useLottoContext } from "../../contextAPI/LottoContext";
+import { useLottoContext, USER_ID } from "../../contextAPI/LottoContext";
 import { FaUser } from "react-icons/fa6";
 
 import LotteryTicket from "../LotteryTicket/LotteryTicket";
@@ -17,6 +17,8 @@ const UserPage: React.FC = () => {
         formatPrice
     } = useLottoContext();
 
+    const id = USER_ID;
+
     return (
         <section className={style.mainContainer}>
             <div className={style.container}>
@@ -32,28 +34,28 @@ const UserPage: React.FC = () => {
                                     Felhasználónév:
                                 </label>
                                 <input type="text"
-                                    onChange={(e) => { handleInputChange(e, "user") }}
-                                    onBlur={(e) => { handleBlurChange(e, "user") }}
+                                    onChange={(e) => { handleInputChange(e, id) }}
+                                    onBlur={(e) => { handleBlurChange(e, id) }}
                                     placeholder="Irj egy nevet."
-                                    value={setValue("user")}>
+                                    value={setValue(id)}>
                                 </input>
                             </div>
                         </div>
                         <div>
                             <p>Account balance</p>
                             <div className={style.balanceContainer}>
-                                <div className={style.balance}>{formatPrice(getMoney("user"))}</div>
+                                <div className={style.balance}>{formatPrice(getMoney(id))}</div>
                                 <div className={style.akcse}>Akcse</div>
                             </div>
                         </div>
                     </div>
                     <div className={style.tippContainer}>
-                        <LotteryTicket id={"user"} />
+                        <LotteryTicket id={id} />
                     </div>
-                    <LotteryTicketList id={"user"} />
+                    <LotteryTicketList id={id} />
                 </div>
                 <div className={style.tableContainer}>
-                    <UserHitResult id={"user"} />
+                    <UserHitResult id={id} />
                 </div>
             </div>
         </section>

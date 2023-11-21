@@ -1,14 +1,15 @@
-import style from "./AdminPage.module.scss";
-import { FaUser, FaAddressCard, FaArrowRotateLeft } from "react-icons/fa6";
+import { useLottoContext, ADMIN_ID } from "../../contextAPI/LottoContext";
+import { FaUser, FaArrowRotateLeft } from "react-icons/fa6";
 
-import { useLottoContext } from "../../contextAPI/LottoContext";
 import LotteryTicketList from "../LotteryTicketList/LotteryTicketList";
 import HitResult from "../HitResult/HitResult";
 import AdminLottoStatement from "./AdminLottoStatement/AdminLottoStatement";
 
+import style from "./AdminPage.module.scss";
+
 const AdminPage: React.FC = () => {
 
-    const id = "admin"
+    const id = ADMIN_ID
 
     const {
         startLottery,
@@ -27,9 +28,7 @@ const AdminPage: React.FC = () => {
     return (
         <section className={style.mainContainer}>
             <div className={style.container}>
-
                 <div className={style.controlContainer}>
-
                     <div className={style.profileContainer}>
                         <div className={style.iconContainer}>
                             <div className={style.iconCont}>
@@ -72,7 +71,6 @@ const AdminPage: React.FC = () => {
                             </div>
                         </div>
                     </div>
-
                     <div className={style.adminControlContainer}>
                         <div className={style.generateTicketContainer}>
                             <label htmlFor="generet-num">Szelvény generálás db:</label>
@@ -105,11 +103,9 @@ const AdminPage: React.FC = () => {
                     <AdminLottoStatement />
 
                 </div>
-
                 <div className={style.tableContainer}>
                     <HitResult id={""} />
                 </div>
-
             </div >
         </section>
     );

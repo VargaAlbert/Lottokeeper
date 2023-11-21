@@ -7,23 +7,18 @@ const Header = () => {
     return (
         <header>
             <section className={style.mainContainer} >
-
                 <div className={style.logoContainer}>
                     <img className={style.logo} src={logo} alt="Lottokeeper-logo" />
                 </div>
-
                 <nav>
-
                     <Link className={style.navCategory} to="/UserPage">
                         <FaUser className={style.icon} />
                         User Page
                     </Link>
-
                     <Link className={style.navCategory} to="/AdminPage">
                         <FaAddressCard className={style.icon} />
                         Admin Page
                     </Link>
-
                 </nav>
             </section>
         </header>

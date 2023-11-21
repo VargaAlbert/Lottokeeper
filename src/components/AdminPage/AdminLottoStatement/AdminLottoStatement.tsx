@@ -1,5 +1,5 @@
-import style from "./AdminLottoStatement.module.scss";
 import { useLottoContext } from "../../../contextAPI/LottoContext";
+import style from "./AdminLottoStatement.module.scss";
 
 const AdminLottoStatement: React.FC = () => {
 
@@ -40,7 +40,6 @@ const AdminLottoStatement: React.FC = () => {
                         return <td key={index}>{formatPrice(priceHit)} acs</td>;
                     })}
                 </tr>
-
                 <tr>
                     <th colSpan={4}>Az egyes találatokra összesen kifizetendő nyeremény:</th>
                 </tr>
@@ -68,7 +67,6 @@ const AdminLottoStatement: React.FC = () => {
                 </tr>
             </tbody>
         </table>
-
     );
 }
 
