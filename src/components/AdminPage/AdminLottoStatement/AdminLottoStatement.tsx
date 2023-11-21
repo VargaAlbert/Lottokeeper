@@ -8,6 +8,7 @@ const AdminLottoStatement: React.FC = () => {
         sumByKey,
         adminStatement,
         formatPrice,
+        winningNumbers
     } = useLottoContext();
 
     const tableData = [
@@ -18,10 +19,11 @@ const AdminLottoStatement: React.FC = () => {
     ]
 
     return (
-        <table className={style.mainContainer}>
+        <table className={style.adminTable}>
             <thead>
                 <tr>
-                    <th colSpan={4}>Kimutatás</th>
+                    <th colSpan={2}>Kimutatás</th>
+                    <th colSpan={2}>A {winningNumbers.luttery}. Játék statisztikája</th>
                 </tr>
             </thead>
             <tbody>

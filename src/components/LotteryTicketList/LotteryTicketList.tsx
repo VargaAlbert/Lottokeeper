@@ -49,13 +49,13 @@ const LotteryTicketList: React.FC<Props> = ({ id }) => {
         if (id) {
             return (
                 <div className={style.lotteryListContainer}>
-                    Még nem adtál fel szelvéynt!
+                    <h3>Még nem adtál fel szelvéynt!</h3>
                 </div>
             );
         } else {
             return (
                 <div className={style.lotteryListContainer}>
-                    Még nem adtak fel szelvéynt!
+                    <h3>Még nincs szelvény fel adva!</h3>
                 </div>
             )
         }

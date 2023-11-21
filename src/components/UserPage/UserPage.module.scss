@@ -121,13 +121,27 @@
     gap: 1.5rem;
 }
 
+.tableContainer {
+    width: 100%;
+}
+
 @include variable.Small {
+    .tableContainer {
+        width: 80%;
+        max-width: 565px;
+    }
 }
 @include variable.Medium {
 }
 @include variable.Large {
 }
 @include variable.Extra-large {
+    .tableContainer {
+        max-height: 940px;
+        width: 80%;
+        max-width: 565px;
+        overflow: auto;
+    }
 }
 @include variable.XXL-large {
 }

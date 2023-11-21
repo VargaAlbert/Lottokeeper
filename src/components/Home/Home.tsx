@@ -11,7 +11,10 @@ const Home: React.FC = () => {
     return (
         <section className={style.mainContainer}>
             <div className={style.container}>
-                <h1>Össznyeremény: {formatPrice(totalWinnings)} Akcse</h1>
+                <div className={style.homeTitle}>
+                    <h1>Össznyeremény:</h1>
+                    <h2>{formatPrice(totalWinnings)} Akcse</h2>
+                </div>
             </div>
         </section>
     );

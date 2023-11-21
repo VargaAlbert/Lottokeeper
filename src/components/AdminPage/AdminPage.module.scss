@@ -26,7 +26,6 @@
     min-width: 240px;
     width: calc(100% - 1rem);
     max-width: 560px;
-
     padding: 0.5rem;
     border-radius: 0.5rem;
     background-image: radial-gradient(
@@ -190,4 +189,31 @@
             }
         }
     }
+}
+
+.tableContainer {
+    width: 100%;
+}
+
+@include variable.Small {
+    .tableContainer {
+        width: 80%;
+        max-width: 565px;
+    }
+}
+@include variable.Medium {
+}
+@include variable.Large {
+}
+@include variable.Extra-large {
+    .tableContainer {
+        max-height: 1278px;
+        width: 80%;
+        max-width: 565px;
+        overflow: auto;
+    }
+}
+@include variable.XXL-large {
+}
+@include variable.XXXL-large {
 }

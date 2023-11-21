@@ -8,7 +8,7 @@ type Props = {
     id: string
 }
 
-const UserHitResult: React.FC<Props> = ({ id }) => {
+const HitResult: React.FC<Props> = ({ id }) => {
     const {
         winningNumbers,
         lottoLutteryNumberStatistics,
@@ -90,7 +90,7 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
 
 
     return (
-        <table className={style.mainContainer}>
+        <table className={style.mainTable}>
             <thead>
                 <tr >
                     {entries.map(([key, value]) => {
@@ -117,7 +117,7 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
                         <td>{ticket.owner}</td>
                         <td className={style.lotteryNumberContainer}>
                             {ticket.LotteryNumbers.sort((a, b) => a - b).map((number) => (
-                                winningNumbers.includes(number) ? (
+                                winningNumbers.winningNumbers.includes(number) ? (
                                     <div key={number} className={style.lotteryHitNumber}>
                                         {`${number},`}
                                     </div>
@@ -149,4 +149,4 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
     );
 }
 
-export default UserHitResult;
+export default HitResult;

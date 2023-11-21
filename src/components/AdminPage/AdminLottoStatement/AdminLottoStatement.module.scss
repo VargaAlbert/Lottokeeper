@@ -1,12 +1,50 @@
 @use "../../../scss/variable.scss";
 
-.mainContainer {
+.adminTable {
+    border-collapse: collapse;
     width: 100%;
-    background-image: radial-gradient(
-        100% 100% at 100% 0,
-        variable.$color-background-main1 0,
-        variable.$color-background-main2 100%
-    );
+
+    thead {
+        font-size: variable.$size-r10 + 0.1;
+        border-bottom: 2px solid black;
+        background-image: radial-gradient(
+            100% 100% at 100% 0,
+            variable.$color-background-main1 0,
+            variable.$color-background-main2 100%
+        );
+    }
+
+    tbody {
+        font-weight: variable.$weights-6;
+
+        tr:nth-child(even) {
+            background-color: #fcff5a;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffe054;
+        }
+
+        td {
+            padding: 0.1rem;
+        }
+    }
+
+    tfoot {
+        height: 50px;
+        border-top: 2px solid black;
+        font-weight: variable.$weights-9;
+        font-size: variable.$size-r10 + 0.2;
+        background-image: radial-gradient(
+            100% 100% at 100% 0,
+            variable.$color-background-main1 0,
+            variable.$color-background-main2 100%
+        );
+
+        td {
+            padding: 0 0 0 2rem;
+        }
+    }
 }
 
 .tdnn {

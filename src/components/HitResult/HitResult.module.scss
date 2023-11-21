@@ -1,7 +1,8 @@
 @use "../../scss/variable.scss";
 
-table {
+.mainTable {
     width: 100%;
+    max-width: 600px;
     border-collapse: collapse;
 
     thead {
@@ -84,6 +85,16 @@ table {
 @include variable.Large {
 }
 @include variable.Extra-large {
+    .mainTable {
+        thead {
+            position: sticky;
+            top: 0;
+        }
+        tfoot {
+            position: sticky;
+            bottom: 0;
+        }
+    }
 }
 @include variable.XXL-large {
 }

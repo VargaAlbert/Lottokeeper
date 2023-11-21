@@ -52,7 +52,9 @@ const UserPage: React.FC = () => {
                     </div>
                     <LotteryTicketList id={"user"} />
                 </div>
-                <UserHitResult id={"user"} />
+                <div className={style.tableContainer}>
+                    <UserHitResult id={"user"} />
+                </div>
             </div>
         </section>
     );

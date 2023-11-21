@@ -3,7 +3,7 @@ import { FaUser, FaAddressCard, FaArrowRotateLeft } from "react-icons/fa6";
 
 import { useLottoContext } from "../../contextAPI/LottoContext";
 import LotteryTicketList from "../LotteryTicketList/LotteryTicketList";
-import UserHitResult from "../HitResult/HitResult";
+import HitResult from "../HitResult/HitResult";
 import AdminLottoStatement from "./AdminLottoStatement/AdminLottoStatement";
 
 const AdminPage: React.FC = () => {
@@ -104,10 +104,12 @@ const AdminPage: React.FC = () => {
 
                     <AdminLottoStatement />
 
-
                 </div>
 
-                <UserHitResult id={""} />
+                <div className={style.tableContainer}>
+                    <HitResult id={""} />
+                </div>
+
             </div >
         </section>
     );

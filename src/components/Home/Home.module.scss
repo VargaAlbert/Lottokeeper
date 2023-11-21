@@ -8,12 +8,22 @@
 }
 
 .container {
-    height: 100%;
     @include variable.container-my;
-    @include variable.flexBox(row, nowrap, center, center, center);
+}
+
+.homeTitle {
+    height: 5rem;
+    margin-top: 1rem;
 
     h1 {
+        margin: 0;
         color: variable.$color-font-white;
-        font-size: variable.$size-r30;
+        font-size: variable.$size-r25;
+    }
+
+    h2 {
+        margin: 0;
+        color: variable.$color-font-white;
+        font-size: variable.$size-r35;
     }
 }
