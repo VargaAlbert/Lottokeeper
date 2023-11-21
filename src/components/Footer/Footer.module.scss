@@ -1,1 +1,7 @@
 @use "../../scss/variable.scss";
+
+.mainContainer {
+    width: 100%;
+    height: 10rem;
+    background-color: variable.$color-main-background-footer;
+}

@@ -97,14 +97,14 @@ const START_AKCSE_ADMIN: number = 0;
 const START_PRIZE_FUND: number = 0;
 
 /* --hit-price%-- */
-//! (ALL HIT & PROFIT)SUM === 100 //!
-const HIT_0 = 0;
-const HIT_1 = 0;
-const HIT_2 = 6;
-const HIT_3 = 12;
-const HIT_4 = 28;
-const HIT_5 = 52;
-const PROFIT = 2
+//! (HIT_ALL + PROFIT)SUM === 100 //!
+const HIT_0 = 0;//%
+const HIT_1 = 0;//%
+const HIT_2 = 6;//%
+const HIT_3 = 12;//%
+const HIT_4 = 28;//%
+const HIT_5 = 52;//%
+const PROFIT = 2;//%
 /* ---init-data--- */
 
 //name, akcse, money movement
@@ -253,6 +253,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     }
     /* --dataBaseAkcse-money-function--end-- */
+
 
     /* --lotteryTicket-data-base-operations--*/
 
