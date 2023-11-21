@@ -10,7 +10,7 @@ type Props = {
 
 const UserHitResult: React.FC<Props> = ({ id }) => {
     const {
-        lottoNumbers,
+        winningNumbers,
         lottoLutteryNumberStatistics,
         calculateTotalTicketValueById,
         sumByKey,
@@ -117,7 +117,7 @@ const UserHitResult: React.FC<Props> = ({ id }) => {
                         <td>{ticket.owner}</td>
                         <td className={style.lotteryNumberContainer}>
                             {ticket.LotteryNumbers.sort((a, b) => a - b).map((number) => (
-                                lottoNumbers.includes(number) ? (
+                                winningNumbers.includes(number) ? (
                                     <div key={number} className={style.lotteryHitNumber}>
                                         {`${number},`}
                                     </div>

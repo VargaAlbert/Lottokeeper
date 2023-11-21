@@ -3,7 +3,7 @@ import { useLottoContext } from "../../contextAPI/LottoContext";
 
 const Lottery: React.FC = () => {
 
-    const { lottoNumbers } = useLottoContext();
+    const { winningNumbers } = useLottoContext();
 
     return (
         <section className={style.mainContainer}>
@@ -11,7 +11,7 @@ const Lottery: React.FC = () => {
 
                 <h2>Nyeröszámok:</h2>
                 <div className={style.lotteryNumberContainer}>
-                    {lottoNumbers.sort((a, b) => a - b).map((number) => {
+                    {winningNumbers.sort((a, b) => a - b).map((number) => {
                         return (
                             <div key={number} className={style.lotteryNumber}>
                                 {`${number}`}
