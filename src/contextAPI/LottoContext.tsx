@@ -105,6 +105,7 @@ const HIT_3 = 12;//%
 const HIT_4 = 28;//%
 const HIT_5 = 52;//%
 const PROFIT = 2;//%
+
 /* ---init-data--- */
 
 //name, akcse, money movement
