@@ -92,7 +92,7 @@ export const ADMIN_ID: string = "admin";
 const PROFIT_ID: string = "profit";
 const COLLECTOR_ID: string = "collector";
 
-const START_AKCSE_USER: number = 100_000;
+const START_AKCSE_USER: number = 10_000;
 const START_AKCSE_ADMIN: number = 0;
 const START_PRIZE_FUND: number = 0;
 
