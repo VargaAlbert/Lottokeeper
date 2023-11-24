@@ -13,7 +13,7 @@ const UserPage: React.FC = () => {
         handleInputChange,
         handleBlurChange,
         getMoney,
-        setValue,
+        setInputValue,
         formatPrice
     } = useLottoContext();
 
@@ -37,7 +37,7 @@ const UserPage: React.FC = () => {
                                     onChange={(e) => { handleInputChange(e, id) }}
                                     onBlur={(e) => { handleBlurChange(e, id) }}
                                     placeholder="Irj egy nevet."
-                                    value={setValue(id)}>
+                                    value={setInputValue(id)}>
                                 </input>
                             </div>
                         </div>

@@ -63,7 +63,7 @@ interface LottoContextProps {
     setGenerateTicket: (e: ChangeEvent<HTMLInputElement>) => void;
     setLottoObject: (owner: string, LotteryNumbers: number[]) => void;
     formatPrice: (price: number) => string;
-    setValue: (id: string) => string;
+    setInputValue: (id: string) => string;
     getMoney: (id: string) => number;
     moneyTransaction: (sender: string, money: number, beneficiary: string) => void;
     calculateTotalTicketValueById: (data: lotteryTicket[], ownerId: string) => number;
@@ -195,16 +195,6 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
 
     /* --dataBaseAkcse-money-function-- */
-    //money setting
-    const setValue = (id: string) => {
-        if (dataBaseAkcse) {
-            const foundItem = dataBaseAkcse.find((item) => item.id === id);
-            if (foundItem) {
-                return foundItem.name
-            }
-        }
-        return "0";
-    }
 
     //money setting
     const getMoney = (id: string) => {
@@ -220,10 +210,9 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     //money setting sending / receiving
     const moneyTransaction = (sender: string, money: number, beneficiary: string) => {
         setDataBaseAkcse((prevDatabase) => {
+
             const payingUser = prevDatabase.find((item) => item.id === sender);
-            const receivingUser = prevDatabase.find(
-                (item) => item.id === beneficiary
-            );
+            const receivingUser = prevDatabase.find((item) => item.id === beneficiary);
 
             if (payingUser && receivingUser && payingUser.akcse >= money) {
                 const updatedDatabase = prevDatabase.map((item) => {
@@ -243,7 +232,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
                 });
                 return updatedDatabase;
             } else {
-                return prevDatabase; // Visszaadja az eredeti adatbázist, ha valamelyik feltétel nem teljesül
+                return prevDatabase; // Visszaadja az eredeti adatbázist ha valamelyik feltétel nem teljesül
             }
         });
     };
@@ -479,6 +468,17 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         });
     }
 
+    // name value setting
+    const setInputValue = (id: string) => {
+        if (dataBaseAkcse) {
+            const foundItem = dataBaseAkcse.find((item) => item.id === id);
+            if (foundItem) {
+                return foundItem.name
+            }
+        }
+        return "no name";
+    }
+
     const contextValue: LottoContextProps = {
         winningNumbers,
         startLottery,
@@ -489,7 +489,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         handleInputChange,
         handleBlurChange,
         dataBaseAkcse,
-        setValue,
+        setInputValue,
         getMoney,
         moneyTransaction,
         setGenerateTicket,

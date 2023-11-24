@@ -16,7 +16,7 @@ const AdminPage: React.FC = () => {
         handleInputChange,
         handleBlurChange,
         getMoney,
-        setValue,
+        setInputValue,
         setGenerateTicket,
         setAdminGenerateTicket,
         adminGenerateTicket,
@@ -45,7 +45,7 @@ const AdminPage: React.FC = () => {
                                     onChange={(e) => { handleInputChange(e, id) }}
                                     onBlur={(e) => { handleBlurChange(e, id) }}
                                     placeholder="Irj egy nevet."
-                                    value={setValue(id)}>
+                                    value={setInputValue(id)}>
                                 </input>
                             </div>
                         </div>
