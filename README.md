@@ -2,6 +2,6 @@
 
 **https://lotto-keeper.azurewebsites.net/#/UserPage**
 
-![nyeremenyszamitase](./rm-img/nyeremenyszamitas.drawio.png)
+![nyeremenyszamitasa](./rm-img/nyeremenyszamitas.drawio.png)
 
 https://react-icons.github.io/react-icons

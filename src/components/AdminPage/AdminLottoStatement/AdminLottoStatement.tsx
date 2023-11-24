@@ -28,7 +28,7 @@ const AdminLottoStatement: React.FC = () => {
             </thead>
             <tbody>
                 <tr>
-                    <th colSpan={4}>Az egyes találatokra szelvényenként kifizetendő nyeremény:</th>
+                    <th colSpan={4}>Az egyes találatokra összesen kifizetendő nyeremény:</th>
                 </tr>
                 <tr className={style.tdnn}>
                     {tableData.map((head, index) => {
@@ -41,7 +41,7 @@ const AdminLottoStatement: React.FC = () => {
                     })}
                 </tr>
                 <tr>
-                    <th colSpan={4}>Az egyes találatokra összesen kifizetendő nyeremény:</th>
+                    <th colSpan={4}>Az egyes találatokra szelvényenként kifizetendő nyeremény:</th>
                 </tr>
                 <tr >
                     {tableData.map((head, index) => {
