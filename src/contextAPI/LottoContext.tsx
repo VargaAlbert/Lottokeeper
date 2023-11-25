@@ -232,7 +232,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
                 });
                 return updatedDatabase;
             } else {
-                return prevDatabase; // Visszaadja az eredeti adatbázist ha valamelyik feltétel nem teljesül
+                return prevDatabase;
             }
         });
     };

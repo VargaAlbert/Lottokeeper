@@ -17,16 +17,16 @@ test.each(Array.from({ length: 100 }, (_, index) => index))(
 
             const testLottoNumbers = addLotteryNumber();
 
-            // Ellenőrizzük, hogy a numbers tömbben LOTTERY_NUMBER elem van
+            // We check that there is a LOTTERY_NUMBER element in the numbers array
             expect(testLottoNumbers.length).toBe(LOTTERY_NUMBER);
 
-            // Ellenőrizzük, hogy minden szám MIN_NUMBER és MAX_NUMBER között van
+            // Check that all numbers are between MIN_NUMBER and MAX_NUMBER
             testLottoNumbers.map((testLottoNumbers) => {
                 expect(testLottoNumbers).toBeGreaterThanOrEqual(MIN_NUMBER);
                 expect(testLottoNumbers).toBeLessThanOrEqual(MAX_NUMBER);
             });
 
-            // Ellenőrizzük, hogy minden szám különböző a tömbben
+            //Check that all numbers are different in the array
             const uniqueNumbers = Array.from(new Set(testLottoNumbers));
             expect(uniqueNumbers.length).toBe(testLottoNumbers.length);
 

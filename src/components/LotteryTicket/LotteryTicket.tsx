@@ -70,8 +70,6 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
 
     const [show, setShow] = useState(false);
 
-
-
     const givesValue = () => {
         if (lotteryNumbers.length === LOTTERY_NUMBER) {
             if ((getMoney(id)) >= 500) {
@@ -87,7 +85,6 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    console.log(show)
     return (
         <section className={style.mainContainer}>
             <div className={style.ticketHead} >
