@@ -3,7 +3,7 @@
 
 .mainContainer {
     background-color: variable.$color-background-LotteryTicket;
-    border-radius: 0.5rem;
+    border-radius: variable.$main-border-radius;
     @include variable.flexBox(column, nowrap, center, center, center);
     gap: 1rem;
     width: 100%;
@@ -35,7 +35,7 @@
     position: relative;
     height: 50px;
     width: 50px;
-    border-radius: 0.5rem;
+    border-radius: variable.$main-border-radius;
     @include variable.flexBox(row, nowrap, normal, center, center);
     background-image: radial-gradient(
         100% 100% at 100% 0,
@@ -52,7 +52,7 @@
     width: 100%;
     height: 100%;
     background-color: variable.$color-ticket-full;
-    border-radius: 0.5rem;
+    border-radius: variable.$main-border-radius;
     @include variable.flexBox(row, nowrap, normal, center, center);
 }
 

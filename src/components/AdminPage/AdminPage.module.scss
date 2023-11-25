@@ -26,7 +26,7 @@
     width: 100%;
     max-width: 560px;
     padding: 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: variable.$main-border-radius;
     background-image: radial-gradient(
         100% 100% at 100% 0,
         variable.$color-background-main1 0,
@@ -44,7 +44,7 @@
             height: 2rem;
             background: none;
             border: 3px solid variable.$color-font-lotteryTicket;
-            border-radius: 0.5rem;
+            border-radius: variable.$main-border-radius;
             outline: none;
             text-align: center;
             color: variable.$color-basic-black;
@@ -91,7 +91,7 @@
         padding: 0.25rem;
         @include variable.flexBox(column, wrap, normal, space-evenly, normal);
         border: 2px solid variable.$color-font-lotteryTicket;
-        border-radius: 0.5rem;
+        border-radius: variable.$main-border-radius;
     }
 
     .balanceContainer {
@@ -111,7 +111,7 @@
     width: 100%;
     @include variable.flexBox(column, nowrap, center, center, center);
     gap: 4rem;
-    border-radius: 0.5rem;
+    border-radius: variable.$main-border-radius;
     background-image: radial-gradient(
         100% 100% at 100% 0,
         variable.$color-background-main1 0,
@@ -129,9 +129,9 @@
 
         [type="number"] {
             width: 100%;
-            height: 1.5rem;
+            height: 2rem;
             border: 3px solid variable.$color-font-lotteryTicket;
-            border-radius: 0.5rem;
+            border-radius: variable.$main-border-radius;
             outline: none;
             color: variable.$color-basic-black;
             line-height: 0.5rem;
