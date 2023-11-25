@@ -47,10 +47,12 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
 
     const LotteryTicketContentTSX = (lotteryNumber: number) => {
         if (lotteryNumbers.includes(lotteryNumber)) {
-            return (<>
-                <span className={style.number}>{lotteryNumber}</span>
-                <img className={style.xImg} src={xImg} alt="x" />
-            </>);
+            return (
+                <>
+                    <span className={style.number}>{lotteryNumber}</span>
+                    <img className={style.xImg} src={xImg} alt="x" />
+                </>
+            );
         } else if (lotteryNumbers.length === LOTTERY_NUMBER) {
             return <span className={style.full}>{lotteryNumber}</span>
         } else {

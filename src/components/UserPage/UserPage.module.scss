@@ -23,7 +23,7 @@
 
 .profileContainer {
     min-width: 240px;
-    width: calc(100% - 1rem);
+    width: 100%;
     max-width: 560px;
     padding: 0.5rem;
     border-radius: 0.5rem;
@@ -106,7 +106,7 @@
 
 .tippContainer {
     grid-template-columns: repeat(8, 1fr);
-    width: 250px;
+    width: 100%;
 }
 
 .lotteryListContainer {
@@ -132,6 +132,9 @@
     }
 }
 @include variable.Medium {
+    .tippContainer {
+        width: calc(50% - 1rem);
+    }
 }
 @include variable.Large {
 }

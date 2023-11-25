@@ -46,9 +46,7 @@ $color-main-background-nav: #29303f;
 $color-main-background-footer: #303030;
 $color-background-LotteryTicket: #fffaf0;
 $color-background-lotteryNumber: #f0f8ff;
-
-//$color-background-main1: #ebbd54;
-//$color-background-main2: #ca8229;
+$lottery-ticket-number-cont-background: bisque;
 
 $color-background-main1: #fcff5a;
 $color-background-main2: #ffc354;
@@ -66,7 +64,6 @@ $color-font-lotteryTicket: #ad8437;
 
 $color-hit-number: red;
 $color-ticket-full: #bea0a0;
-
 //--------------------
 
 // base:  @include variable.flexBox(row, nowrap, normal, normal, normal);
