@@ -4,6 +4,7 @@ import { FaArrowRotateLeft, FaComputer } from "react-icons/fa6";
 
 import xImg from "../../img/x.png"
 import style from "./LotteryTicket.module.scss";
+import TicketModal from "./TicketModal/TicketModal";
 
 type Props = {
     id: string
@@ -65,6 +66,10 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
         setLotteryNumbers([])
     }
 
+    const [show, setShow] = useState(false);
+
+
+
     const givesValue = () => {
         if (lotteryNumbers.length === LOTTERY_NUMBER) {
             if ((getMoney(id)) >= 500) {
@@ -72,11 +77,15 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
                 moneyTransaction(id, 500, "collector");
                 setLotteryNumbers([])
             } else {
-                alert("Nincs elég egyenleged!")
+                handleShow()
             }
         }
     }
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    console.log(show)
     return (
         <section className={style.mainContainer}>
             <div className={style.ticketHead} >
@@ -97,6 +106,7 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
                 <button onClick={givesValue}>Beküld</button>
                 <FaArrowRotateLeft onClick={resetLottoNumbers} className={style.icon} />
             </div>
+            < TicketModal handleClose={handleClose} handleShow={handleShow} show={show} id={id} />
         </section>
     );
 }

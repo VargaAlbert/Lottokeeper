@@ -28,7 +28,7 @@ const LotteryTicketList: React.FC<Props> = ({ id }) => {
                         <div key={ticket.lottoId} className={style.lotteryTicketContainer}>
                             <div className={style.ticketTitleCont}>
                                 <div>ID: {ticket.owner}</div>
-                                <div>Sorszám:</div>
+                                <div>sor sz:</div>
                                 <div className={style.lottoId}>{ticket.lottoId}.</div>
                             </div>
                             <div className={style.lotteryNumberContainer}>

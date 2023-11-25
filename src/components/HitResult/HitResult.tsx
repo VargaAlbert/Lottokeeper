@@ -23,7 +23,7 @@ const HitResult: React.FC<Props> = ({ id }) => {
     const [sort, setSort] = useLocalStorage<string>(`${id}-sort`, "")
     const data = {
         id: "Sorszám",
-        owner: "Tulajdonos",
+        owner: "Tulajdonos(id)",
         lottoNumber: "Lotto számok",
         hit: "Találat",
         akcse: "Nyeremény"
