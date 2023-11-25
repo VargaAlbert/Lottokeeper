@@ -24,6 +24,15 @@ header {
     }
 }
 
+.motto {
+    display: none;
+    font-size: variable.$size-r15;
+    font-weight: variable.$weights-9;
+    color: variable.$color-font-lotteryTicket;
+    letter-spacing: 0.15rem;
+    font-style: italic;
+}
+
 nav {
     @include variable.flexBox(row, nowrap, normal, space-between, center);
     gap: 1rem;
@@ -44,4 +53,20 @@ nav {
         font-size: variable.$icon-r15;
         color: variable.$color-background-main2;
     }
+}
+
+@include variable.Small {
+}
+@include variable.Medium {
+}
+@include variable.Large {
+    .motto {
+        display: block;
+    }
+}
+@include variable.Extra-large {
+}
+@include variable.XXL-large {
+}
+@include variable.XXXL-large {
 }

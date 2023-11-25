@@ -29,6 +29,7 @@ const AdminPage: React.FC = () => {
         <section className={style.mainContainer}>
             <div className={style.container}>
                 <div className={style.controlContainer}>
+
                     <div className={style.profileContainer}>
                         <div className={style.iconContainer}>
                             <div className={style.iconCont}>
@@ -71,6 +72,7 @@ const AdminPage: React.FC = () => {
                             </div>
                         </div>
                     </div>
+
                     <div className={style.adminControlContainer}>
                         <div className={style.generateTicketContainer}>
                             <label htmlFor="generet-num">Szelvény generálás db:</label>

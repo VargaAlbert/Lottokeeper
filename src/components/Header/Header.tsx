@@ -10,6 +10,9 @@ const Header = () => {
                 <div className={style.logoContainer}>
                     <img className={style.logo} src={logo} alt="Lottokeeper-logo" />
                 </div>
+                <div>
+                    <p className={style.motto}>„Ahol a hatos tényleg hatos!”</p>
+                </div>
                 <nav>
                     <Link className={style.navCategory} to="/UserPage">
                         <FaUser className={style.icon} />

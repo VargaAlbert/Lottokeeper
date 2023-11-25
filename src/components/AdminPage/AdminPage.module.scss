@@ -23,7 +23,7 @@
 
 .profileContainer {
     min-width: 240px;
-    width: calc(100% - 1rem);
+    width: 100%;
     max-width: 560px;
     padding: 0.5rem;
     border-radius: 0.5rem;
@@ -108,7 +108,7 @@
 }
 
 .adminControlContainer {
-    width: 250px;
+    width: 100%;
     @include variable.flexBox(column, nowrap, center, center, center);
     gap: 4rem;
     border-radius: 0.5rem;
@@ -201,6 +201,9 @@
     }
 }
 @include variable.Medium {
+    .adminControlContainer {
+        width: calc(50% - 1rem);
+    }
 }
 @include variable.Large {
 }

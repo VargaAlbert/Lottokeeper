@@ -83,7 +83,7 @@ const HitResult: React.FC<Props> = ({ id }) => {
         if (id) {
             return (formatPrice(calculateTotalTicketValueById(lottoLutteryNumberStatistics, id)));
         } else {
-            return (formatPrice(sumByKey(lottoLutteryNumberStatistics, "ticketValue")));//ticketValue
+            return (formatPrice(sumByKey(lottoLutteryNumberStatistics, "ticketValue")));
         }
     }
 

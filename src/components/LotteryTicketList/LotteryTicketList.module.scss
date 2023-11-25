@@ -1,7 +1,7 @@
 @use "../../scss/variable.scss";
 
 .lotteryListContainer {
-    width: 250px;
+    width: 100%;
     height: 700px;
     border-radius: 0.5rem;
     background-color: variable.$color-background-LotteryTicket;
@@ -56,4 +56,20 @@
         font-weight: variable.$weights-5;
         font-size: variable.$size-r10;
     }
+}
+
+@include variable.Small {
+}
+@include variable.Medium {
+    .lotteryListContainer {
+        width: calc(50% - 1rem);
+    }
+}
+@include variable.Large {
+}
+@include variable.Extra-large {
+}
+@include variable.XXL-large {
+}
+@include variable.XXXL-large {
 }
