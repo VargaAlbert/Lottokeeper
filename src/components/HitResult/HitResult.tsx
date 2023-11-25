@@ -21,7 +21,7 @@ const HitResult: React.FC<Props> = ({ id }) => {
     const [sortedResultStatistics, setSortedResultStatistics] = useState<lotteryTicket[]>([]);
 
     const [sort, setSort] = useLocalStorage<string>(`${id}-sort`, "")
-    const data = {
+    const headData = {
         id: "Sorszám",
         owner: "Tulajdonos(id)",
         lottoNumber: "Lotto számok",
@@ -77,7 +77,7 @@ const HitResult: React.FC<Props> = ({ id }) => {
         setSortedResultStatistics(sortedData);
     }, [sort, resultStatistics]);
 
-    const entries = Object.entries(data);
+    const entries = Object.entries(headData);
 
     const sumTSX = (): string => {
         if (id) {

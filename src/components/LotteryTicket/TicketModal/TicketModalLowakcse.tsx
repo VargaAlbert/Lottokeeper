@@ -4,12 +4,11 @@ import Modal from 'react-bootstrap/Modal';
 
 type Props = {
     handleClose: () => void;
-    handleShow: () => void;
     show: boolean;
     id: string;
 }
 
-const TicketModal: React.FC<Props> = ({ handleClose, handleShow, show, id }) => {
+const TicketModalLowakcse: React.FC<Props> = ({ handleClose, show, id }) => {
 
 
     const {
@@ -42,4 +41,4 @@ const TicketModal: React.FC<Props> = ({ handleClose, handleShow, show, id }) => 
     );
 }
 
-export default TicketModal;
+export default TicketModalLowakcse;
