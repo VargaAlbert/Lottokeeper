@@ -135,10 +135,10 @@ const HitResult: React.FC<Props> = ({ id }) => {
             </tbody>
             <tfoot className={style.mainTableFood}>
                 <tr>
-                    <td colSpan={4}>
+                    <td colSpan={3}>
                         <span>Össznyeremény:</span>
                     </td>
-                    <td colSpan={1}>
+                    <td colSpan={2}>
                         <span>
                             {sumTSX()} Akcse
                         </span>
