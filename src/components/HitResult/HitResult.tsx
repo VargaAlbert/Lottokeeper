@@ -22,11 +22,11 @@ const HitResult: React.FC<Props> = ({ id }) => {
 
     const [sort, setSort] = useLocalStorage<string>(`${id}-sort`, "")
     const data = {
-        id: "ID:",
-        owner: "Owner:",
-        lottoNumber: "Lotto számok:",
-        hit: "Találat:",
-        akcse: "nyeremény:"
+        id: "Sorszám",
+        owner: "Tulajdonos",
+        lottoNumber: "Lotto számok",
+        hit: "Találat",
+        akcse: "Nyeremény"
     };
 
     useEffect(() => {
@@ -133,7 +133,7 @@ const HitResult: React.FC<Props> = ({ id }) => {
                     </tr>
                 ))}
             </tbody>
-            <tfoot>
+            <tfoot className={style.mainTableFood}>
                 <tr>
                     <td colSpan={4}>
                         <span>Össznyeremény:</span>

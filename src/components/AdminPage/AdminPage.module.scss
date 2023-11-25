@@ -61,7 +61,7 @@
         }
 
         .iconCont {
-            width: 50px;
+            width: 80px;
             @include variable.flexBox(column, nowrap, normal, space-evenly, center);
             font-weight: variable.$weights-9;
             .icon {

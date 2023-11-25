@@ -85,7 +85,7 @@ export const MIN_NUMBER: number = 1;
 export const MAX_NUMBER: number = 39;
 export const LOTTERY_NUMBER: number = 5;
 export const TICKET_PRICE: number = 500;
-const MAX_GENERATE_TICKET = 99999999;
+const MAX_GENERATE_TICKET = 5_000;
 
 export const USER_ID: string = "user";
 export const ADMIN_ID: string = "admin";

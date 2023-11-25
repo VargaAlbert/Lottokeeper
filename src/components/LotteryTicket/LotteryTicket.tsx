@@ -72,7 +72,7 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
                 moneyTransaction(id, 500, "collector");
                 setLotteryNumbers([])
             } else {
-                alert("nincs elég egyenleged!")
+                alert("Nincs elég egyenleged!")
             }
         }
     }
@@ -80,7 +80,7 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
     return (
         <section className={style.mainContainer}>
             <div className={style.ticketHead} >
-                <h2>Lottery Ticket</h2>
+                <h2>Lottó jegy</h2>
             </div>
             <div className={style.numberContainer}>
                 {LotteryTicketGridNumbers.map((number) => {
@@ -94,7 +94,7 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
             </div>
             <div className={style.btnContainer}>
                 <FaComputer onClick={computerLottoNumbers} className={style.icon} />
-                <button onClick={givesValue}>Bekuld</button>
+                <button onClick={givesValue}>Beküld</button>
                 <FaArrowRotateLeft onClick={resetLottoNumbers} className={style.icon} />
             </div>
         </section>

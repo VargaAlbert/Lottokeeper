@@ -40,8 +40,8 @@
         margin-bottom: 1.5rem;
 
         .iconCont {
-            width: 50px;
-            @include variable.flexBox(column, nowrap, normal, space-evenly, flex-end);
+            width: 70px;
+            @include variable.flexBox(column, nowrap, normal, space-evenly, center);
             font-weight: variable.$weights-9;
             .icon {
                 font-size: variable.$icon-r20;

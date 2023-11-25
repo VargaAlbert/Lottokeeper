@@ -53,6 +53,8 @@ const AdminLottoStatement: React.FC = () => {
                         return <td key={index}>{formatPrice(priceHit)} acs</td>;
                     })}
                 </tr>
+            </tbody>
+            <tfoot>
                 <tr>
                     <td colSpan={3} className={style.tdBorder}> Az összes szelvény után járó bevétel:</td>
                     <td colSpan={1} className={style.tdBorder}> {formatPrice(adminStatement.ticketIncomeSum)} Akcse</td>
@@ -61,11 +63,11 @@ const AdminLottoStatement: React.FC = () => {
                     <td colSpan={3}>Az összes találatra összesen kifizetendő összeg:</td>
                     <td colSpan={1}>{formatPrice(sumByKey(lottoLutteryNumberStatistics, "ticketValue"))} Akcse</td>
                 </tr>
-                <tr>
+                <tr className={style.last}>
                     <td colSpan={3}>Az üzemeltető nyeresége:</td>
                     <td colSpan={1}>{formatPrice(adminStatement.profitValue)} Akcse</td>
                 </tr>
-            </tbody>
+            </tfoot>
         </table>
     );
 }

@@ -12,17 +12,28 @@
             variable.$color-background-main1 0,
             variable.$color-background-main2 100%
         );
+
+        th {
+            &:first-child {
+                border-top-left-radius: variable.$main-border-radius;
+            }
+            &:last-child {
+                border-top-right-radius: variable.$main-border-radius;
+            }
+        }
     }
 
     tbody {
         font-weight: variable.$weights-6;
 
-        tr:nth-child(even) {
-            background-color: variable.$color-table-1;
-        }
+        tr {
+            &:nth-child(even) {
+                background-color: variable.$color-table-1;
+            }
 
-        tr:nth-child(odd) {
-            background-color: variable.$color-table-2;
+            &:nth-child(odd) {
+                background-color: variable.$color-table-2;
+            }
         }
 
         td {
@@ -31,18 +42,29 @@
     }
 
     tfoot {
-        height: 50px;
-        border-top: 2px solid black;
-        font-weight: variable.$weights-9;
-        font-size: variable.$size-r10 + 0.2;
-        background-image: radial-gradient(
-            100% 100% at 100% 0,
-            variable.$color-background-main1 0,
-            variable.$color-background-main2 100%
-        );
+        font-size: variable.$size-r10;
+        font-weight: variable.$weights-6;
 
-        td {
-            padding: 0 0 0 2rem;
+        tr {
+            &:nth-child(even) {
+                background-color: variable.$color-table-1;
+            }
+
+            &:nth-child(odd) {
+                background-color: variable.$color-table-2;
+            }
+        }
+
+        tr:last-child {
+            td {
+                &:first-child {
+                    border-bottom-left-radius: variable.$main-border-radius;
+                }
+
+                &:last-child {
+                    border-bottom-right-radius: variable.$main-border-radius;
+                }
+            }
         }
     }
 }

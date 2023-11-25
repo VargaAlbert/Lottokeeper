@@ -33,7 +33,7 @@ const AdminPage: React.FC = () => {
                         <div className={style.iconContainer}>
                             <div className={style.iconCont}>
                                 <FaUser className={style.icon} />
-                                admin
+                                ID: {id}
                             </div>
                             <div className={style.nameInputCont}>
                                 <label htmlFor="customName">
@@ -49,7 +49,7 @@ const AdminPage: React.FC = () => {
                                 </input>
                             </div>
                         </div>
-                        <p>Account balance</p>
+                        <p>Egyenlegek:</p>
                         <div className={style.balanceMainContainer}>
                             <div className={style.balanceContainer}>
                                 <div className={style.title}>Admin akcse:</div>

@@ -27,7 +27,7 @@ const UserPage: React.FC = () => {
                         <div className={style.iconContainer}>
                             <div className={style.iconCont}>
                                 <FaUser className={style.icon} />
-                                User
+                                ID: {id}
                             </div>
                             <div className={style.nameInputCont}>
                                 <label htmlFor="customName">
@@ -42,7 +42,7 @@ const UserPage: React.FC = () => {
                             </div>
                         </div>
                         <div>
-                            <p>Account balance</p>
+                            <p>Egyenleg:</p>
                             <div className={style.balanceContainer}>
                                 <div className={style.balance}>{formatPrice(getMoney(id))}</div>
                                 <div className={style.akcse}>Akcse</div>
