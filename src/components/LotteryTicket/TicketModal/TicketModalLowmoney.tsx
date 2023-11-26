@@ -27,7 +27,7 @@ const TicketModalLowmoney: React.FC<Props> = ({ handleClose, show, id }) => {
                         Játék ára: {TICKET_PRICE} Akcse
                     </div>
                     <div className="pt-1 fs-4 fw-bold">
-                        Egyenlege: <span className="text-danger">{formatPrice(getMoney(id))}</span>
+                        Egyenlege: <span className="text-danger">{formatPrice(getMoney(id))}</span> Akcse
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

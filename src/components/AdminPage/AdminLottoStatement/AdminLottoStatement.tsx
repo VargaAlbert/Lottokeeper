@@ -1,4 +1,4 @@
-import { useLottoContext } from "../../../contextAPI/LottoContext";
+import { useLottoContext, ADMIN_STATEMENT_MIN_HIT_NUMBER } from "../../../contextAPI/LottoContext";
 import style from "./AdminLottoStatement.module.scss";
 
 const AdminLottoStatement: React.FC = () => {
@@ -10,13 +10,6 @@ const AdminLottoStatement: React.FC = () => {
         formatPrice,
         winningNumbers
     } = useLottoContext();
-
-    const tableData = [
-        "kettö T.",
-        "három T.",
-        "négy T.",
-        "öt T.",
-    ]
 
     return (
         <table className={style.adminTable}>
@@ -30,29 +23,28 @@ const AdminLottoStatement: React.FC = () => {
                 <tr>
                     <th colSpan={4}>Az egyes találatokra összesen kifizetendő nyeremény:</th>
                 </tr>
-                <tr className={style.tdnn}>
-                    {tableData.map((head, index) => {
-                        return <td key={index}>{head}</td>;
-                    })}
-                </tr>
-                <tr>
-                    {adminStatement.paiDoutPriceHit.slice(2).map((priceHit, index) => {
-                        return <td key={index}>{formatPrice(priceHit)} acs</td>;
-                    })}
-                </tr>
+
+                {adminStatement.paiDoutPriceHit.slice(ADMIN_STATEMENT_MIN_HIT_NUMBER).map((priceHit, index) => {
+                    return (
+                        <tr key={index}>
+                            <td colSpan={2}>{`${index + ADMIN_STATEMENT_MIN_HIT_NUMBER} Találatra:`}</td>
+                            <td colSpan={2}>{priceHit} Akcse</td>
+                        </tr>
+                    );
+                })}
+
                 <tr>
                     <th colSpan={4}>Az egyes találatokra szelvényenként kifizetendő nyeremény:</th>
                 </tr>
-                <tr >
-                    {tableData.map((head, index) => {
-                        return <td key={index}>{head}</td>;
-                    })}
-                </tr>
-                <tr>
-                    {adminStatement.priceTicket.slice(2).map((priceHit, index) => {
-                        return <td key={index}>{formatPrice(priceHit)} acs</td>;
-                    })}
-                </tr>
+
+                {adminStatement.priceTicket.slice(ADMIN_STATEMENT_MIN_HIT_NUMBER).map((priceTicket, index) => {
+                    return (
+                        <tr key={index}>
+                            <td colSpan={2}>{`${index + ADMIN_STATEMENT_MIN_HIT_NUMBER} Találatra:`}</td>
+                            <td colSpan={2}>{priceTicket} Akcse</td>
+                        </tr>
+                    );
+                })}
             </tbody>
             <tfoot>
                 <tr>

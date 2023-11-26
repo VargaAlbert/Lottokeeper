@@ -89,6 +89,7 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
 
     const handleCloseLowmoney = () => setShowLowmoney(false);
     const handleShowLowmoney = () => setShowLowmoney(true);
+
     const handleCloseFlewnumbers = () => setShowFlewnumbers(false);
     const handleShowFlewnumbers = () => setShowFlewnumbers(true);
 

@@ -85,7 +85,8 @@ export const MIN_NUMBER: number = 1;
 export const MAX_NUMBER: number = 39;
 export const LOTTERY_NUMBER: number = 5;
 export const TICKET_PRICE: number = 500;
-const MAX_GENERATE_TICKET = 5_000;
+
+const MAX_GENERATE_TICKET: number = 5_000;
 
 export const USER_ID: string = "user";
 export const ADMIN_ID: string = "admin";
@@ -96,15 +97,20 @@ const START_AKCSE_USER: number = 10_000;
 const START_AKCSE_ADMIN: number = 0;
 const START_PRIZE_FUND: number = 0;
 
+export const ADMIN_STATEMENT_MIN_HIT_NUMBER = 2;
 /* --hit-price%-- */
 //! (HIT_ALL + PROFIT)SUM === 100 //!
-const HIT_0 = 0;//%
-const HIT_1 = 0;//%
-const HIT_2 = 6;//%
-const HIT_3 = 12;//%
-const HIT_4 = 28;//%
-const HIT_5 = 52;//%
-const PROFIT = 2;//%
+const PRIZE_FUND_DISTRIBUTION = {
+    PROFIT: 2,
+    PAYOUT_PERCENTAGES: {
+        HIT_0: 0,
+        HIT_1: 0,
+        HIT_2: 6,
+        HIT_3: 12,
+        HIT_4: 28,
+        HIT_5: 50,
+    }
+}
 
 /* ---init-data--- */
 
@@ -126,7 +132,7 @@ const initialLottoDatabase: lotteryTicket = {
 };
 
 //lottery results
-const initZeroArrsy = Array(6).fill(0)
+const initZeroArrsy = Array(LOTTERY_NUMBER + 1).fill(0)
 const initialdrawingResultsState: drawingResults = {
     hitsCounts: initZeroArrsy,
     priceHit: initZeroArrsy,
@@ -316,9 +322,9 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     const divideAndDistribute = (number: number, data: lotteryTicket[]): drawingResults => {
 
-        const winningPercentages = [HIT_0, HIT_1, HIT_2, HIT_3, HIT_4, HIT_5];
+        const winningPercentages = Object.values(PRIZE_FUND_DISTRIBUTION.PAYOUT_PERCENTAGES);
 
-        const hitsCounts: number[] = new Array(6).fill(0);
+        const hitsCounts: number[] = new Array(LOTTERY_NUMBER + 1).fill(0);
 
         data.reduce((total, ticket) => {
             const hits = ticket.hits.length;
@@ -342,7 +348,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             return count ? priceTicket[index] * count : 0;
         });
 
-        const profitValue: number = Math.round((number * PROFIT) / 100);
+        const profitValue: number = Math.round((number * PRIZE_FUND_DISTRIBUTION.PROFIT) / 100);
         moneyTransaction(COLLECTOR_ID, profitValue, PROFIT_ID);
 
         const ticketIncomeSum = (data.length - 1) * TICKET_PRICE
@@ -397,6 +403,8 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         setAdminStatement(distributedHits);
 
         const updatedLottoValue = updatedLotto.map((ticket) => {
+            return { ...ticket, ticketValue: distributedHits.priceTicket[ticket.hits.length] };
+
             switch (ticket.hits.length) {
                 case 2:
                     return { ...ticket, ticketValue: distributedHits.priceTicket[2] };
