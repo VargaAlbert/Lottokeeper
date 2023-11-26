@@ -78,7 +78,7 @@ A projektben használt Typescript technologiák:
 
 - A components próbáltam újra felhasználhatóvá tenni.
 
-- Az user résznél a UX- elvekre oda figyelve hogy minden változásról tájékoztassuk a felhasználót, erre Bootstrap Modals ablakot használtam Bootstrap osztjákokkal.
+- Az user résznél a UI-UX elvekre oda figyelve hogy minden változásról tájékoztassuk a felhasználót, erre Bootstrap Modals ablakot használtam Bootstrap osztjákokkal.
 
 ##### felhasznált elemek:
 
