@@ -5,7 +5,7 @@ const Lottery: React.FC = () => {
 
     const { winningNumbers } = useLottoContext();
 
-    const key = winningNumbers.luttery;
+    const key = winningNumbers.lottery;
 
     return (
         <section className={style.mainContainer}>
@@ -13,7 +13,7 @@ const Lottery: React.FC = () => {
                 <h2>Nyerőszámok:</h2>
                 <div className={style.lotteryNumberContainer}>
                     {
-                        winningNumbers.luttery === 0 ?
+                        winningNumbers.lottery === 0 ?
                             ("Még nem volt sorsolás!") : (
 
                                 winningNumbers.winningNumbers.sort((a, b) => a - b).map((number) => (

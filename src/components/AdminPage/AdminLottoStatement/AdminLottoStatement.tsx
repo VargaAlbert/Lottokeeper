@@ -4,7 +4,7 @@ import style from "./AdminLottoStatement.module.scss";
 const AdminLottoStatement: React.FC = () => {
 
     const {
-        lottoLutteryNumberStatistics,
+        lottoLotteryNumberStatistics,
         sumByKey,
         adminStatement,
         formatPrice,
@@ -16,7 +16,7 @@ const AdminLottoStatement: React.FC = () => {
             <thead>
                 <tr>
                     <th colSpan={2}>Kimutatás</th>
-                    <th colSpan={2}>A {winningNumbers.luttery}. Játék statisztikája</th>
+                    <th colSpan={2}>A {winningNumbers.lottery}. Játék statisztikája</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,7 +53,7 @@ const AdminLottoStatement: React.FC = () => {
                 </tr>
                 <tr>
                     <td colSpan={3}>Az összes találatra összesen kifizetendő összeg:</td>
-                    <td colSpan={1}>{formatPrice(sumByKey(lottoLutteryNumberStatistics, "ticketValue"))} Akcse</td>
+                    <td colSpan={1}>{formatPrice(sumByKey(lottoLotteryNumberStatistics, "ticketValue"))} Akcse</td>
                 </tr>
                 <tr className={style.last}>
                     <td colSpan={3}>Az üzemeltető nyeresége:</td>
