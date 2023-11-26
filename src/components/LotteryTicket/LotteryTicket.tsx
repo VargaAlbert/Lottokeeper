@@ -4,7 +4,8 @@ import { FaArrowRotateLeft, FaComputer } from "react-icons/fa6";
 
 import xImg from "../../img/x.png"
 import style from "./LotteryTicket.module.scss";
-import TicketModal from "./TicketModal/TicketModal";
+import TicketModalLowmoney from "./TicketModal/TicketModalLowmoney";
+import TicketModalFlewnumbers from "./TicketModal/TicketModalFlewnumbers";
 
 type Props = {
     id: string
@@ -21,7 +22,9 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
     } = useLottoContext();
 
     const [lotteryNumbers, setLotteryNumbers,] = useState<number[]>([]);
-    const [show, setShow] = useState(false);
+
+    const [showLowmoney, setShowLowmoney] = useState(false);
+    const [showFlewnumbers, setShowFlewnumbers] = useState(false);
 
     const addNumber = (lotteryNumber: number) => {
         setLotteryNumbers((prevNumbers) => {
@@ -76,13 +79,18 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
             moneyTransaction(id, TICKET_PRICE, COLLECTOR_ID);
             setLotteryNumbers([])
         }
-        else if (lotteryNumbers.length === LOTTERY_NUMBER) {
-            handleShow()
+        else if (lotteryNumbers.length === LOTTERY_NUMBER && (getMoney(id)) < TICKET_PRICE) {
+            handleShowLowmoney();
+        }
+        else if (lotteryNumbers.length < LOTTERY_NUMBER) {
+            handleShowFlewnumbers();
         }
     }
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleCloseLowmoney = () => setShowLowmoney(false);
+    const handleShowLowmoney = () => setShowLowmoney(true);
+    const handleCloseFlewnumbers = () => setShowFlewnumbers(false);
+    const handleShowFlewnumbers = () => setShowFlewnumbers(true);
 
     return (
         <section className={style.mainContainer}>
@@ -106,7 +114,8 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
                 </button>
                 <FaArrowRotateLeft onClick={resetLottoNumbers} className={style.icon} />
             </div>
-            < TicketModal handleClose={handleClose} show={show} id={id} />
+            <TicketModalLowmoney handleClose={handleCloseLowmoney} show={showLowmoney} id={id} />
+            <TicketModalFlewnumbers handleClose={handleCloseFlewnumbers} show={showFlewnumbers} tipp={lotteryNumbers.length} />
         </section>
     );
 }

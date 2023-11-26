@@ -8,8 +8,7 @@ type Props = {
     id: string;
 }
 
-const TicketModal: React.FC<Props> = ({ handleClose, show, id }) => {
-
+const TicketModalLowmoney: React.FC<Props> = ({ handleClose, show, id }) => {
 
     const {
         getMoney,
@@ -41,4 +40,4 @@ const TicketModal: React.FC<Props> = ({ handleClose, show, id }) => {
     );
 }
 
-export default TicketModal;
+export default TicketModalLowmoney;
