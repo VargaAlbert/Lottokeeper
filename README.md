@@ -64,7 +64,7 @@ A projektben használt Typescript technologiák:
 
   Mivel a nyeremény elosztásában szabad kezet kaptam kevés feltétellel, egy ábrával szeretném prezentálni hogy kiként osztottam szét a nyereményt a feltételeknek megfelelve.
 
-![nyeremenyszamitasa](./rm-img/nyeremenyszamitas.drawio.png)
+![nyeremenyszamitasa](./public/rm-img/nyeremenyszamitas.drawio.png)
 
 - A nevét és az egyenlegét ne veszítse el, ha napok múlva újra visszatér játszani?
 
@@ -74,7 +74,7 @@ A projektben használt Typescript technologiák:
 
 - Fontos kiemelnem hogy a projektet úgy terveztem, megoldjon mindent ami a leírás-ban volt. Ezen kívül működjünk más lottó beállítási feltételekkel az app pl.: ha 5 szám helyett 7 sorsolnak vagy ha 39 szám helyett 45-böl, illetve ha változik a jegy ára vagy a kezdő egyenlegek a programban elég egy helyen átírni.
 
-![setting](./rm-img/lotto-setting.png)
+![setting](./public/rm-img/lotto-setting.png)
 
 - A components próbáltam újra felhasználhatóvá tenni.
 
