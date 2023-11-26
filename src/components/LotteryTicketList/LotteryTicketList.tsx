@@ -8,17 +8,17 @@ type Props = {
 
 const LotteryTicketList: React.FC<Props> = ({ id }) => {
 
-    const { lottoLutteryNumber } = useLottoContext();
+    const { lottoLotteryNumber } = useLottoContext();
 
     const [lotteryTicketList, setLotteryTicketList] = useState<lotteryTicket[]>([])
 
     useEffect(() => {
         if (id) {
-            setLotteryTicketList(lottoLutteryNumber.filter((Ticket) => Ticket.owner === id));
+            setLotteryTicketList(lottoLotteryNumber.filter((Ticket) => Ticket.owner === id));
         } else {
-            setLotteryTicketList(lottoLutteryNumber.filter((Ticket) => Ticket.lottoId > 0).sort((b, a) => a.owner.localeCompare(b.owner)));
+            setLotteryTicketList(lottoLotteryNumber.filter((Ticket) => Ticket.lottoId > 0).sort((b, a) => a.owner.localeCompare(b.owner)));
         }
-    }, [lottoLutteryNumber]);
+    }, [lottoLotteryNumber]);
 
     if (lotteryTicketList.length > 0) {
         return (

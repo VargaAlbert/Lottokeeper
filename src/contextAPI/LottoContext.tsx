@@ -404,19 +404,6 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
         const updatedLottoValue = updatedLotto.map((ticket) => {
             return { ...ticket, ticketValue: distributedHits.priceTicket[ticket.hits.length] };
-
-            switch (ticket.hits.length) {
-                case 2:
-                    return { ...ticket, ticketValue: distributedHits.priceTicket[2] };
-                case 3:
-                    return { ...ticket, ticketValue: distributedHits.priceTicket[3] };
-                case 4:
-                    return { ...ticket, ticketValue: distributedHits.priceTicket[4] };
-                case 5:
-                    return { ...ticket, ticketValue: distributedHits.priceTicket[5] };
-                default:
-                    return ticket;
-            }
         });
 
         moneyTransaction(COLLECTOR_ID, calculateTotalTicketValueById(updatedLottoValue, ADMIN_ID), ADMIN_ID)

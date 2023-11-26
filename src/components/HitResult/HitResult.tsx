@@ -11,7 +11,7 @@ type Props = {
 const HitResult: React.FC<Props> = ({ id }) => {
     const {
         winningNumbers,
-        lottoLutteryNumberStatistics,
+        lottoLotteryNumberStatistics,
         calculateTotalTicketValueById,
         sumByKey,
         formatPrice,
@@ -31,12 +31,12 @@ const HitResult: React.FC<Props> = ({ id }) => {
 
     useEffect(() => {
         if (id) {
-            setResultStatistics(JSON.parse(JSON.stringify(lottoLutteryNumberStatistics.filter((ticket) => ticket.owner === id))));
+            setResultStatistics(JSON.parse(JSON.stringify(lottoLotteryNumberStatistics.filter((ticket) => ticket.owner === id))));
         } else {
-            setResultStatistics(JSON.parse(JSON.stringify(lottoLutteryNumberStatistics.filter((ticket) => ticket.lottoId > 0))));
+            setResultStatistics(JSON.parse(JSON.stringify(lottoLotteryNumberStatistics.filter((ticket) => ticket.lottoId > 0))));
         }
 
-    }, [lottoLutteryNumberStatistics]);
+    }, [lottoLotteryNumberStatistics]);
 
     useEffect(() => {
         const sortedData = [...resultStatistics];
@@ -81,9 +81,9 @@ const HitResult: React.FC<Props> = ({ id }) => {
 
     const sumTSX = (): string => {
         if (id) {
-            return (formatPrice(calculateTotalTicketValueById(lottoLutteryNumberStatistics, id)));
+            return (formatPrice(calculateTotalTicketValueById(lottoLotteryNumberStatistics, id)));
         } else {
-            return (formatPrice(sumByKey(lottoLutteryNumberStatistics, "ticketValue")));
+            return (formatPrice(sumByKey(lottoLotteryNumberStatistics, "ticketValue")));
         }
     }
 
