@@ -8,7 +8,7 @@ type Props = {
     id: string;
 }
 
-const TicketModalLowakcse: React.FC<Props> = ({ handleClose, show, id }) => {
+const TicketModal: React.FC<Props> = ({ handleClose, show, id }) => {
 
 
     const {
@@ -41,4 +41,4 @@ const TicketModalLowakcse: React.FC<Props> = ({ handleClose, show, id }) => {
     );
 }
 
-export default TicketModalLowakcse;
+export default TicketModal;

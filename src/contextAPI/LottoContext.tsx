@@ -90,7 +90,7 @@ const MAX_GENERATE_TICKET = 5_000;
 export const USER_ID: string = "user";
 export const ADMIN_ID: string = "admin";
 const PROFIT_ID: string = "profit";
-const COLLECTOR_ID: string = "collector";
+export const COLLECTOR_ID: string = "collector";
 
 const START_AKCSE_USER: number = 10_000;
 const START_AKCSE_ADMIN: number = 0;

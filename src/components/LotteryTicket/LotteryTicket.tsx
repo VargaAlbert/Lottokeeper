@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { useLottoContext, LOTTERY_NUMBER } from "../../contextAPI/LottoContext";
+import { useLottoContext, LOTTERY_NUMBER, TICKET_PRICE, COLLECTOR_ID } from "../../contextAPI/LottoContext";
 import { FaArrowRotateLeft, FaComputer } from "react-icons/fa6";
-
-import TicketModalLowakcse from "./TicketModal/TicketModalLowakcse";
-import TicketModalFewnumbers from "./TicketModal/TicketModalFewnumbers";
 
 import xImg from "../../img/x.png"
 import style from "./LotteryTicket.module.scss";
+import TicketModal from "./TicketModal/TicketModal";
 
 type Props = {
     id: string
@@ -22,11 +20,8 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
         getMoney,
     } = useLottoContext();
 
-    const [lotteryNumbers, setLotteryNumbers] = useState<number[]>([]);
-    const [clickCounter, setClickCounter] = useState<number>(1);
-
-    const [showLowakcse, setShowLowakcse] = useState<boolean>(false);
-    const [showFlewnumbers, setShowFlewnumbers] = useState<boolean>(false);
+    const [lotteryNumbers, setLotteryNumbers,] = useState<number[]>([]);
+    const [show, setShow] = useState(false);
 
     const addNumber = (lotteryNumber: number) => {
         setLotteryNumbers((prevNumbers) => {
@@ -76,28 +71,18 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
 
 
     const givesValue = () => {
-        if (lotteryNumbers.length === LOTTERY_NUMBER) {
-            if ((getMoney(id)) >= 500) {
-                setLottoObject(id, lotteryNumbers)
-                moneyTransaction(id, 500, "collector");
-                setLotteryNumbers([])
-            } else {
-                handleShowLowakcse()
-            }
+        if (lotteryNumbers.length === LOTTERY_NUMBER && (getMoney(id)) >= TICKET_PRICE) {
+            setLottoObject(id, lotteryNumbers)
+            moneyTransaction(id, TICKET_PRICE, COLLECTOR_ID);
+            setLotteryNumbers([])
+        }
+        else if (lotteryNumbers.length === LOTTERY_NUMBER) {
+            handleShow()
         }
     }
 
-    const handleShowLowakcse = () => setShowLowakcse(true);
-
-    const handleShowFlewnumbers = () => setShowFlewnumbers(false);
-
-    const ticketSubmit = () => {
-        givesValue();
-        setClickCounter(clickCounter + 1)
-        if (clickCounter % 5 === 0) {
-            setShowFlewnumbers(true);
-        }
-    }
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
         <section className={style.mainContainer}>
@@ -116,17 +101,12 @@ const LotteryTicket: React.FC<Props> = ({ id }) => {
             </div>
             <div className={style.btnContainer}>
                 <FaComputer onClick={computerLottoNumbers} className={style.icon} />
-                <button onClick={ticketSubmit}>Beküld</button>
+                <button onClick={givesValue}>
+                    Beküld {`(tipp ${LOTTERY_NUMBER}/${lotteryNumbers.length})`}
+                </button>
                 <FaArrowRotateLeft onClick={resetLottoNumbers} className={style.icon} />
             </div>
-            < TicketModalLowakcse
-                handleClose={handleShowLowakcse}
-                show={showLowakcse}
-                id={id} />
-            < TicketModalFewnumbers
-                handleClose={handleShowFlewnumbers}
-                show={showFlewnumbers}
-                lotteryNumbersLength={lotteryNumbers.length} />
+            < TicketModal handleClose={handleClose} show={show} id={id} />
         </section>
     );
 }
