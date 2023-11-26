@@ -101,14 +101,14 @@ export const ADMIN_STATEMENT_MIN_HIT_NUMBER = 2;
 /* --hit-price%-- */
 //! (HIT_ALL + PROFIT)SUM === 100 //!
 const PRIZE_FUND_DISTRIBUTION = {
-    PROFIT: 2,
+    PROFIT: 2,//%
     PAYOUT_PERCENTAGES: {
-        HIT_0: 0,
-        HIT_1: 0,
-        HIT_2: 6,
-        HIT_3: 12,
-        HIT_4: 28,
-        HIT_5: 50,
+        HIT_0: 0,//%
+        HIT_1: 0,//%
+        HIT_2: 6,//%
+        HIT_3: 12,//%
+        HIT_4: 28,//%
+        HIT_5: 50,//%
     }
 }
 
