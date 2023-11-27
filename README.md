@@ -2,6 +2,8 @@
 
 **https://lotto-keeper.azurewebsites.net/#/UserPage**
 
+**https://vargaalbert.github.io/lottokeeper/**
+
 ![logo](./src/img/logo.png)
 
 ## Tech Stack
