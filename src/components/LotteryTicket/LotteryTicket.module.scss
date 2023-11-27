@@ -73,7 +73,7 @@
     button {
         @include ancestorStyle.mainButton;
         width: 65%;
-        font-size: variable.$size-r10 + 0.1rem;
+        font-size: variable.$size-r10;
     }
 
     .icon:hover {

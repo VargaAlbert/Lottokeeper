@@ -19,32 +19,32 @@ type LottoProviderProps = {
 };
 
 type dataBaseAkcse = {
-    id: string;
+    id: string,
     name: string,
     akcse: number,
-}
+};
 
 export type lotteryTicket = {
-    owner: string;
+    owner: string,
     lottoId: number,
     LotteryNumbers: number[],
     hits: number[],
     ticketValue: number,
-}
+};
 
 type drawingResults = {
     hitsCounts: number[],
     priceHit: number[],
     priceTicket: number[],
-    paiDoutPriceHit: number[],
-    profitValue: number
+    priceHitPaid: number[],
+    profitValue: number,
     ticketIncomeSum: number,
 };
 
 type winningNumbert = {
     winningNumbers: number[],
     lottery: number,
-}
+};
 
 interface LottoContextProps {
 
@@ -137,7 +137,7 @@ const initialdrawingResultsState: drawingResults = {
     hitsCounts: initZeroArrsy,
     priceHit: initZeroArrsy,
     priceTicket: initZeroArrsy,
-    paiDoutPriceHit: initZeroArrsy,
+    priceHitPaid: initZeroArrsy, //paiDoutPriceHit
     profitValue: 0,
     ticketIncomeSum: 0,
 };
@@ -155,7 +155,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     /* --state -- */
     const [dataBaseAkcse, setDataBaseAkcse] = useLocalStorage<dataBaseAkcse[]>(
         "dataBaseAkcse", initialDataBasee
-    )
+    );
     const [lottoLotteryNumber, setlottoLotteryNumber] = useLocalStorage<lotteryTicket[]>(
         "lottoLotteryNumber", [initialLottoDatabase]
     );
@@ -169,8 +169,8 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         "adminStatement", initialdrawingResultsState
     );
 
-    const [adminGenerateTicket, setAdminGenerateTicket] = useState("")
-    const [totalWinnings, setTotalWinnings] = useState<number>(0)
+    const [adminGenerateTicket, setAdminGenerateTicket] = useState("");
+    const [totalWinnings, setTotalWinnings] = useState<number>(0);
     /* --state end-- */
 
     /* --random-number-gener-generation-- */
@@ -244,7 +244,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     };
 
     //money formatting
-    const formatPrice = (price: number) => {
+    const formatPrice = (price: number): string => {
         return price.toString()
             .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     }
@@ -254,13 +254,13 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     /* --lotteryTicket-data-base-operations--*/
 
     //set lotteryTicket, lotto ticket
-    const setLottoObject = (owner: string, lotteryNumbers: number[]): void => {
+    const setLottoObject = (owner: string, LotteryNumbers: number[]): void => {
         setlottoLotteryNumber((existingLotto) => {
-            const newLottoId = existingLotto.length > 0 ? existingLotto[existingLotto.length - 1].lottoId + 1 : 1;
+            const newLottoId = existingLotto[existingLotto.length - 1].lottoId + 1;
             const newTicket: lotteryTicket = {
                 owner,
                 lottoId: newLottoId,
-                LotteryNumbers: lotteryNumbers,
+                LotteryNumbers,
                 hits: [],
                 ticketValue: 0,
             };
@@ -281,19 +281,20 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     };
 
     //generate random ticket
-    const generateAdminLotteryTicket = (counter: number, adminTicket: number[]): number => {
+    const generateAdminLotteryTicket = (counter: number): number => {
         if (counter === 0) {
             return 0;
         } else {
             counter--;
             setLottoObject(ADMIN_ID, addLotteryNumber())
-            return generateAdminLotteryTicket(counter, adminTicket);
+            return generateAdminLotteryTicket(counter);
         }
     }
 
     //setting database random ticket & admin akcse
     const startGenerateAdminLotteryTicket = () => {
-        generateAdminLotteryTicket(Number(adminGenerateTicket), addLotteryNumber())
+        generateAdminLotteryTicket(Number(adminGenerateTicket))
+
         setDataBaseAkcse((prevDatabase) => {
             const updatedDatabase = prevDatabase.map((item) => {
                 if (item.id === COLLECTOR_ID) {
@@ -344,7 +345,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             }
         });
 
-        const paiDoutPriceHit: number[] = hitsCounts.map((count, index) => {
+        const priceHitPaid: number[] = hitsCounts.map((count, index) => {
             return count ? priceTicket[index] * count : 0;
         });
 
@@ -357,7 +358,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             hitsCounts,
             priceHit,
             priceTicket,
-            paiDoutPriceHit,
+            priceHitPaid,
             profitValue,
             ticketIncomeSum
         };

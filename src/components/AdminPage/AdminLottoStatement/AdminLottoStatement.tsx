@@ -24,7 +24,7 @@ const AdminLottoStatement: React.FC = () => {
                     <th colSpan={4}>Az egyes találatokra összesen kifizetendő nyeremény:</th>
                 </tr>
 
-                {adminStatement.paiDoutPriceHit.slice(ADMIN_STATEMENT_MIN_HIT_NUMBER).map((priceHit, index) => {
+                {adminStatement.priceHitPaid.slice(ADMIN_STATEMENT_MIN_HIT_NUMBER).map((priceHit, index) => {
                     return (
                         <tr key={index}>
                             <td colSpan={2}>{`${index + ADMIN_STATEMENT_MIN_HIT_NUMBER} Találatra:`}</td>
