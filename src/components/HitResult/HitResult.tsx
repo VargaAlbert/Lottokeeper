@@ -1,12 +1,32 @@
-import { useEffect, useState } from "react";
-import { useLottoContext, lotteryTicket } from "../../contextAPI/LottoContext";
-import style from "./HitResult.module.scss";
+import { useLottoContext } from "../../contextAPI/LottoContext";
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
+import useSortResultStat from "../../hooks/useSortResultStat";
+import useDeepCopyStat from "../../hooks/useDeepCopyStat";
+
+import style from "./HitResult.module.scss";
 type Props = {
     id: string
 }
+
+type Sort = {
+    sortId: string,
+    sortRev: boolean
+}
+
+const initSort = {
+    sortId: "",
+    sortRev: false
+}
+
+const headData = {
+    id: "Sorszám",
+    owner: "Tulajdonos(id)",
+    lottoNumber: "Lotto számok",
+    hit: "Találat",
+    akcse: "Nyeremény"
+};
 
 const HitResult: React.FC<Props> = ({ id }) => {
     const {
@@ -17,65 +37,13 @@ const HitResult: React.FC<Props> = ({ id }) => {
         formatPrice,
     } = useLottoContext();
 
-    const [resultStatistics, setResultStatistics] = useState<lotteryTicket[]>([])
-    const [sortedResultStatistics, setSortedResultStatistics] = useState<lotteryTicket[]>([]);
 
-    const [sort, setSort] = useLocalStorage<string>(`${id}-sort`, "")
-    const headData = {
-        id: "Sorszám",
-        owner: "Tulajdonos(id)",
-        lottoNumber: "Lotto számok",
-        hit: "Találat",
-        akcse: "Nyeremény"
-    };
+    const [sort, setSort] = useLocalStorage<Sort>(`${id}-sort`, initSort)
 
-    useEffect(() => {
-        if (id) {
-            setResultStatistics(JSON.parse(JSON.stringify(lottoLotteryNumberStatistics.filter((ticket) => ticket.owner === id))));
-        } else {
-            setResultStatistics(JSON.parse(JSON.stringify(lottoLotteryNumberStatistics.filter((ticket) => ticket.lottoId > 0))));
-        }
+    const resultStatistics = useDeepCopyStat(lottoLotteryNumberStatistics, id);
 
-    }, [lottoLotteryNumberStatistics]);
+    const sortedResultStatistics = useSortResultStat(resultStatistics, sort);
 
-    useEffect(() => {
-        const sortedData = [...resultStatistics];
-        switch (sort) {
-            case "id-min":
-                sortedData.sort((a, b) => a.lottoId - b.lottoId);
-                break;
-            case "id-max":
-                sortedData.sort((b, a) => a.lottoId - b.lottoId);
-                break;
-            case "owner-min":
-                sortedData.sort((a, b) => a.owner.localeCompare(b.owner));
-                break;
-            case "owner-max":
-                sortedData.sort((b, a) => a.owner.localeCompare(b.owner));
-                break;
-            case "lottoNumber-min":
-                sortedData.sort((a, b) => a.LotteryNumbers.reduce((acc, curr) => acc + curr, 0) - b.LotteryNumbers.reduce((acc, curr) => acc + curr, 0));
-                break;
-            case "lottoNumber-max":
-                sortedData.sort((b, a) => a.LotteryNumbers.reduce((acc, curr) => acc + curr, 0) - b.LotteryNumbers.reduce((acc, curr) => acc + curr, 0));
-                break;
-            case "hit-min":
-                sortedData.sort((a, b) => a.hits.length - b.hits.length);
-                break;
-            case "hit-max":
-                sortedData.sort((b, a) => a.hits.length - b.hits.length);
-                break;
-            case "akcse-min":
-                sortedData.sort((a, b) => a.ticketValue - b.ticketValue);
-                break;
-            case "akcse-max":
-                sortedData.sort((b, a) => a.ticketValue - b.ticketValue);
-                break;
-            default:
-                break;
-        }
-        setSortedResultStatistics(sortedData);
-    }, [sort, resultStatistics]);
 
     const entries = Object.entries(headData);
 
@@ -87,8 +55,6 @@ const HitResult: React.FC<Props> = ({ id }) => {
         }
     }
 
-
-
     return (
         <table className={style.mainTable}>
             <thead>
@@ -99,8 +65,8 @@ const HitResult: React.FC<Props> = ({ id }) => {
                                 <div className={style.tableHeadContainer} >
                                     {value}
                                     <span>
-                                        <FaAngleUp className={style.sortArrow} onClick={() => { setSort(`${key}-min`) }} />
-                                        <FaAngleDown className={style.sortArrow} onClick={() => { setSort(`${key}-max`) }} />
+                                        <FaAngleUp className={style.sortArrow} onClick={() => { setSort({ sortId: key, sortRev: false }) }} />
+                                        <FaAngleDown className={style.sortArrow} onClick={() => { setSort({ sortId: key, sortRev: true }) }} />
                                     </span>
                                 </div>
                             </th>

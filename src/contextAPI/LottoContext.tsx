@@ -204,14 +204,10 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     //money setting
     const getMoney = (id: string) => {
-        if (dataBaseAkcse) {
-            const foundItem = dataBaseAkcse.find((item) => item.id === id);
-            if (foundItem) {
-                return foundItem.akcse
-            }
-        }
-        return 0;
+        const foundItem = dataBaseAkcse?.find((item) => item.id === id);
+        return foundItem ? foundItem.akcse : 0;
     }
+
 
     //money setting sending / receiving
     const moneyTransaction = (sender: string, money: number, beneficiary: string) => {
@@ -321,9 +317,9 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     /* --drawingResults-operations-- */
 
-    const divideAndDistribute = (number: number, data: lotteryTicket[]): drawingResults => {
+    const divideAndDistribute = (prizeFund: number, data: lotteryTicket[]): drawingResults => {
 
-        const winningPercentages = Object.values(PRIZE_FUND_DISTRIBUTION.PAYOUT_PERCENTAGES);
+        const winningPercentages: number[] = Object.values(PRIZE_FUND_DISTRIBUTION.PAYOUT_PERCENTAGES);
 
         const hitsCounts: number[] = new Array(LOTTERY_NUMBER + 1).fill(0);
 
@@ -334,7 +330,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         }, 0);
 
         const priceHit: number[] = winningPercentages.map((percentage) =>
-            Math.round((number * percentage) / 100)
+            Math.round((prizeFund * percentage) / 100)
         );
 
         const priceTicket: number[] = hitsCounts.map((count, index) => {
@@ -349,7 +345,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             return count ? priceTicket[index] * count : 0;
         });
 
-        const profitValue: number = Math.round((number * PRIZE_FUND_DISTRIBUTION.PROFIT) / 100);
+        const profitValue: number = Math.round((prizeFund * PRIZE_FUND_DISTRIBUTION.PROFIT) / 100);
         moneyTransaction(COLLECTOR_ID, profitValue, PROFIT_ID);
 
         const ticketIncomeSum = (data.length - 1) * TICKET_PRICE
@@ -392,7 +388,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         const data = [...lottoLotteryNumber]
 
         const updatedLotto = data.map((ticket) => {
-            const hits = winNumbers.filter((number) => ticket.LotteryNumbers.includes(number));
+            const hits: number[] = winNumbers.filter((number) => ticket.LotteryNumbers.includes(number));
             return {
                 ...ticket,
                 hits: hits.length > 0 ? [...ticket.hits, ...hits] : ticket.hits,
@@ -466,11 +462,9 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     // name value setting
     const setInputValue = (id: string) => {
-        if (dataBaseAkcse) {
-            const foundItem = dataBaseAkcse.find((item) => item.id === id);
-            if (foundItem) {
-                return foundItem.name
-            }
+        const foundItem = dataBaseAkcse?.find((item) => item.id === id);
+        if (foundItem) {
+            return foundItem.name
         }
         return "no name";
     }

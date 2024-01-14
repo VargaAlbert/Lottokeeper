@@ -91,11 +91,11 @@ const AdminPage: React.FC = () => {
                         </div>
                         <div className={style.btnContainer}>
                             <button
-                                onClick={() => { startLottery(); }}>Sorsolás inditása
+                                onClick={startLottery}>Sorsolás inditása
                             </button>
                             <button
                                 className={style.reset}
-                                onClick={() => { resetGame(); }}>Játék újrainditása.
+                                onClick={resetGame}>Játék újrainditása.
                             </button>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import style from "./LotteryTicketList.module.scss";
-import { useLottoContext, lotteryTicket } from "../../contextAPI/LottoContext";
-import { useEffect, useState } from "react";
+import { useLottoContext } from "../../contextAPI/LottoContext";
+import { useMemo } from "react";
 
 type Props = {
     id: string
@@ -10,15 +10,26 @@ const LotteryTicketList: React.FC<Props> = ({ id }) => {
 
     const { lottoLotteryNumber } = useLottoContext();
 
-    const [lotteryTicketList, setLotteryTicketList] = useState<lotteryTicket[]>([])
+    const lotteryTicketList = useMemo(() => {
 
+        const copyData = id
+            ? [...lottoLotteryNumber].filter((Ticket) => Ticket.owner === id)
+            : [...lottoLotteryNumber].filter((Ticket) => Ticket.lottoId > 0).sort((b, a) => a.owner.localeCompare(b.owner));
+
+        return copyData
+
+    }, [lottoLotteryNumber, id]);
+
+    /* const [lotteryTicketList, setLotteryTicketList] = useState<lotteryTicket[]>([])
+    
     useEffect(() => {
         if (id) {
             setLotteryTicketList(lottoLotteryNumber.filter((Ticket) => Ticket.owner === id));
         } else {
             setLotteryTicketList(lottoLotteryNumber.filter((Ticket) => Ticket.lottoId > 0).sort((b, a) => a.owner.localeCompare(b.owner)));
         }
-    }, [lottoLotteryNumber]);
+    }, [lottoLotteryNumber]); */
+
 
     if (lotteryTicketList.length > 0) {
         return (
