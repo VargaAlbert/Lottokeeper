@@ -2,9 +2,9 @@ import React, {
     createContext,
     useContext,
     useState,
-    useEffect,
     ReactNode,
     ChangeEvent,
+    useMemo,
 } from "react";
 
 import { useLocalStorage } from "../hooks/useLocalStorage";
@@ -73,7 +73,7 @@ interface LottoContextProps {
     resetGame: () => void;
 
     LotteryTicketGridNumbers: number[];
-    totalWinnings: number;
+    memoizedPrizePool: number;
     adminGenerateTicket: string;
 };
 
@@ -170,7 +170,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
     );
 
     const [adminGenerateTicket, setAdminGenerateTicket] = useState("");
-    const [totalWinnings, setTotalWinnings] = useState<number>(0);
+
     /* --state end-- */
 
     /* --random-number-gener-generation-- */
@@ -204,8 +204,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     //money setting
     const getMoney = (id: string) => {
-        const foundItem = dataBaseAkcse?.find((item) => item.id === id);
-        return foundItem ? foundItem.akcse : 0;
+        return dataBaseAkcse?.find((item) => item.id === id)?.akcse || 0;
     }
 
 
@@ -366,9 +365,9 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
     //winning pool setting
     const prizePool = getMoney(COLLECTOR_ID);
-    useEffect(() => {
-        setTotalWinnings(prizePool);
-    }, [prizePool]);
+    const memoizedPrizePool = useMemo(() => {
+        return prizePool
+    }, [prizePool])
 
 
     //START LOTTERY
@@ -383,7 +382,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
         setWinningNumbers(winNumbersRender);
 
-        setTotalWinnings(prizePool);
+        //setTotalWinnings(prizePool);
 
         const data = [...lottoLotteryNumber]
 
@@ -395,7 +394,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             };
         });
 
-        const distributedHits = divideAndDistribute(prizePool, updatedLotto)
+        const distributedHits = divideAndDistribute(memoizedPrizePool, updatedLotto)
 
         setAdminStatement(distributedHits);
 
@@ -460,14 +459,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         });
     }
 
-    // name value setting
-    const setInputValue = (id: string) => {
-        const foundItem = dataBaseAkcse?.find((item) => item.id === id);
-        if (foundItem) {
-            return foundItem.name
-        }
-        return "no name";
-    }
+    const setInputValue = (id: string): string => (dataBaseAkcse?.find((item) => item.id === id)?.name || "no name")
 
     const contextValue: LottoContextProps = {
         winningNumbers,
@@ -488,7 +480,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         startGenerateAdminLotteryTicket,
         addLotteryNumber,
         calculateTotalTicketValueById,
-        totalWinnings,
+        memoizedPrizePool,
         resetGame,
         lottoLotteryNumberStatistics,
         sumByKey,

@@ -4,7 +4,7 @@ import style from "./Home.module.scss";
 const Home: React.FC = () => {
 
     const {
-        totalWinnings,
+        memoizedPrizePool,
         formatPrice
     } = useLottoContext();
 
@@ -13,7 +13,7 @@ const Home: React.FC = () => {
             <div className={style.container}>
                 <div className={style.homeTitle}>
                     <h1>Össznyeremény:</h1>
-                    <h2>{formatPrice(totalWinnings)} Akcse</h2>
+                    <h2>{formatPrice(memoizedPrizePool)} Akcse</h2>
                 </div>
             </div>
         </section>
