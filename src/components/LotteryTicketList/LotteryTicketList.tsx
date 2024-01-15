@@ -20,16 +20,6 @@ const LotteryTicketList: React.FC<Props> = ({ id }) => {
 
     }, [lottoLotteryNumber, id]);
 
-    /* const [lotteryTicketList, setLotteryTicketList] = useState<lotteryTicket[]>([])
-    
-    useEffect(() => {
-        if (id) {
-            setLotteryTicketList(lottoLotteryNumber.filter((Ticket) => Ticket.owner === id));
-        } else {
-            setLotteryTicketList(lottoLotteryNumber.filter((Ticket) => Ticket.lottoId > 0).sort((b, a) => a.owner.localeCompare(b.owner)));
-        }
-    }, [lottoLotteryNumber]); */
-
 
     if (lotteryTicketList.length > 0) {
         return (
