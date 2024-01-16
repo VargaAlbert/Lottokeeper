@@ -348,8 +348,6 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         const profitValue: number = Math.round((prizeFund * PRIZE_FUND_DISTRIBUTION.PROFIT) / 100);
         moneyTransaction(COLLECTOR_ID, profitValue, PROFIT_ID);
 
-        //const ticketIncomeSum = (data.length - 1) * TICKET_PRICE
-
         const distributedHits: drawingResults = {
             hitsCounts,
             priceHit,
