@@ -322,11 +322,11 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
 
         const hitsCounts: number[] = new Array(LOTTERY_NUMBER + 1).fill(0);
 
-        data.reduce((total, ticket) => {
+        const ticketIncomeSum = data.reduce((total, ticket) => {
             const hits = ticket.hits.length;
             hitsCounts[hits]++;
-            return total + hits;
-        }, 0);
+            return total + TICKET_PRICE;
+        }, -TICKET_PRICE);
 
         const priceHit: number[] = winningPercentages.map((percentage) =>
             Math.round((prizeFund * percentage) / 100)
@@ -340,6 +340,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
             }
         });
 
+        //stat total payout for hits
         const priceHitPaid: number[] = hitsCounts.map((count, index) => {
             return count ? priceTicket[index] * count : 0;
         });
@@ -347,7 +348,7 @@ export const LottoProvider: React.FC<LottoProviderProps> = ({
         const profitValue: number = Math.round((prizeFund * PRIZE_FUND_DISTRIBUTION.PROFIT) / 100);
         moneyTransaction(COLLECTOR_ID, profitValue, PROFIT_ID);
 
-        const ticketIncomeSum = (data.length - 1) * TICKET_PRICE
+        //const ticketIncomeSum = (data.length - 1) * TICKET_PRICE
 
         const distributedHits: drawingResults = {
             hitsCounts,
